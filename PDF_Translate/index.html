@@ -903,7 +903,7 @@ $ uv run python -m pdf2cht.cli.diagnose --analyze-errors "error_details.log"
 
             <h3>💡 典型使用示例</h3>
             <div class="code-block">
-<strong># 完整工作流（約 10-15 分鐘）</strong>
+<strong># 完整工作流（2K 預設，約 10-15 分鐘）</strong>
 
 # 1️⃣ 檢查 API（1 分鐘）
 ./run1.sh
@@ -911,13 +911,32 @@ $ uv run python -m pdf2cht.cli.diagnose --analyze-errors "error_details.log"
 # 2️⃣ 轉換 PDF（2-3 分鐘，取決於頁數）
 ./run2.sh "OWASP-Top-10-for-Agentic.pdf"
 
-# 3️⃣ 適應性翻譯（5-8 分鐘，每張 5-10 秒）
+# 3️⃣ 適應性翻譯（2K，預設，5-8 分鐘，每張 5-10 秒）
 ./run3.sh "OWASP-Top-10-for-Agentic/"
 
 # 4️⃣ 合併回 PDF（1-2 分鐘）
 ./run4.sh "cht-OWASP-Top-10-for-Agentic/"
 
 # ✅ 完成！翻譯的 PDF 已在當前目錄
+ls -lh cht-OWASP-Top-10-for-Agentic.pdf
+
+---
+
+<strong># 完整工作流（4K 高品質，約 15-25 分鐘）</strong>
+
+# 1️⃣ 檢查 API（1 分鐘）
+./run1.sh
+
+# 2️⃣ 轉換 PDF（2-3 分鐘）
+./run2.sh "OWASP-Top-10-for-Agentic.pdf"
+
+# 3️⃣ 適應性翻譯（4K 高品質，10-15 分鐘，每張 8-15 秒）
+./run3.sh "OWASP-Top-10-for-Agentic/" "4K"
+
+# 4️⃣ 合併回 PDF（1-2 分鐘）
+./run4.sh "cht-OWASP-Top-10-for-Agentic/"
+
+# ✅ 完成！高品質翻譯的 PDF 已在當前目錄
 ls -lh cht-OWASP-Top-10-for-Agentic.pdf
             </div>
 
@@ -951,6 +970,15 @@ ls -lh cht-OWASP-Top-10-for-Agentic.pdf
                         <code>&nbsp;&nbsp;./run3.sh "${pdf%.pdf}/"</code><br/>
                         <code>&nbsp;&nbsp;./run4.sh "cht-${pdf%.pdf}/"</code><br/>
                         <code>done</code>
+                    </div>
+                </div>
+
+                <div style="padding: 15px; background: #e8f5e9; border-radius: 8px; border-left: 4px solid #4CAF50;">
+                    <strong style="color: #2E7D32;">✨ 使用 4K 高品質模式</strong>
+                    <div style="margin-top: 10px; font-size: 0.9em;">
+                        <code>./run3.sh document/ "4K"</code><br/>
+                        適合品質要求極高的文檔<br/>
+                        成本 +33%，品質提升顯著
                     </div>
                 </div>
 
@@ -1018,8 +1046,244 @@ ls -lh cht-OWASP-Top-10-for-Agentic.pdf
             </div>
         </div>
 
+        <!-- 9. 單圖翻譯工作流 -->
+        <div class="diagram-section">
+            <h2>🖼️ 9. 單圖翻譯工作流（run3-single.sh）</h2>
+            <p>快速測試、調試或重新翻譯單張圖片，無需建立目錄。</p>
+
+            <h3>📋 單圖翻譯流程</h3>
+            <div class="mermaid">
+                %%{init: {'flowchart': {'htmlLabels': true}}}%%
+                graph TD
+                    Start["🚀 開始<br/>準備單張圖檔"] --> CheckFile["檢查檔案"]
+
+                    CheckFile --> Decision1{"檔案存在且<br/>格式正確?"}
+                    Decision1 -->|❌ 失敗| Error1["🔴 檔案錯誤<br/>檔案不存在或格式不支援<br/>支援格式: PNG/JPG/JPEG"]
+                    Error1 --> End1["❌ 中止"]
+
+                    Decision1 -->|✅ 通過| CreateTemp["建立臨時目錄<br/>複製圖檔到 temp/"]
+
+                    CreateTemp --> Translate["執行翻譯<br/>translate_adaptive.py"]
+
+                    Translate --> Sub1["層 1: 計算寬高比<br/>如 1920×2485 → 384:497"]
+                    Sub1 --> Sub2["層 2: 注入參數<br/>aspect_ratio 等"]
+                    Sub2 --> Sub3["層 3: Gemini 翻譯<br/>調用 API"]
+                    Sub3 --> Sub4["層 4: QA 自動修正<br/>LANCZOS 重採樣"]
+
+                    Sub4 --> Decision2{"翻譯成功?"}
+                    Decision2 -->|❌ 失敗| Retry["🔄 智能重試<br/>最多 2 次<br/>間隔 10 秒"]
+                    Retry --> Decision2
+
+                    Decision2 -->|✅ 成功| Output["複製到輸出目錄<br/>cht-single/image.png"]
+
+                    Output --> Verify["🔍 驗證尺寸<br/>原圖 vs 翻譯圖"]
+                    Verify --> Result["顯示驗證結果"]
+                    Result --> CleanUp["清理臨時目錄"]
+
+                    CleanUp --> End2["✨ 完成！<br/>翻譯圖檔已準備就緒"]
+
+                    style Start fill:#e1f5ff
+                    style End2 fill:#c8e6c9
+                    style End1 fill:#ffcdd2
+                    style Error1 fill:#ffcdd2
+                    style Decision1 fill:#fff9c4
+                    style Decision2 fill:#fff9c4
+                    style Output fill:#c8e6c9
+                    style Verify fill:#e0bee7
+            </div>
+
+            <h3>💡 使用場景</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 15px;">
+                <div style="padding: 15px; background: #e3f2fd; border-radius: 8px; border-left: 4px solid #2196F3;">
+                    <strong style="color: #1976D2;">🧪 快速測試</strong>
+                    <div style="margin-top: 10px; font-size: 0.9em;">
+                        測試單張圖片翻譯品質和性能<br/>
+                        <code style="background: rgba(0,0,0,0.1); padding: 2px 4px; border-radius: 3px;">./run3-single.sh test.png</code>
+                    </div>
+                </div>
+
+                <div style="padding: 15px; background: #f3e5f5; border-radius: 8px; border-left: 4px solid #9C27B0;">
+                    <strong style="color: #6A1B9A;">🔧 調試特定問題</strong>
+                    <div style="margin-top: 10px; font-size: 0.9em;">
+                        調試特定頁面的翻譯問題<br/>
+                        <code style="background: rgba(0,0,0,0.1); padding: 2px 4px; border-radius: 3px;">./run3-single.sh page_5.png</code>
+                    </div>
+                </div>
+
+                <div style="padding: 15px; background: #fce4ec; border-radius: 8px; border-left: 4px solid #E91E63;">
+                    <strong style="color: #C2185B;">🔄 重新翻譯失敗</strong>
+                    <div style="margin-top: 10px; font-size: 0.9em;">
+                        重新翻譯之前失敗的圖檔<br/>
+                        <code style="background: rgba(0,0,0,0.1); padding: 2px 4px; border-radius: 3px;">./run3-single.sh cht-dir/page_10.png</code>
+                    </div>
+                </div>
+
+                <div style="padding: 15px; background: #e8f5e9; border-radius: 8px; border-left: 4px solid #4CAF50;">
+                    <strong style="color: #2E7D32;">📊 驗證品質</strong>
+                    <div style="margin-top: 10px; font-size: 0.9em;">
+                        驗證翻譯品質和尺寸準確性<br/>
+                        <code style="background: rgba(0,0,0,0.1); padding: 2px 4px; border-radius: 3px;">./run3-single.sh image.jpg</code>
+                    </div>
+                </div>
+            </div>
+
+            <h3>📝 命令語法</h3>
+            <div class="code-block">
+<strong># 基本語法</strong>
+./run3-single.sh &lt;image_file&gt; [resolution]
+
+<strong># ⚠️ 重要：必須指定完整路徑（相對路徑或絕對路徑）</strong>
+
+<strong># 範例 - 相對路徑（推薦）</strong>
+
+# 1. 翻譯指定目錄中的圖檔（2K）
+./run3-single.sh "OWASP-Top/page_001.png"
+
+# 2. 翻譯指定目錄中的圖檔（4K）
+./run3-single.sh "OWASP-Top/page_001.png" "4K"
+
+# 3. 重新翻譯失敗的圖檔
+./run3-single.sh "OWASP-Top/page_010.png"
+
+<strong># 範例 - 絕對路徑</strong>
+
+# 4. 使用絕對路徑（2K）
+./run3-single.sh "/Users/lanss/projects/readpaper/PDF2CHT/OWASP-Top/page_001.png"
+
+# 5. 使用絕對路徑（4K）
+./run3-single.sh "/Users/lanss/projects/readpaper/PDF2CHT/OWASP-Top/page_001.png" "4K"
+
+# 5. 支援的檔案格式
+./run3-single.sh image.png      # ✅ PNG
+./run3-single.sh image.jpg      # ✅ JPG
+./run3-single.sh image.jpeg     # ✅ JPEG
+            </div>
+
+            <h3>🔍 輸出結構</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                <tr style="background: #f5f5f5;">
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>項目</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>說明</strong></td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>輸入圖檔</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><code>page_001.png</code> （任意位置）</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>輸出位置</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><code>cht-single/page_001.png</code> （同輸入目錄）</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>臨時目錄</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">自動建立和清理（<code>/tmp/...</code>）</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>驗證信息</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">顯示原圖和翻譯圖的尺寸對比</td>
+                </tr>
+            </table>
+
+            <h3>⏱️ 性能指標（2K vs 4K）</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                <tr style="background: #f5f5f5;">
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>操作</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>2K（預設）</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>4K（高品質）</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>備註</strong></td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd;">檔案檢查 + 臨時目錄</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">< 1 秒</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">< 1 秒</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">本地操作，無差異</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                    <td style="padding: 12px; border: 1px solid #ddd;">Gemini 翻譯 + QA 修正</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">5-10 秒<br/>$0.015</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">8-15 秒<br/>$0.020</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">4K 品質更高但耗時更長</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd;">尺寸驗證</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">< 1 秒</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">< 1 秒</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">本地操作，無差異</td>
+                </tr>
+                <tr style="background: #e8f5e9;">
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>總計（單張）</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>5-11 秒<br/>$0.015</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>8-16 秒<br/>$0.020</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>4K 成本 +33%</strong></td>
+                </tr>
+            </table>
+
+            <h3>🎛️ 解析度選項說明</h3>
+            <div style="padding: 15px; background: #f3e5f5; border-radius: 8px; margin-top: 15px; border-left: 4px solid #9C27B0;">
+                <div style="font-size: 0.95em; line-height: 1.8;">
+                    <strong style="color: #6A1B9A;">2K（預設、推薦）</strong><br/>
+                    ✅ 文字清晰度：⭐⭐⭐⭐<br/>
+                    ✅ API 成本最優<br/>
+                    ✅ 適合大多數文檔<br/>
+                    ✅ 使用命令：<code>./run3-single.sh "image.png"</code><br/>
+                    <br/>
+                    <strong style="color: #6A1B9A;">4K（高品質）</strong><br/>
+                    ✅ 文字清晰度：⭐⭐⭐⭐⭐<br/>
+                    ✅ 細節更豐富<br/>
+                    ✅ 成本 +33%<br/>
+                    ✅ 使用命令：<code>./run3-single.sh "image.png" "4K"</code>
+                </div>
+            </div>
+
+            <h3>🚨 常見問題</h3>
+            <div style="padding: 15px; background: #fff3e0; border-radius: 8px; margin-top: 15px; border-left: 4px solid #FF6F00;">
+                <strong style="color: #E65100;">❓ 常見錯誤與解決方案</strong>
+                <div style="margin-top: 10px; font-size: 0.9em; line-height: 1.8;">
+                    <strong>Q: 命令行報錯「圖檔不存在」</strong><br/>
+                    A: 檢查檔案路徑和檔案名是否正確，使用絕對路徑可避免路徑問題<br/>
+                    <br/>
+                    <strong>Q: 「不支援的檔案格式」</strong><br/>
+                    A: 只支援 PNG、JPG、JPEG 格式。請先轉換為這些格式<br/>
+                    <br/>
+                    <strong>Q: 輸出目錄在哪裡？</strong><br/>
+                    A: 輸出位置為 <code>cht-single/</code>，位於輸入圖檔的同級目錄<br/>
+                    <br/>
+                    <strong>Q: 能否指定輸出目錄名稱？</strong><br/>
+                    A: 目前輸出目錄固定為 <code>cht-single/</code>。如需自訂，請使用 run3.sh 翻譯整個目錄<br/>
+                    <br/>
+                    <strong>Q: 如果翻譯失敗怎麼辦？</strong><br/>
+                    A: 腳本會自動重試最多 2 次（間隔 10 秒）。若仍失敗，執行 run1.sh 診斷 API 狀態
+                </div>
+            </div>
+
+            <h3>🔗 與其他腳本的關係</h3>
+            <div style="padding: 15px; background: #e0e7ff; border-radius: 8px; margin-top: 15px; border-left: 4px solid #3F51B5;">
+                <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 4px;">
+                    <tr style="background: #f5f5f5;">
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>場景</strong></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>推薦使用</strong></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;">翻譯單張圖片（快速測試）</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">✅ <strong>run3-single.sh</strong> ← 推薦</td>
+                    </tr>
+                    <tr style="background: #f9f9f9;">
+                        <td style="padding: 10px; border: 1px solid #ddd;">翻譯整個目錄</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">✅ run3.sh</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;">完整 PDF 翻譯工作流</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">run2.sh → run3.sh → run4.sh</td>
+                    </tr>
+                    <tr style="background: #f9f9f9;">
+                        <td style="padding: 10px; border: 1px solid #ddd;">重新翻譯失敗的圖檔</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">✅ <strong>run3-single.sh</strong> ← 推薦</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
         <footer>
-            <p>📐 PDF2CHT v2.1.0 - 架構與流程可視化（新增尺寸精確匹配 + 使用者操作工作流）</p>
+            <p>📐 PDF2CHT v2.1.0 - 架構與流程可視化（新增尺寸精確匹配 + 使用者操作工作流 + 單圖翻譯）</p>
             <p>更新時間：2026-01-26 | 查看完整文檔：<a href="README.md" style="color: #fff; text-decoration: underline;">README.md</a></p>
         </footer>
     </div>
