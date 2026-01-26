@@ -816,8 +816,210 @@ $ uv run python -m pdf2cht.cli.diagnose --analyze-errors "error_details.log"
             </div>
         </div>
 
+        <!-- 8. 使用者操作工作流 -->
+        <div class="diagram-section">
+            <h2>🎯 8. 使用者操作工作流（run1.sh → run4.sh）</h2>
+            <p>完整的使用者操作流程，從檢查 API 到產生翻譯完成的 PDF。</p>
+
+            <h3>📋 完整流程概觀</h3>
+            <div class="mermaid">
+                %%{init: {'flowchart': {'htmlLabels': true}}}%%
+                graph TD
+                    Start["🚀 開始<br/>準備一份要翻譯的 PDF"] --> Step1["<b>Step 1: run1.sh</b><br/>API 連接檢查"]
+
+                    Step1 --> Decision1{"API 可用?"}
+                    Decision1 -->|❌ API 錯誤| Error1["🔴 API 檢查失敗<br/>查看 diagnose.py 輸出<br/>檢查 GEMINI_API_KEY"]
+                    Error1 --> End1["❌ 流程中止"]
+
+                    Decision1 -->|✅ 通過| Step2["<b>Step 2: run2.sh</b><br/>PDF 轉圖檔<br/>uv run pdf_to_images.py"]
+
+                    Step2 --> Process2["📸 處理過程<br/>• 掃描 PDF 檔案<br/>• 轉換為 2K PNG<br/>• 自動編號頁碼<br/>• 記錄每張尺寸"]
+                    Process2 --> Output2["📁 輸出目錄<br/>document/<br/>├── page_001.png<br/>├── page_002.png<br/>└── page_003.png"]
+                    Output2 --> Step3["<b>Step 3: run3.sh</b><br/>適應性翻譯<br/>uv run translate_adaptive.py"]
+
+                    Step3 --> Process3["🤖 翻譯過程<br/>逐張翻譯（每張獨立）"]
+                    Process3 --> Sub3A["層 1: 計算寬高比<br/>例如 1920×2485<br/>→ 384:497"]
+                    Sub3A --> Sub3B["層 2: 注入參數<br/>將 aspect_ratio 等<br/>注入到 bilingual.txt"]
+                    Sub3B --> Sub3C["層 3: Gemini 翻譯<br/>調用 API 生成<br/>翻譯圖檔"]
+                    Sub3C --> Sub3D["層 4: QA 自動修正<br/>檢測尺寸不匹配<br/>用 LANCZOS 調整"]
+
+                    Sub3D --> Decision3{"翻譯成功?"}
+                    Decision3 -->|❌ 失敗| Retry["🔄 智能重試<br/>最多 2 次<br/>間隔 10 秒"]
+                    Retry --> Decision3
+
+                    Decision3 -->|✅ 全部完成| Output3["📁 翻譯完成目錄<br/>cht-document/<br/>├── page_001.png<br/>├── page_002.png<br/>└── page_003.png"]
+
+                    Output3 --> Step4["<b>Step 4: run4.sh</b><br/>圖檔合併 PDF<br/>uv run images_to_pdf.py"]
+
+                    Step4 --> Process4["📋 合併過程<br/>• 掃描所有 PNG<br/>• 按頁碼排序<br/>• 合併為單一 PDF"]
+                    Process4 --> Output4["✅ 最終輸出<br/>cht-document.pdf<br/>每頁尺寸 = 原圖"]
+                    Output4 --> End2["✨ 完成！<br/>翻譯的繁體中文 PDF<br/>已準備就緒"]
+
+                    style Start fill:#e1f5ff
+                    style End2 fill:#c8e6c9
+                    style End1 fill:#ffcdd2
+                    style Error1 fill:#ffcdd2
+                    style Decision1 fill:#fff9c4
+                    style Decision3 fill:#fff9c4
+                    style Step1 fill:#e3f2fd
+                    style Step2 fill:#f3e5f5
+                    style Step3 fill:#fce4ec
+                    style Step4 fill:#fff3e0
+            </div>
+
+            <h3>🔧 4 個 Shell Scripts 詳解</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                <tr style="background: #f5f5f5;">
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>Script</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>功能</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>對應 CLI 程式</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>輸入 / 輸出</strong></td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>run1.sh</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">API 連接檢查</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><code>diagnose.py</code></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">無輸入 → 檢查結果</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>run2.sh</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">PDF 轉圖檔</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><code>pdf_to_images.py</code></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">document.pdf → document/</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>run3.sh</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">適應性翻譯（核心）</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><code>translate_adaptive.py</code></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">document/ → cht-document/</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>run4.sh</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">圖檔合併 PDF</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><code>images_to_pdf.py</code></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">cht-document/ → cht-document.pdf</td>
+                </tr>
+            </table>
+
+            <h3>💡 典型使用示例</h3>
+            <div class="code-block">
+<strong># 完整工作流（約 10-15 分鐘）</strong>
+
+# 1️⃣ 檢查 API（1 分鐘）
+./run1.sh
+
+# 2️⃣ 轉換 PDF（2-3 分鐘，取決於頁數）
+./run2.sh "OWASP-Top-10-for-Agentic.pdf"
+
+# 3️⃣ 適應性翻譯（5-8 分鐘，每張 5-10 秒）
+./run3.sh "OWASP-Top-10-for-Agentic/"
+
+# 4️⃣ 合併回 PDF（1-2 分鐘）
+./run4.sh "cht-OWASP-Top-10-for-Agentic/"
+
+# ✅ 完成！翻譯的 PDF 已在當前目錄
+ls -lh cht-OWASP-Top-10-for-Agentic.pdf
+            </div>
+
+            <h3>🔄 常見操作場景</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 15px;">
+                <div style="padding: 15px; background: #e3f2fd; border-radius: 8px; border-left: 4px solid #2196F3;">
+                    <strong style="color: #1976D2;">📊 翻譯單一 PDF</strong>
+                    <div style="margin-top: 10px; font-size: 0.9em;">
+                        <code>./run1.sh</code><br/>
+                        <code>./run2.sh document.pdf</code><br/>
+                        <code>./run3.sh document/</code><br/>
+                        <code>./run4.sh cht-document/</code>
+                    </div>
+                </div>
+
+                <div style="padding: 15px; background: #f3e5f5; border-radius: 8px; border-left: 4px solid #9C27B0;">
+                    <strong style="color: #6A1B9A;">🔁 重新翻譯失敗的圖檔</strong>
+                    <div style="margin-top: 10px; font-size: 0.9em;">
+                        <code>./run3.sh document/</code><br/>
+                        （自動掃描並重試失敗頁面）<br/>
+                        <code>./run4.sh cht-document/</code>
+                    </div>
+                </div>
+
+                <div style="padding: 15px; background: #fce4ec; border-radius: 8px; border-left: 4px solid #E91E63;">
+                    <strong style="color: #C2185B;">📚 批量翻譯多個 PDF</strong>
+                    <div style="margin-top: 10px; font-size: 0.9em;">
+                        <code>./run1.sh  # 首次檢查</code><br/>
+                        <code>for pdf in *.pdf; do</code><br/>
+                        <code>&nbsp;&nbsp;./run2.sh "$pdf"</code><br/>
+                        <code>&nbsp;&nbsp;./run3.sh "${pdf%.pdf}/"</code><br/>
+                        <code>&nbsp;&nbsp;./run4.sh "cht-${pdf%.pdf}/"</code><br/>
+                        <code>done</code>
+                    </div>
+                </div>
+
+                <div style="padding: 15px; background: #fff3e0; border-radius: 8px; border-left: 4px solid #FF9800;">
+                    <strong style="color: #E65100;">⚙️ 診斷常見問題</strong>
+                    <div style="margin-top: 10px; font-size: 0.9em;">
+                        <code>./run1.sh  # 檢查所有</code><br/>
+                        或特定檢查：<br/>
+                        <code>uv run diagnose.py --check-api</code><br/>
+                        <code>uv run diagnose.py --check-usage</code>
+                    </div>
+                </div>
+            </div>
+
+            <h3>⏱️ 性能指標</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                <tr style="background: #f5f5f5;">
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>階段</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>操作內容</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>耗時（約）</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>成本（57 頁）</strong></td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd;">run1.sh</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">環境 + API 檢查</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">1 分鐘</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">$0.00</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                    <td style="padding: 12px; border: 1px solid #ddd;">run2.sh</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">PDF 轉 2K PNG</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">2-3 分鐘</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">$0.00</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd;">run3.sh</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">Gemini 翻譯 + QA 修正</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">5-8 分鐘</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">$0.85</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                    <td style="padding: 12px; border: 1px solid #ddd;">run4.sh</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">PNG 合併 PDF</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">1-2 分鐘</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">$0.00</td>
+                </tr>
+                <tr style="background: #e8f5e9;">
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>總計</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>完整工作流</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>9-16 分鐘</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>$0.85</strong></td>
+                </tr>
+            </table>
+
+            <h3>🚨 故障排除快速指南</h3>
+            <div style="padding: 15px; background: #fff3e0; border-radius: 8px; margin-top: 15px; border-left: 4px solid #FF6F00;">
+                <strong style="color: #E65100;">遇到問題？</strong>
+                <div style="margin-top: 10px; font-size: 0.9em; line-height: 1.8;">
+                    ❌ <strong>run1.sh 失敗</strong> → 檢查 GEMINI_API_KEY 和網路連接<br/>
+                    ❌ <strong>run2.sh 失敗</strong> → 確認 PDF 檔案存在且格式正確<br/>
+                    ❌ <strong>run3.sh 翻譯緩慢</strong> → 正常現象（Gemini API 固有延遲），可監控 usage.db<br/>
+                    ❌ <strong>run4.sh 無法合併</strong> → 檢查 cht-document/ 目錄是否有 PNG 檔案<br/>
+                    ✅ <strong>需要詳細診斷</strong> → 執行 <code>./run1.sh</code> 查看完整報告
+                </div>
+            </div>
+        </div>
+
         <footer>
-            <p>📐 PDF2CHT v2.1.0 - 架構與流程可視化（新增尺寸精確匹配）</p>
+            <p>📐 PDF2CHT v2.1.0 - 架構與流程可視化（新增尺寸精確匹配 + 使用者操作工作流）</p>
             <p>更新時間：2026-01-26 | 查看完整文檔：<a href="README.md" style="color: #fff; text-decoration: underline;">README.md</a></p>
         </footer>
     </div>
