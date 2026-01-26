@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -207,8 +208,7 @@
                 graph TB
                     CLI["🖥️ CLI Layer<br/>（用戶界面）"]
                     PDF["pdf_to_images.py<br/>PDF → Image"]
-                    Adaptive["translate_adaptive.py<br/>適應性翻譯"]
-                    Batch["batch_translate_with_retry.py<br/>批次翻譯"]
+                    Adaptive["translate_adaptive.py<br/>適應性翻譯（唯一模式）"]
                     ImagePDF["images_to_pdf.py<br/>Image → PDF"]
                     Diagnose["diagnose.py<br/>診斷工具"]
 
@@ -235,13 +235,11 @@
 
                     CLI --> PDF
                     CLI --> Adaptive
-                    CLI --> Batch
                     CLI --> ImagePDF
                     CLI --> Diagnose
 
                     PDF --> PDFConv
                     Adaptive --> Core
-                    Batch --> Core
                     Diagnose --> Core
 
                     Core --> Translator
@@ -274,7 +272,7 @@
             <div class="legend">
                 <div class="legend-item">
                     <strong style="color: #667eea;">CLI Layer</strong><br/>
-                    用戶直接交互的命令行界面，包含 3 個獨立程式和診斷工具
+                    用戶直接交互的命令行界面，包含 4 個獨立程式（3 翻譯 + 1 診斷）
                 </div>
                 <div class="legend-item">
                     <strong style="color: #764ba2;">Core Layer</strong><br/>
@@ -298,97 +296,79 @@
         <!-- 2. 數據流圖 -->
         <div class="diagram-section">
             <h2>🔄 2. 完整工作流程圖</h2>
-            <p>從 PDF 輸入到中文 PDF 輸出的完整數據流和決策邏輯。</p>
+            <p>從 PDF 輸入到中文 PDF 輸出的完整數據流（適應性翻譯 - 唯一模式）。</p>
 
             <div class="mermaid">
                 %%{init: {'flowchart': {'htmlLabels': true}}}%%
                 graph TD
                     Input["📥 輸入：PDF 文件<br/>example.pdf"]
 
-                    PDF2Img["📋 步驟 1<br/>PDF → 圖檔<br/>pdf_to_images.py"]
+                    PDF2Img["📋 步驟 1<br/>PDF → 圖檔<br/>(run2.sh)"]
 
                     ImgDir["📁 輸出目錄<br/>example/<br/>├─ page_001.png<br/>├─ page_002.png<br/>└─ ..."]
 
-                    ChooseMode{"🔄 選擇翻譯模式"}
+                    APICheck["⚡ 步驟 2<br/>適應性翻譯<br/>(run3.sh)"]
 
-                    AdaptiveFlow["🌟 適應性模式<br/>translate_adaptive.py"]
-                    BatchFlow["📦 批次模式<br/>batch_translate_with_retry.py"]
+                    PerImageCheck{"每張前<br/>檢查 API？"}
+                    CalcAspect["🔢 計算寬高比<br/>注入提示詞"]
+                    Translate["🌐 翻譯<br/>Gemini 3 Pro Image"]
+                    TransResult{"成功？"}
+                    Retry["重試 2 次<br/>間隔 10 秒"]
+                    QACheck["✅ QA 修正<br/>自動調整尺寸"]
 
-                    AdaptiveDeci{"每張前檢查<br/>API 配額？"}
-                    AdaptiveTranslate["逐張翻譯<br/>Gemini 3 Pro Image"]
-                    AdaptiveRetry{"失敗？"}
-                    AdaptiveRetry2["重試 2 次<br/>間隔 10 秒"]
+                    Output["✅ 翻譯完成<br/>cht-example/"]
 
-                    BatchTranslate["批次翻譯<br/>5 張/批"]
-                    BatchCheck{"成功？"}
-                    BatchRetry["自動掃描缺圖<br/>最多重試 3 輪"]
+                    Merge["🖼️ 步驟 3<br/>圖檔 → PDF<br/>(run4.sh)"]
 
-                    ManualReview["👤 人工檢視<br/>（可選）"]
-
-                    Output1["✅ 翻譯完成<br/>cht-example/<br/>├─ page_001.png<br/>├─ page_002.png<br/>└─ ..."]
-
-                    Merge["🖼️ 步驟 3<br/>圖檔 → PDF<br/>images_to_pdf.py"]
-
-                    FinalOutput["📤 最終輸出<br/>cht-example.pdf"]
+                    FinalOutput["📤 最終輸出<br/>cht-example.pdf<br/>100% 尺寸精確"]
 
                     Success["✨ 完成！"]
 
                     Input --> PDF2Img
                     PDF2Img --> ImgDir
-                    ImgDir --> ChooseMode
+                    ImgDir --> APICheck
 
-                    ChooseMode -->|推薦| AdaptiveFlow
-                    ChooseMode -->|保留| BatchFlow
+                    APICheck --> PerImageCheck
+                    PerImageCheck -->|可用| CalcAspect
+                    PerImageCheck -->|不可用| Success
+                    CalcAspect --> Translate
+                    Translate --> TransResult
+                    TransResult -->|失敗| Retry
+                    TransResult -->|成功| QACheck
+                    Retry --> QACheck
+                    QACheck --> Output
 
-                    AdaptiveFlow --> AdaptiveDeci
-                    AdaptiveDeci -->|可用| AdaptiveTranslate
-                    AdaptiveDeci -->|不可用| Success
-                    AdaptiveTranslate --> AdaptiveRetry
-                    AdaptiveRetry -->|失敗| AdaptiveRetry2
-                    AdaptiveRetry -->|成功| Output1
-                    AdaptiveRetry2 --> Output1
-
-                    BatchFlow --> BatchTranslate
-                    BatchTranslate --> BatchCheck
-                    BatchCheck -->|失敗| BatchRetry
-                    BatchCheck -->|成功| ManualReview
-                    BatchRetry --> ManualReview
-                    ManualReview --> Output1
-
-                    Output1 --> Merge
+                    Output --> Merge
                     Merge --> FinalOutput
                     FinalOutput --> Success
 
                     style Input fill:#e0f2f1,stroke:#333,stroke-width:2px,color:#000
                     style PDF2Img fill:#e3f2fd,stroke:#333,stroke-width:2px,color:#000
                     style ImgDir fill:#f3e5f5,stroke:#333,stroke-width:2px,color:#000
-                    style ChooseMode fill:#fce4ec,stroke:#333,stroke-width:2px,color:#000
-                    style AdaptiveFlow fill:#e3f2fd,stroke:#333,stroke-width:2px,color:#000
-                    style BatchFlow fill:#e3f2fd,stroke:#333,stroke-width:2px,color:#000
-                    style AdaptiveDeci fill:#f3e5f5,stroke:#333,stroke-width:2px,color:#000
-                    style AdaptiveTranslate fill:#e3f2fd,stroke:#333,stroke-width:2px,color:#000
-                    style AdaptiveRetry fill:#fce4ec,stroke:#333,stroke-width:2px,color:#000
-                    style AdaptiveRetry2 fill:#e3f2fd,stroke:#333,stroke-width:2px,color:#000
-                    style BatchTranslate fill:#e3f2fd,stroke:#333,stroke-width:2px,color:#000
-                    style BatchCheck fill:#fce4ec,stroke:#333,stroke-width:2px,color:#000
-                    style BatchRetry fill:#e3f2fd,stroke:#333,stroke-width:2px,color:#000
-                    style ManualReview fill:#fff3e0,stroke:#333,stroke-width:2px,color:#000
-                    style Output1 fill:#f3e5f5,stroke:#333,stroke-width:2px,color:#000
+                    style APICheck fill:#e3f2fd,stroke:#333,stroke-width:2px,color:#000
+                    style PerImageCheck fill:#fce4ec,stroke:#333,stroke-width:2px,color:#000
+                    style CalcAspect fill:#fff3e0,stroke:#333,stroke-width:2px,color:#000
+                    style Translate fill:#e3f2fd,stroke:#333,stroke-width:2px,color:#000
+                    style TransResult fill:#fce4ec,stroke:#333,stroke-width:2px,color:#000
+                    style Retry fill:#e3f2fd,stroke:#333,stroke-width:2px,color:#000
+                    style QACheck fill:#fff3e0,stroke:#333,stroke-width:2px,color:#000
+                    style Output fill:#f3e5f5,stroke:#333,stroke-width:2px,color:#000
                     style Merge fill:#e3f2fd,stroke:#333,stroke-width:2px,color:#000
                     style FinalOutput fill:#e0f2f1,stroke:#333,stroke-width:2px,color:#000
                     style Success fill:#e8f5e9,stroke:#333,stroke-width:2px,color:#000
             </div>
 
-            <h3>🔑 核心流程</h3>
+            <h3>🔑 標準工作流程</h3>
             <div class="code-block">
-# 適應性模式（推薦）
+# 使用便捷 Shell Scripts（推薦）
+$ ./run1.sh                        # 測試 API
+$ ./run2.sh "example.pdf"          # PDF → 圖檔
+$ ./run3.sh "example/"             # 適應性翻譯（自動尺寸調整）
+$ ./run4.sh "cht-example/"         # 合併回 PDF
+
+# 或直接調用 CLI
 $ uv run python -m pdf2cht.cli.pdf_to_images "example.pdf"
 $ uv run python -m pdf2cht.cli.translate_adaptive "example/"
-$ uv run python -m pdf2cht.cli.images_to_pdf "cht-example/"
-
-# 批次模式（保留支援）
-$ uv run python -m pdf2cht.cli.pdf_to_images "example.pdf"
-$ uv run python -m pdf2cht.cli.batch_translate_with_retry "example/"
 $ uv run python -m pdf2cht.cli.images_to_pdf "cht-example/"
             </div>
         </div>
@@ -648,90 +628,196 @@ $ uv run python -m pdf2cht.cli.diagnose --analyze-errors "error_details.log"
             </div>
         </div>
 
-        <!-- 6. 成本與效能對比 -->
+        <!-- 6. 適應性翻譯性能指標 -->
         <div class="diagram-section">
-            <h2>💰 6. 翻譯模式成本與效能對比</h2>
-            <p>適應性模式和批次模式的實際成本、速度和成功率對比（基於 57 張圖片示例）。</p>
+            <h2>💰 6. 適應性翻譯性能指標</h2>
+            <p>適應性翻譯模式的實際成本、速度和成功率（基於 57 張 OWASP 圖片）。</p>
 
             <div class="mermaid">
                 %%{init: {'flowchart': {'htmlLabels': true}}}%%
                 graph LR
-                    Adaptive["🌟 適應性模式<br/>─────<br/>翻譯 57 張"]
-                    Batch["📦 批次模式<br/>─────<br/>翻譯 57 張"]
+                    Adaptive["🌟 適應性翻譯<br/>─────<br/>57 張圖片"]
 
-                    AdaptiveCost["💰 成本：$0.85<br/>• 翻譯：$0.75<br/>• API 檢查：$0.10<br/>（每張檢查 2.5 秒）"]
+                    Cost["💰 成本<br/>$0.85<br/>• 翻譯：$0.75<br/>• API檢查：$0.10"]
 
-                    BatchCost["💰 成本：$2.40<br/>• 翻譯：$2.10<br/>• 重試：$0.30<br/>（全批重試）"]
+                    Speed["⚡ 速度<br/>8 分鐘<br/>• 每張：7秒<br/>• 即時反饋"]
 
-                    AdaptiveSpeed["⚡ 速度：8 分鐘<br/>• 每張：7 秒<br/>• 無冷卻等待<br/>• 即時反饋"]
+                    Success["✅ 成功率<br/>98.2%<br/>• 成功：56/57<br/>• 自動重試"]
 
-                    BatchSpeed["⏱️ 速度：18 分鐘<br/>• 每批：90 秒<br/>• 冷卻：120 秒<br/>• 檢測不即時"]
-
-                    AdaptiveSuccess["✅ 成功率：98.2%<br/>• 成功：56/57<br/>• 失敗圖：1<br/>• 自動重試有效"]
-
-                    BatchSuccess["✅ 成功率：95.8%<br/>• 成功：53/57<br/>• 失敗圖：4<br/>• 需人工干預"]
-
-                    Adaptive --> AdaptiveCost
-                    Adaptive --> AdaptiveSpeed
-                    Adaptive --> AdaptiveSuccess
-
-                    Batch --> BatchCost
-                    Batch --> BatchSpeed
-                    Batch --> BatchSuccess
+                    Adaptive --> Cost
+                    Adaptive --> Speed
+                    Adaptive --> Success
 
                     style Adaptive fill:#e8f5e9,stroke:#333,stroke-width:2px,color:#000
-                    style Batch fill:#fff3e0,stroke:#333,stroke-width:2px,color:#000
-                    style AdaptiveCost fill:#e8f5e9,stroke:#333,stroke-width:1px,color:#000
-                    style BatchCost fill:#fff3e0,stroke:#333,stroke-width:1px,color:#000
-                    style AdaptiveSpeed fill:#e8f5e9,stroke:#333,stroke-width:1px,color:#000
-                    style BatchSpeed fill:#fff3e0,stroke:#333,stroke-width:1px,color:#000
-                    style AdaptiveSuccess fill:#e8f5e9,stroke:#333,stroke-width:1px,color:#000
-                    style BatchSuccess fill:#fff3e0,stroke:#333,stroke-width:1px,color:#000
+                    style Cost fill:#e8f5e9,stroke:#333,stroke-width:1px,color:#000
+                    style Speed fill:#e8f5e9,stroke:#333,stroke-width:1px,color:#000
+                    style Success fill:#e8f5e9,stroke:#333,stroke-width:1px,color:#000
             </div>
 
-            <h3>📈 關鍵指標</h3>
+            <h3>📈 性能數據</h3>
             <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
                 <tr style="background: #667eea; color: white;">
                     <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">指標</th>
-                    <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">適應性模式</th>
-                    <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">批次模式</th>
-                    <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">改進</th>
+                    <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">適應性翻譯</th>
                 </tr>
                 <tr style="background: #f5f5f5;">
                     <td style="padding: 12px; border: 1px solid #ddd;"><strong>成本（57 張）</strong></td>
                     <td style="padding: 12px; border: 1px solid #ddd;">$0.85</td>
-                    <td style="padding: 12px; border: 1px solid #ddd;">$2.40</td>
-                    <td style="padding: 12px; border: 1px solid #ddd;">⬇️ 65% 降低</td>
                 </tr>
                 <tr>
                     <td style="padding: 12px; border: 1px solid #ddd;"><strong>執行時間</strong></td>
                     <td style="padding: 12px; border: 1px solid #ddd;">8 分鐘</td>
-                    <td style="padding: 12px; border: 1px solid #ddd;">18 分鐘</td>
-                    <td style="padding: 12px; border: 1px solid #ddd;">⬇️ 56% 更快</td>
                 </tr>
                 <tr style="background: #f5f5f5;">
                     <td style="padding: 12px; border: 1px solid #ddd;"><strong>成功率</strong></td>
                     <td style="padding: 12px; border: 1px solid #ddd;">98.2%</td>
-                    <td style="padding: 12px; border: 1px solid #ddd;">95.8%</td>
-                    <td style="padding: 12px; border: 1px solid #ddd;">⬆️ 2.4% 更高</td>
                 </tr>
                 <tr>
                     <td style="padding: 12px; border: 1px solid #ddd;"><strong>人工干預</strong></td>
-                    <td style="padding: 12px; border: 1px solid #ddd;">無</td>
-                    <td style="padding: 12px; border: 1px solid #ddd;">可選</td>
-                    <td style="padding: 12px; border: 1px solid #ddd;">✅ 自動化</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">無（100% 自動化）</td>
                 </tr>
                 <tr style="background: #f5f5f5;">
-                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>實時反饋</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>即時反饋</strong></td>
                     <td style="padding: 12px; border: 1px solid #ddd;">✅ 每張即時</td>
-                    <td style="padding: 12px; border: 1px solid #ddd;">⏳ 批次後</td>
-                    <td style="padding: 12px; border: 1px solid #ddd;">⬆️ 更快定位問題</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>尺寸精度</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">100% 精確匹配（QA 自動修正）</td>
                 </tr>
             </table>
         </div>
 
+        <!-- 7. 尺寸精確匹配機制 (新增) -->
+        <div class="diagram-section">
+            <h2>📏 7. 尺寸精確匹配 - 三層防禦機制 🆕（v2.1.0 新增）</h2>
+            <p>自動計算原圖寬高比、提示詞動態注入、QA 自動修正 → 100% 保證尺寸一致</p>
+
+            <div class="mermaid">
+                %%{init: {'flowchart': {'htmlLabels': true}}}%%
+                graph TD
+                    Original["📸 原圖<br/>1920×2485<br/>寬高比：384:497"]
+
+                    CalcAspect["🔢 層 1：計算寬高比<br/>translator.py"]
+
+                    CalcResult["✅ 寬高比計算完成<br/>aspect_ratio = '384:497'<br/>target_width = '1920'<br/>target_height = '2485'"]
+
+                    InjectPrompt["💬 層 2：注入提示詞<br/>prompt_manager.py"]
+
+                    PromptReady["✅ 提示詞強化<br/>'AspectRatio': '384:497'<br/>'TargetDimensions': '1920×2485'<br/>...輸出圖片必須保持寬高比..."]
+
+                    Translate["🌐 Gemini 翻譯<br/>gemini-3-pro-image"]
+
+                    TransOutput["📊 翻譯輸出<br/>1824×2336（-5% 寬，-6% 高）"]
+
+                    QACheck["✅ 層 3：QA 自動修正<br/>qa_validator.py"]
+
+                    QADetect{"尺寸是否<br/>匹配？"}
+
+                    Resize["🔧 LANCZOS 重採樣<br/>調整到 1920×2485"]
+
+                    Final["✅ 最終輸出<br/>1920×2485<br/>100% 精確匹配"]
+
+                    Original --> CalcAspect
+                    CalcAspect --> CalcResult
+                    CalcResult --> InjectPrompt
+                    InjectPrompt --> PromptReady
+                    PromptReady --> Translate
+                    Translate --> TransOutput
+                    TransOutput --> QACheck
+                    QACheck --> QADetect
+                    QADetect -->|不匹配| Resize
+                    QADetect -->|匹配| Final
+                    Resize --> Final
+
+                    style Original fill:#e0f2f1,stroke:#333,stroke-width:2px,color:#000
+                    style CalcAspect fill:#e3f2fd,stroke:#333,stroke-width:2px,color:#000
+                    style CalcResult fill:#f3e5f5,stroke:#333,stroke-width:2px,color:#000
+                    style InjectPrompt fill:#e3f2fd,stroke:#333,stroke-width:2px,color:#000
+                    style PromptReady fill:#f3e5f5,stroke:#333,stroke-width:2px,color:#000
+                    style Translate fill:#fce4ec,stroke:#333,stroke-width:2px,color:#000
+                    style TransOutput fill:#fff3e0,stroke:#333,stroke-width:2px,color:#000
+                    style QACheck fill:#e3f2fd,stroke:#333,stroke-width:2px,color:#000
+                    style QADetect fill:#fce4ec,stroke:#333,stroke-width:2px,color:#000
+                    style Resize fill:#fff3e0,stroke:#333,stroke-width:2px,color:#000
+                    style Final fill:#e8f5e9,stroke:#333,stroke-width:2px,color:#000
+            </div>
+
+            <h3>🔐 三層防禦說明</h3>
+            <div class="legend">
+                <div class="legend-item">
+                    <strong style="color: #667eea;">層 1：寬高比計算</strong><br/>
+                    自動讀取原圖尺寸，計算最簡分數（1920×2485 → 384:497）
+                </div>
+                <div class="legend-item">
+                    <strong style="color: #764ba2;">層 2：提示詞注入</strong><br/>
+                    動態注入 aspect_ratio 和目標尺寸到 JSON 提示詞，強化 AI 對尺寸的理解
+                </div>
+                <div class="legend-item">
+                    <strong style="color: #f093fb;">層 3：QA 自動修正</strong><br/>
+                    翻譯完成後自動檢測，若不匹配則用 LANCZOS 重採樣調整 → **100% 保證精確**
+                </div>
+            </div>
+
+            <h3>📊 尺寸精度對比</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                <tr style="background: #f5f5f5;">
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>項目</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>v2.0.0 及以前</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>v2.1.0（新版）</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>改進</strong></td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>原圖尺寸</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">1920×2485</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">1920×2485</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">✅ 同步</td>
+                </tr>
+                <tr style="background: #f5f5f5;">
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>Gemini 直接輸出</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">1824×2336（-5%, -6%）</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">1824×2336（-5%, -6%）</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">📋 記錄完整</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>提示詞注入後</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">無（未實現）</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">預期 ±2% 改善</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">⬆️ 從源頭引導</td>
+                </tr>
+                <tr style="background: #f5f5f5;">
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>QA 自動修正後</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">無（僅記錄不修正）</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">1920×2485（100% 精確）</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">✅ **完全保證**</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>最終 PDF 頁面規格</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">與原始 PDF 不一致</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">與原始 PDF 完全相同</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">✅ **100% 匹配**</td>
+                </tr>
+            </table>
+
+            <h3>🚀 運作流程</h3>
+            <div class="code-block">
+# 完整流程（自動運作，無需手動干預）
+
+1️⃣ run2.sh "document.pdf"
+   └─ PDF → 圖檔，同時自動記錄每張原圖尺寸
+
+2️⃣ run3.sh "document/"
+   ├─ 層 1：計算每張的寬高比（如 384:497）
+   ├─ 層 2：注入到 bilingual.txt 提示詞中
+   ├─ 層 3：Gemini 翻譯
+   └─ 層 4：QA 自動檢測並修正尺寸 ✅
+
+3️⃣ run4.sh "cht-document/"
+   └─ 合併回 PDF，每頁規格 = 原圖規格 ✅
+            </div>
+        </div>
+
         <footer>
-            <p>📐 PDF2CHT v2.0.0 - 架構與流程可視化</p>
+            <p>📐 PDF2CHT v2.1.0 - 架構與流程可視化（新增尺寸精確匹配）</p>
             <p>更新時間：2026-01-26 | 查看完整文檔：<a href="README.md" style="color: #fff; text-decoration: underline;">README.md</a></p>
         </footer>
     </div>
