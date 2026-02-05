@@ -1,0 +1,1344 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>exam36 VTT 字幕校正工具 - 程式流程圖</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+            background: #f5f5f5;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .nav-tab:hover {
+            background: #efefef;
+        }
+
+        .nav-tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: white;
+        }
+
+        .content {
+            padding: 40px;
+            display: none;
+        }
+
+        .content.active {
+            display: block;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .flow-step {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .flow-step:hover {
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .flow-step.input {
+            border-left: 5px solid #4CAF50;
+            background: #f1f8f4;
+        }
+
+        .flow-step.process {
+            border-left: 5px solid #667eea;
+            background: #f0f4ff;
+        }
+
+        .flow-step.decision {
+            border-left: 5px solid #ff9800;
+            background: #fff8f0;
+        }
+
+        .flow-step.output {
+            border-left: 5px solid #2196F3;
+            background: #f0f7ff;
+        }
+
+        .flow-step h4 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .flow-step p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .step-code {
+            background: #f5f5f5;
+            border-left: 3px solid #667eea;
+            padding: 10px 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #667eea;
+        }
+
+        .timeline-item {
+            margin-left: 80px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -60px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            background: white;
+            border: 3px solid #667eea;
+            border-radius: 50%;
+        }
+
+        .timeline-item-time {
+            font-weight: bold;
+            color: #667eea;
+            font-family: 'Courier New', monospace;
+        }
+
+        .timeline-item-content {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+        }
+
+        .insight-box {
+            background: #fffbf0;
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .insight-box h3 {
+            color: #ff9800;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .insight-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .insight-box li {
+            padding: 8px 0;
+            color: #666;
+            line-height: 1.6;
+            border-bottom: 1px solid #ffe0b2;
+        }
+
+        .insight-box li:last-child {
+            border-bottom: none;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+
+        button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        button.secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        button.secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .data-flow-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+
+        .data-flow-table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .data-flow-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .data-flow-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .data-flow-table tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .comparison-box {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .comparison-box h4 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .comparison-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .comparison-box li {
+            padding: 8px 0;
+            color: #666;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .comparison-box li:last-child {
+            border-bottom: none;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            overflow-x: auto;
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+
+        .code-block .keyword {
+            color: #ff79c6;
+        }
+
+        .code-block .string {
+            color: #f1fa8c;
+        }
+
+        .code-block .comment {
+            color: #6272a4;
+        }
+
+        .code-block .function {
+            color: #8be9fd;
+        }
+
+        .expandable {
+            margin: 15px 0;
+        }
+
+        .expandable-header {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .expandable-header:hover {
+            background: #e8eeff;
+        }
+
+        .expandable-header.expanded {
+            background: #667eea;
+            color: white;
+        }
+
+        .expandable-content {
+            display: none;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-top: none;
+            padding: 20px;
+            border-radius: 0 0 6px 6px;
+        }
+
+        .expandable-content.visible {
+            display: block;
+        }
+
+        .icon {
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .nav-tab {
+                padding: 15px;
+                border-bottom: 3px solid transparent;
+                border-right: 3px solid transparent;
+            }
+
+            .nav-tab.active {
+                border-bottom: 3px solid #667eea;
+                border-right: 3px solid #667eea;
+            }
+
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+
+        .footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🎬 exam36 VTT 字幕校正工具</h1>
+            <p>程式流程與架構詳解</p>
+        </header>
+
+        <div class="nav-tabs">
+            <div class="nav-tab active" onclick="switchTab(0)">📊 完整流程圖</div>
+            <div class="nav-tab" onclick="switchTab(1)">🔄 執行模式</div>
+            <div class="nav-tab" onclick="switchTab(2)">7️⃣ 校正流程</div>
+            <div class="nav-tab" onclick="switchTab(3)">🤖 AI 層</div>
+            <div class="nav-tab" onclick="switchTab(4)">📈 時間線</div>
+            <div class="nav-tab" onclick="switchTab(5)">💡 核心設計</div>
+        </div>
+
+        <!-- TAB 1: 完整流程圖 -->
+        <div class="content active">
+            <div class="section">
+                <h2 class="section-title">📊 完整程式流程圖</h2>
+
+                <div class="mermaid">
+                    graph TD
+                    Start["🚀 開始<br />python -m src.main input.vtt"] --> ParseArgs["📝 解析命令行參數<br />create_parser"]
+                    ParseArgs --> ValidateArgs["✓ 驗證參數<br />- VTT 檔案存在<br />- 品質 0-1<br />- 迭代 >= 1"]
+                    ValidateArgs --> SetupLog["🔧 設置日誌<br />setup_logging"]
+                    SetupLog --> InitGemini["🤖 初始化 Gemini<br />GeminiClient"]
+                    InitGemini --> Decision1{"啟用 Ralph Loop?<br />--enable-ralph-loop"}
+
+                    Decision1 -->|YES| InitEngine["⚙️ 初始化 Ralph Loop<br />RalphLoopEngine"]
+                    Decision1 -->|NO| SinglePass["▶️ 單次校正"]
+
+                    InitEngine --> LoopStart["🔁 開始迭代循環"]
+                    LoopStart --> Correction["🔄 執行校正 (7 步驟)<br />correct_vtt_full"]
+                    Correction --> Evaluate["📊 評估品質分數<br />_evaluate_quality"]
+                    Evaluate --> CheckCompletion{"完成條件?<br />- 質量 >= 0.95<br />- 3次&lt;1% 改善<br />- 達到 max_iter"}
+
+                    CheckCompletion -->|完成| SaveFinal["💾 複製最終結果"]
+                    CheckCompletion -->|繼續| SaveIter["💾 保存迭代狀態<br />iterations/iter_i/"]
+                    SaveIter --> NextInput["➡️ 準備下次輸入<br />current_input = iter_i/corrected.vtt"]
+                    NextInput --> Correction
+
+                    SinglePass --> SaveFinal
+                    SaveFinal --> PrintResult["🖨️ 打印結果摘要<br />print_result_summary"]
+                    PrintResult --> Exit["✅ 完成<br />sys.exit(0)"]
+
+                </div>
+
+                <div class="flow-step process">
+                    <h4>🎯 主要流程特點</h4>
+                    <p>✓ 命令行解析 → 參數驗證 → 依條件分叉執行</p>
+                    <p>✓ Ralph Loop 模式：迭代至品質目標或收斂</p>
+                    <p>✓ 單次模式：一次性校正，無迭代</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: 執行模式對比 -->
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">🔄 雙執行模式詳解</h2>
+
+                <div class="comparison">
+                    <div class="comparison-box">
+                        <h4>🔁 Ralph Loop 模式 (推薦)</h4>
+                        <ul>
+                            <li>✓ 迭代改進至 95%+ 品質</li>
+                            <li>✓ 每次迭代保存完整狀態</li>
+                            <li>✓ 自動收斂判定</li>
+                            <li>✓ 生成迭代歷程記錄</li>
+                            <li>✓ 適合高品質要求</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-box">
+                        <h4>▶️ 單次校正模式</h4>
+                        <ul>
+                            <li>✓ 一次性執行 7 步驟</li>
+                            <li>✓ 速度快 (1-2 分鐘)</li>
+                            <li>✓ 成本低 (1 次 API 呼叫)</li>
+                            <li>✓ 適合快速預覽</li>
+                            <li>✓ 無迭代記錄</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 40px; margin-bottom: 20px;">Ralph Loop 核心迴圈</h3>
+
+                <div class="mermaid">
+                    graph LR
+                    A["迭代 i<br />correct_vtt_full"] --> B["評估品質<br />quality_score"]
+                    B --> C{"品質 >= 95%?"}
+                    C -->|是| D["✅ 完成"]
+                    C -->|否| E["保存狀態<br />iterations/iter_i/"]
+                    E --> F["使用 corrected.vtt<br />作為下次輸入"]
+                    F --> A
+                </div>
+
+                <table class="data-flow-table">
+                    <thead>
+                        <tr>
+                            <th>迭代元件</th>
+                            <th>說明</th>
+                            <th>輸出</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>輸入</strong></td>
+                            <td>迭代 1: 原始 input.vtt<br />迭代 n: iter_(n-1)/corrected.vtt</td>
+                            <td>VTT 檔案</td>
+                        </tr>
+                        <tr>
+                            <td><strong>校正引擎</strong></td>
+                            <td>執行 7 步驟流程</td>
+                            <td>修正後的 VTT + 記錄</td>
+                        </tr>
+                        <tr>
+                            <td><strong>品質評估</strong></td>
+                            <td>4 個加權指標 (40% + 20% + 30% + 10%)</td>
+                            <td>質分數 (0~1)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>完成判定</strong></td>
+                            <td>檢查 3 個條件：品質 / 收斂 / 次數</td>
+                            <td>繼續或停止</td>
+                        </tr>
+                        <tr>
+                            <td><strong>狀態持久化</strong></td>
+                            <td>保存到 iterations/iter_i/ 目錄</td>
+                            <td>完整的迭代記錄</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB 3: 7步驟校正流程 -->
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">7️⃣ VTT 校正流程詳解</h2>
+
+                <div class="mermaid">
+                    graph TD
+                    Input["📥 input.vtt"]
+                    Step1["⓵ STEP 1: 解析 VTT<br />parse_vtt<br />- 驗證 WEBVTT 標頭<br />- 提取時間戳<br />- 解析字幕文本"] --> Step2["⓶
+                    STEP 2: 主題偵測<br />detect_topic<br />- 智能採樣 (分布式)<br />- AI 識別領域+信心度<br />- 輸出: domain, keywords,
+                    confidence"]
+                    Step2 --> Step3["⓷ STEP 3: 術語提取<br />extract_terminology<br />- 採樣前 10 個 cue<br />- AI 提取專業詞彙<br />-
+                    建立術語表"]
+                    Step3 --> Step3_5["⓷.5 STEP 3.5: 術語回饋 🆕<br />refine_topic_with_terminology<br />- 交叉驗證術語與主題<br />-
+                    升級低信心領域"]
+                    Step3_5 --> Step4["⓸ STEP 4: 縮寫對照<br />map_abbreviations<br />- 啟發式: ALL-CAPS<br />- 與術語匹配<br />-
+                    建立縮寫表"]
+                    Step4 --> Step5["⓹ STEP 5: 批次校正 ⭐<br />correct_cues_batch<br />- 分批 (預設 75 cues)<br />- AI
+                    校正拼寫/文法<br />- 生成修正記錄"]
+                    Step5 --> Step6["⓺ STEP 6: 輸出生成<br />generate_outputs<br />- 寫入 corrected.vtt<br />- 寫入修正記錄"]
+                    Step6 --> Step7["⓻ STEP 7: 章節+摘要<br />generate_summary<br />- AI 生成 YouTube 章節<br />- AI 生成內容摘要"]
+                    Step7 --> Output["📤 Output<br />corrected.vtt + metadata"]
+                    Input --> Step1
+
+                </div>
+
+                <div style="margin-top: 40px;">
+                    <h3 style="margin-bottom: 20px;">🔍 各步驟詳細說明</h3>
+
+                    <div class="expandable">
+                        <div class="expandable-header" onclick="toggleExpandable(this)">
+                            <span class="icon">⓵</span> STEP 1: 解析 VTT
+                        </div>
+                        <div class="expandable-content">
+                            <p><strong>功能：</strong>讀取並驗證 VTT 檔案</p>
+                            <div class="step-code">parse_vtt(file_path: str) → VTTDocument</div>
+                            <p><strong>處理流程：</strong></p>
+                            <ul style="margin-left: 20px;">
+                                <li>✓ 檢查檔案存在性</li>
+                                <li>✓ 讀取 UTF-8 編碼</li>
+                                <li>✓ 驗證 "WEBVTT" 標頭</li>
+                                <li>✓ 解析時間戳格式 (HH:MM:SS.mmm)</li>
+                                <li>✓ 提取字幕文本</li>
+                            </ul>
+                            <p><strong>輸出：</strong>VTTDocument 對象</p>
+                            <div class="step-code">
+                                {
+                                header: "WEBVTT",
+                                cues: [
+                                VTTCue(index=1, start="00:00:01.000", end="00:00:05.000", text="..."),
+                                ...
+                                ],
+                                styles: [...],
+                                notes: [...]
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="expandable">
+                        <div class="expandable-header" onclick="toggleExpandable(this)">
+                            <span class="icon">⓶</span> STEP 2: 主題偵測
+                        </div>
+                        <div class="expandable-content">
+                            <p><strong>功能：</strong>用 AI 識別影片主題和領域</p>
+                            <div class="step-code">step2_detect_topic(doc: VTTDocument) → Dict</div>
+                            <p><strong>處理流程：</strong></p>
+                            <ul style="margin-left: 20px;">
+                                <li>✓ 採樣前 5 個字幕</li>
+                                <li>✓ 調用 Gemini API</li>
+                                <li>✓ 提示詞：識別領域和關鍵字</li>
+                                <li>✓ 解析 JSON 回應</li>
+                            </ul>
+                            <p><strong>輸出範例：</strong></p>
+                            <div class="step-code">
+                                {
+                                "topic": "鐵人賽頒獎典禮",
+                                "domain": "education",
+                                "keywords": ["競賽", "表彰", "技術"]
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="expandable">
+                        <div class="expandable-header" onclick="toggleExpandable(this)">
+                            <span class="icon">⓷</span> STEP 3: 術語提取
+                        </div>
+                        <div class="expandable-content">
+                            <p><strong>功能：</strong>提取領域專業術語</p>
+                            <div class="step-code">step3_extract_terminology(doc, topic) → Dict[str, str]</div>
+                            <p><strong>處理流程：</strong></p>
+                            <ul style="margin-left: 20px;">
+                                <li>✓ 採樣前 10 個字幕</li>
+                                <li>✓ 調用 AI (考慮領域)</li>
+                                <li>✓ 提示詞：提取術語定義</li>
+                            </ul>
+                            <p><strong>輸出範例：</strong></p>
+                            <div class="step-code">
+                                {
+                                "鐵人賽": "Iron Contest",
+                                "頒獎": "Award Ceremony",
+                                "AI": "Artificial Intelligence"
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="expandable">
+                        <div class="expandable-header" onclick="toggleExpandable(this)">
+                            <span class="icon">⓸</span> STEP 4: 縮寫對照
+                        </div>
+                        <div class="expandable-content">
+                            <p><strong>功能：</strong>建立縮寫 ↔ 全名映射表</p>
+                            <div class="step-code">step4_map_abbreviations(doc, terminology) → Dict</div>
+                            <p><strong>處理流程：</strong></p>
+                            <ul style="margin-left: 20px;">
+                                <li>✓ 啟發式: 全大寫 2-5 字</li>
+                                <li>✓ 與術語表交叉參考</li>
+                                <li>✓ 建立縮寫映射</li>
+                            </ul>
+                            <p><strong>輸出範例：</strong></p>
+                            <div class="step-code">
+                                {
+                                "AI": "人工智能",
+                                "ML": "機器學習",
+                                "API": "應用程式介面"
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="expandable">
+                        <div class="expandable-header" onclick="toggleExpandable(this)">
+                            <span class="icon">⓷.5</span> STEP 3.5: 術語回饋優化 🆕
+                        </div>
+                        <div class="expandable-content">
+                            <p><strong>功能：</strong>用術語分析結果優化主題判斷</p>
+                            <div class="step-code">step3_5_refine_topic_with_terminology(topic, terminology) → Dict
+                            </div>
+                            <p><strong>處理流程：</strong></p>
+                            <ul style="margin-left: 20px;">
+                                <li>✓ 交叉驗證術語與主題</li>
+                                <li>✓ 如發現專業術語比例高</li>
+                                <li>✓ 升級低信心領域判斷</li>
+                                <li>✓ 例: general→tech</li>
+                            </ul>
+                            <p><strong>設計理由：</strong></p>
+                            <p>Phase 3 新增的跨步驟回饋機制。當 STEP 2 識別出低信心 general 領域，但 STEP 3 提取出大量專業術語時，自動升級領域判斷，提高後續校正準確度。</p>
+                        </div>
+                    </div>
+
+                    <div class="expandable">
+                        <div class="expandable-header" onclick="toggleExpandable(this)">
+                            <span class="icon">⓹</span> STEP 5: 批次校正 ⭐ (核心)
+                        </div>
+                        <div class="expandable-content">
+                            <p><strong>功能：</strong>AI 批量校正拼寫、文法、標點</p>
+                            <div class="step-code">step5_correct_cues_batch(cues, batch_size=75) → Tuple</div>
+                            <p><strong>處理流程：</strong></p>
+                            <ul style="margin-left: 20px;">
+                                <li>✓ 分批處理 (預設 75 cues/批)</li>
+                                <li>✓ 調用 Gemini 校正</li>
+                                <li>✓ 提示詞包含術語表、縮寫表、領域知識</li>
+                                <li>✓ 返回修正後的字幕 + 修正記錄</li>
+                            </ul>
+                            <p><strong>輸出記錄格式：</strong></p>
+                            <div class="step-code">
+                                {
+                                "index": 5,
+                                "original": "鐵人賽頒奬典禮",
+                                "corrected": "鐵人賽頒獎典禮",
+                                "type": "typo",
+                                "confidence": 0.98
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="expandable">
+                        <div class="expandable-header" onclick="toggleExpandable(this)">
+                            <span class="icon">⓺</span> STEP 6: 輸出生成
+                        </div>
+                        <div class="expandable-content">
+                            <p><strong>功能：</strong>寫入校正後的檔案</p>
+                            <div class="step-code">step6_generate_outputs(doc, corrections) → Dict</div>
+                            <p><strong>產出檔案：</strong></p>
+                            <ul style="margin-left: 20px;">
+                                <li>✓ corrected.vtt (校正後字幕)</li>
+                                <li>✓ corrections.txt (修正清單)</li>
+                                <li>✓ terminology.json (術語表)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="expandable">
+                        <div class="expandable-header" onclick="toggleExpandable(this)">
+                            <span class="icon">⓻</span> STEP 7: 章節 + 摘要
+                        </div>
+                        <div class="expandable-content">
+                            <p><strong>功能：</strong>AI 生成 YouTube 章節和內容摘要</p>
+                            <div class="step-code">step7_generate_summary(doc) → Dict</div>
+                            <p><strong>處理流程：</strong></p>
+                            <ul style="margin-left: 20px;">
+                                <li>✓ 分析全文內容</li>
+                                <li>✓ AI 識別章節邊界</li>
+                                <li>✓ 生成摘要文本</li>
+                            </ul>
+                            <p><strong>輸出範例：</strong></p>
+                            <div class="step-code">
+                                chapters.txt:
+                                0:00 開場致詞
+                                2:30 技術競賽成果展示
+                                5:10 頒獎典禮
+
+                                summary.txt:
+                                本影片紀錄了第 36 屆鐵人賽頒獎典禮...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: AI 層 -->
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">🤖 AI 客戶端層 - 雙層備選方案</h2>
+
+                <div class="mermaid">
+                    graph TD
+                    Prompt["🔤 提示詞<br />需要 AI 回應"]
+                    Check{"Gemini<br />可用?"}
+
+                    Check -->|是| GeminiCall["📡 Gemini API 調用<br />- 模型: gemini-2.5-flash-lite<br />- Thinking Mode
+                    支援<br />- 成本: -50%"]
+                    Check -->|否| CopilotCall["🔄 Copilot CLI 備選<br />- 命令: copilot-cli<br />- 成本: 0"]
+
+                    GeminiCall --> GeminiSuccess{"成功?"}
+                    GeminiSuccess -->|是| Return1["✅ 返回回應"]
+                    GeminiSuccess -->|否<br />429等| Retry["⚠️ 重試或轉移"]
+
+                    Retry --> CopilotCall
+                    CopilotCall --> Return2["✅ 返回回應"]
+
+                    Return1 --> Parse["🔍 解析回應<br />- JSON 格式<br />- 自由文本"]
+                    Return2 --> Parse
+                    Parse --> Result["📤 返回結果"]
+
+                    Prompt --> Check
+
+                </div>
+
+                <div class="insight-box">
+                    <h3>🎯 雙層備選策略</h3>
+                    <ul>
+                        <li><strong>主層：gemini-2.5-flash-lite</strong> - 成本優化 50%，適合大規模處理</li>
+                        <li><strong>備選層：Copilot CLI</strong> - 完全零成本，自動轉移機制</li>
+                        <li><strong>自動故障轉移：</strong>API 配額耗盡 (429) 或超時時自動切換</li>
+                        <li><strong>多 Key 輪替：</strong>支援多組 API Key 輪流使用，分散配額壓力</li>
+                        <li><strong>Thinking Mode 🆕：</strong>支援深度思考模式，可設定思考預算</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin: 40px 0 20px 0;">API 呼叫時機</h3>
+
+                <table class="data-flow-table">
+                    <thead>
+                        <tr>
+                            <th>步驟</th>
+                            <th>提示詞內容</th>
+                            <th>回應格式</th>
+                            <th>用途</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>STEP 2</td>
+                            <td>識別影片領域和主題</td>
+                            <td>JSON: topic, domain, keywords</td>
+                            <td>設置上下文</td>
+                        </tr>
+                        <tr>
+                            <td>STEP 3</td>
+                            <td>提取專業術語定義</td>
+                            <td>JSON: 術語 → 定義映射</td>
+                            <td>建立術語表</td>
+                        </tr>
+                        <tr>
+                            <td>STEP 5 ⭐</td>
+                            <td>批量校正字幕<br />+ 術語表 + 縮寫表</td>
+                            <td>修正後文本 + 原文對比</td>
+                            <td>核心修正</td>
+                        </tr>
+                        <tr>
+                            <td>STEP 7</td>
+                            <td>生成章節和摘要</td>
+                            <td>章節清單 + 摘要文本</td>
+                            <td>增值服務</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="margin: 40px 0 20px 0;">提示詞工程</h3>
+
+                <div class="expandable">
+                    <div class="expandable-header" onclick="toggleExpandable(this)">
+                        <span class="icon">📄</span> STEP 5 批次校正的提示詞範例
+                    </div>
+                    <div class="expandable-content">
+                        <div class="code-block">
+                            <span class="comment"># 提示詞結構 (完整版)</span>
+
+                            親愛的 AI 助手，
+
+                            <span class="keyword">領域背景：</span>
+                            教育 / 技術講座
+
+                            <span class="keyword">術語表：</span>
+                            - 鐵人賽: Iron Contest
+                            - 頒獎: Award Ceremony
+
+                            <span class="keyword">縮寫表：</span>
+                            - AI: 人工智能
+                            - ML: 機器學習
+
+                            <span class="keyword">任務：</span>
+                            校正以下字幕文本，修正：
+                            1. 拼寫錯誤 (如 "奬" → "獎")
+                            2. 文法問題
+                            3. 標點符號
+                            4. 術語一致性
+
+                            <span class="keyword">字幕文本：</span>
+                            1. 鐵人賽頒奬典禮開始了
+                            2. 今年有許多優秀的選手參賽
+                            ...
+
+                            <span class="keyword">輸出格式：</span>
+                            校正後的文本，逐行編號。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: 時間線 -->
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">📈 執行時間線示例</h2>
+
+                <p style="margin-bottom: 20px; color: #666;">以下是一個實際執行場景的時間線，展示各階段耗時：</p>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-item-time">00:00</div>
+                        <div class="timeline-item-content">
+                            <strong>開始執行</strong><br>
+                            命令：<code>python -m src.main input.vtt --enable-ralph-loop --iterations 5 --quality-threshold 0.95</code>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-item-time">00:02</div>
+                        <div class="timeline-item-content">
+                            <strong>初始化完成</strong><br>
+                            ✓ 解析參數<br>
+                            ✓ 驗證 VTT 檔案<br>
+                            ✓ 初始化 Gemini 客戶端
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-item-time">00:05</div>
+                        <div class="timeline-item-content">
+                            <strong>迭代 1 - STEP 1-7</strong><br>
+                            ✓ 解析 VTT (1.2MB)<br>
+                            ✓ 主題偵測: education<br>
+                            ✓ 術語提取: 15 項<br>
+                            ✓ 批次校正 (4 批)
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-item-time">00:35</div>
+                        <div class="timeline-item-content">
+                            <strong>迭代 1 完成 - 品質評估</strong><br>
+                            ✓ 修正 33 項<br>
+                            ✓ 品質分數: 0.87 (87%)<br>
+                            ✓ 決策: 87% &lt; 95% → 繼續<br>
+                            📁 保存 iterations/iter_1/
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-item-time">00:36</div>
+                        <div class="timeline-item-content">
+                            <strong>迭代 2 - 開始</strong><br>
+                            使用 iterations/iter_1/corrected.vtt 作為輸入
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-item-time">01:08</div>
+                        <div class="timeline-item-content">
+                            <strong>迭代 2 完成</strong><br>
+                            ✓ 新增修正 12 項<br>
+                            ✓ 品質分數: 0.92 (92%)<br>
+                            ✓ 決策: 92% &lt; 95% → 繼續<br>
+                            📁 保存 iterations/iter_2/
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-item-time">01:40</div>
+                        <div class="timeline-item-content">
+                            <strong>迭代 3 完成</strong><br>
+                            ✓ 新增修正 5 項<br>
+                            ✓ 品質分數: 0.94 (94%)<br>
+                            ✓ 決策: 94% &lt; 95% → 繼續
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-item-time">02:12</div>
+                        <div class="timeline-item-content">
+                            <strong>迭代 4 完成</strong><br>
+                            ✓ 新增修正 2 項<br>
+                            ✓ 品質分數: 0.96 (96%) ← 🎉<br>
+                            ✓ 決策: 96% ≥ 95% → ✅ <strong>完成!</strong>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-item-time">02:13</div>
+                        <div class="timeline-item-content">
+                            <strong>結果處理</strong><br>
+                            ✓ 複製最終結果到 output/
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-item-time">02:14</div>
+                        <div class="timeline-item-content">
+                            <strong>✅ 完成</strong><br>
+                            <strong>輸出摘要：</strong><br>
+                            - 迭代次數: 4<br>
+                            - 最終品質: 96%<br>
+                            - 總修正: 52 項<br>
+                            - 耗時: 2 分 14 秒
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 40px;">
+                    <h3 style="margin-bottom: 20px;">📊 效能指標</h3>
+                    <table class="data-flow-table">
+                        <thead>
+                            <tr>
+                                <th>階段</th>
+                                <th>耗時</th>
+                                <th>輸出量</th>
+                                <th>成本</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>初始化</td>
+                                <td>2 秒</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>迭代 1</td>
+                                <td>30 秒</td>
+                                <td>33 項修正</td>
+                                <td>~$0.02</td>
+                            </tr>
+                            <tr>
+                                <td>迭代 2</td>
+                                <td>32 秒</td>
+                                <td>12 項修正</td>
+                                <td>~$0.02</td>
+                            </tr>
+                            <tr>
+                                <td>迭代 3</td>
+                                <td>32 秒</td>
+                                <td>5 項修正</td>
+                                <td>~$0.02</td>
+                            </tr>
+                            <tr>
+                                <td>迭代 4</td>
+                                <td>32 秒</td>
+                                <td>2 項修正</td>
+                                <td>~$0.02</td>
+                            </tr>
+                            <tr style="background: #f0f4ff; font-weight: bold;">
+                                <td>合計</td>
+                                <td>134 秒</td>
+                                <td>52 項修正</td>
+                                <td>~$0.08</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 6: 核心設計 -->
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">💡 核心設計原理 & 創新</h2>
+
+                <div class="insight-box">
+                    <h3>🌟 三大核心設計</h3>
+                    <ul>
+                        <li>
+                            <strong>1️⃣ Ralph Loop 迭代機制</strong><br>
+                            "進度存在於檔案系統，而非 LLM 上下文" — 每次迭代使用全新的 LLM，避免 token 累積問題。狀態持久化在 iterations/ 目錄中，確保可恢復性。
+                        </li>
+                        <li>
+                            <strong>2️⃣ 多維品質評估</strong><br>
+                            加權評分 = 錯誤密度 40% + 標點 20% + 術語一致 30% + 語意連貫 10%。避免單一指標的盲點，確保全面品質。
+                        </li>
+                        <li>
+                            <strong>3️⃣ 雙層 AI 備選</strong><br>
+                            Gemini Flash-Lite (-50% 成本) + Copilot CLI (0 成本)。自動故障轉移，配額管理，確保可用性。
+                        </li>
+                    </ul>
+                </div>
+
+                <h3 style="margin: 40px 0 20px 0;">🔄 收斂保證機制</h3>
+
+                <div class="flow-step process">
+                    <p><strong>完成條件（必須滿足其一）：</strong></p>
+                    <ul style="margin-left: 20px;">
+                        <li>✓ <strong>品質達標：</strong>quality_score ≥ 0.95</li>
+                        <li>✓ <strong>收斂判定：</strong>連續 3 次迭代改善 &lt; 1%</li>
+                        <li>✓ <strong>最大迭代：</strong>達到 max_iterations (預設 10)</li>
+                    </ul>
+                    <p style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
+                        這三層設計確保系統一定會終止，不會無限迴圈。
+                    </p>
+                </div>
+
+                <h3 style="margin: 40px 0 20px 0;">📚 7 步驟流程的設計理由</h3>
+
+                <table class="data-flow-table">
+                    <thead>
+                        <tr>
+                            <th>步驟</th>
+                            <th>目的</th>
+                            <th>設計理由</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1. 解析</strong></td>
+                            <td>結構化理解</td>
+                            <td>必須先解析才能進行後續操作</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. 主題</strong></td>
+                            <td>建立上下文</td>
+                            <td>讓 AI 知道領域背景，提高修正準確度</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. 術語</strong></td>
+                            <td>建立參考表</td>
+                            <td>確保專業術語一致，避免修改錯誤</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. 縮寫</strong></td>
+                            <td>縮寫標準化</td>
+                            <td>避免 AI 修改縮寫，保持專業格式</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5. 批次校正 ⭐</strong></td>
+                            <td>核心修正</td>
+                            <td>包含前 4 步的上下文，實現精準修正</td>
+                        </tr>
+                        <tr>
+                            <td><strong>6. 輸出</strong></td>
+                            <td>持久化</td>
+                            <td>保存結果，用於迭代和審計</td>
+                        </tr>
+                        <tr>
+                            <td><strong>7. 摘要</strong></td>
+                            <td>增值服務</td>
+                            <td>自動生成章節和摘要，提升效率</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 style="margin: 40px 0 20px 0;">⚡ 性能優化策略</h3>
+
+                <div class="comparison">
+                    <div class="comparison-box">
+                        <h4>批次處理</h4>
+                        <ul>
+                            <li>✓ 批量大小: 預設 75 cues</li>
+                            <li>✓ 可透過 .env 調整</li>
+                            <li>✓ 提升處理效率</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-box">
+                        <h4>快取策略</h4>
+                        <ul>
+                            <li>✓ 術語表快取</li>
+                            <li>✓ 縮寫表快取</li>
+                            <li>✓ 減少重複計算</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 style="margin: 40px 0 20px 0;">🛡️ 容錯設計</h3>
+
+                <div class="expandable">
+                    <div class="expandable-header" onclick="toggleExpandable(this)">
+                        <span class="icon">🔧</span> 故障轉移機制
+                    </div>
+                    <div class="expandable-content">
+                        <div class="code-block">
+                            <span class="comment"># 自動故障轉移流程</span>
+
+                            <span class="keyword">try:</span>
+                            response = gemini_client.call(prompt)
+                            <span class="keyword">except</span> (RateLimitError, TimeoutError):
+                            logger.warning(<span class="string">"Gemini 暫時不可用，切換到 Copilot"</span>)
+                            response = copilot_client.call(prompt)
+                            <span class="keyword">except</span> Exception as e:
+                            logger.error(<span class="string">"所有 AI 服務均不可用"</span>)
+                            <span class="keyword">raise</span>
+
+                            <span class="comment"># 多 API Key 輪替</span>
+                            api_keys = [key1, key2, key3, ...]
+                            <span class="keyword">for</span> key <span class="keyword">in</span> api_keys:
+                            <span class="keyword">try:</span>
+                            response = gemini_client.call(prompt, api_key=key)
+                            <span class="keyword">break</span> <span class="comment"># 成功即退出</span>
+                            <span class="keyword">except:</span>
+                            <span class="keyword">continue</span> <span class="comment"># 嘗試下一個 key</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="margin: 40px 0 20px 0;">📊 成本優化分析</h3>
+
+                <table class="data-flow-table">
+                    <thead>
+                        <tr>
+                            <th>方案</th>
+                            <th>模型</th>
+                            <th>批量 100 cues 成本</th>
+                            <th>年成本 (1M cues)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>❌ 標準方案</td>
+                            <td>Gemini Pro</td>
+                            <td>$0.04</td>
+                            <td>$400</td>
+                        </tr>
+                        <tr style="background: #f0f4ff;">
+                            <td>✅ 最優方案</td>
+                            <td>gemini-2.5-flash-lite</td>
+                            <td>$0.02 (-50%)</td>
+                            <td>$200</td>
+                        </tr>
+                        <tr style="background: #e8f5e9;">
+                            <td>🏆 零成本備選</td>
+                            <td>Copilot CLI</td>
+                            <td>$0 (免費)</td>
+                            <td>$0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2026 exam36 VTT 字幕校正工具 | Ralph Loop 迭代改進系統</p>
+            <p style="margin-top: 10px; font-size: 0.9em; color: #999;">此圖表由 HTML + Mermaid 生成 | 互動式設計便於理解</p>
+        </div>
+    </div>
+
+    <script>
+        // Backup original Mermaid source code before rendering
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.mermaid').forEach(function (el) {
+                // Store original source code
+                if (!el.getAttribute('data-source')) {
+                    el.setAttribute('data-source', el.textContent.trim());
+                }
+            });
+        });
+
+        async function renderMermaidInContainer(container) {
+            const mermaidNodes = container.querySelectorAll('.mermaid');
+            for (const node of mermaidNodes) {
+                const source = node.getAttribute('data-source');
+                if (source) {
+                    try {
+                        // Generate unique ID for each render
+                        const id = 'mermaid-' + Math.random().toString(36).substr(2, 9);
+                        const { svg } = await mermaid.render(id, source);
+                        node.innerHTML = svg;
+                    } catch (e) {
+                        console.error('Mermaid render error:', e);
+                    }
+                }
+            }
+        }
+
+        function switchTab(index) {
+            const tabs = document.querySelectorAll('.nav-tab');
+            const contents = document.querySelectorAll('.content');
+
+            tabs.forEach((tab, i) => {
+                tab.classList.toggle('active', i === index);
+            });
+
+            contents.forEach((content, i) => {
+                content.classList.toggle('active', i === index);
+            });
+
+            // Re-render Mermaid charts in the newly active tab
+            const activeContent = contents[index];
+            setTimeout(() => {
+                renderMermaidInContainer(activeContent);
+            }, 50);
+        }
+
+        function toggleExpandable(header) {
+            header.classList.toggle('expanded');
+            const content = header.nextElementSibling;
+            content.classList.toggle('visible');
+        }
+
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: false,  // Disable auto-start, we control rendering
+            theme: 'default',
+            fontFamily: 'Arial, sans-serif'
+        });
+
+        // Render initial active tab after page load
+        window.addEventListener('load', function () {
+            const activeContent = document.querySelector('.content.active');
+            if (activeContent) {
+                renderMermaidInContainer(activeContent);
+            }
+        });
+    </script>
+</body>
+
+</html>
