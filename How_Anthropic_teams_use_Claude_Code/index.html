@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -480,11 +479,15 @@ Claude Code for legal 21</p>
 <h3>Share prototypes despite imperfection</h3>
 <p>Overcome the urge to hide "toy" projects or unfinished work - sharing prototypes helps others see possibilities and sparks innovation across departments that don't typically interact.</p>
 <hr />
+<h2>原始文檔圖表</h2>
+<p><img alt="圖表 1" src="picture-1.jpg" /></p>
+<p><img alt="圖表 2" src="picture-2.jpg" /></p>
+<hr />
 <h2 id="zh-section">中文（繁體） 🇹🇼</h2>
 <h1>ANTHROPIC</h1>
 <h1>ANTHROPIC 團隊如何使用 Claude Code</h1>
 <hr />
-<h1>總覽</h1>
+<h1>內容</h1>
 <p>Claude Code 在資料基礎架構的應用 3<br />
 Claude Code 在產品開發的應用 5<br />
 Claude Code 在資安工程的應用 7<br />
@@ -497,314 +500,318 @@ Claude Code 在 RL 工程的應用 19<br />
 Claude Code 在法務的應用 21</p>
 <hr />
 <h1>Claude Code 在資料基礎架構的應用</h1>
-<p>資料基礎架構團隊負責整合公司內各團隊的商業資料。他們使用 Claude Code 自動化例行的資料工程任務，排除複雜的基礎架構問題，並為技術及非技術團隊成員創建有文件記錄的工作流程，以便他們能獨立存取及操作資料。</p>
+<p>資料基礎架構團隊負責公司跨團隊的業務資料組織。他們使用 Claude Code 自動化例行的資料工程任務、排除複雜的基礎架構問題，以及建立有文件記錄的工作流程，讓技術和非技術團隊成員能夠獨立存取和操作資料。</p>
 <h2>主要 Claude Code 用途</h2>
-<h3>結合截圖的 Kubernetes 除錯</h3>
-<p>當 Kubernetes 叢集故障且無法排程 pod 時，團隊使用 Claude Code 診斷問題。他們將儀表板的截圖輸入 Claude Code，Claude Code 則逐一引導他們操作 Google Cloud 的 UI 選單，直到找到指示 pod IP 位址耗盡的警告。接著，Claude Code 提供了創建新 IP 池並將其加入叢集的精確指令，省去了與網路專家協調的必要。</p>
-<h3>給財務團隊的純文字工作流程</h3>
-<p>該團隊向財務團隊成員展示如何編寫純文字檔案來描述他們資料工作流程，然後將這些檔案載入 Claude Code 以獲得完全自動化的執行。沒有程式設計經驗的員工可以描述諸如「查詢此儀表板、獲取資訊、執行這些查詢、產生 Excel 輸出」等步驟，Claude Code 將執行整個工作流程，包括詢問所需的輸入，如日期。</p>
-<h3>協助新進人員導覽程式碼庫</h3>
-<p>當新的資料科學家加入團隊時，他們會被指導使用 Claude Code 來導覽龐大的程式碼庫。Claude Code 會閱讀 Claude Code（文件）和檔案，識別特定任務的相關檔案，解釋資料管線的相依性，並協助新人理解哪些上游來源為儀表板提供資料。這取代了傳統的資料目錄和可發現性工具。</p>
-<h3>工作階段結束時的文件更新</h3>
-<p>團隊會要求 Claude Code 總結已完成的工作階段，並在每個任務結束時提出改進建議。這創造了一個持續改進的循環，Claude Code 根據實際使用情況協助完善 Claude Code.md 文件和工作流程說明，使後續的迭代更有效率。</p>
-<h3>跨多個執行個體的平行任務管理</h3>
-<p>在處理長時間執行的資料任務時，他們會在不同儲存庫中為不同專案開啟多個 Claude Code 執行個體。每個執行個體都維持完整的上下文，因此當他們在數小時或數天後切換回來時，Claude Code 會確切記住他們正在做什麼以及何時離開，從而能夠在不損失上下文的情況下進行真正的平行工作流程管理。</p>
+<h3>Kubernetes 除錯（附螢幕截圖）</h3>
+<p>當 Kubernetes 叢集發生故障且無法排程 pod 時，團隊使用 Claude Code 來診斷問題。他們將儀表板的螢幕截圖餵給 Claude Code，Claude Code 逐一導覽 Google Cloud 的 UI 選單，直到他們找到一個指示 pod IP 位址耗盡的警告。接著，Claude Code 提供了建立新 IP 池並將其新增至叢集的確切指令，從而無需網絡專家的介入。</p>
+<h3>財務團隊的純文字工作流程</h3>
+<p>該團隊向財務團隊成員展示如何編寫描述其資料工作流程的純文字檔案，然後將其載入 Claude Code 以實現完全自動化的執行。沒有程式設計經驗的員工可以描述諸如「查詢此儀表板、取得資訊、執行這些查詢、產生 Excel 輸出」等步驟，Claude Code 將會執行整個工作流程，包括要求輸入日期等必要資訊。</p>
+<h3>新進人員的程式碼庫導覽</h3>
+<p>當新的資料科學家加入團隊時，他們會被指示使用 Claude Code 來導覽龐大的程式碼庫。Claude Code 會閱讀 <code>Claude Code.md</code> 文件（文件），識別特定任務的相關檔案，解釋資料管線依賴關係，並幫助新成員了解哪些上游來源會饋入儀表板。這取代了傳統的資料目錄和可發現性工具。</p>
+<h3>休息期間文件更新</h3>
+<p>團隊要求 Claude Code 總結已完成的工作階段，並在每個任務結束時提出改進建議。這建立了一個持續改進的循環，Claude Code 根據實際使用情況幫助完善 <code>Claude Code.md</code> 文件和工作流程說明，使後續的迭代更加有效。</p>
+<h3>多個實例間的平行任務管理</h3>
+<p>處理長時間執行的資料任務時，他們會在不同儲存庫中為不同專案開啟多個 Claude Code 實例。每個實例都保持完整的上下文，因此當他們在數小時或數天後切換回來時，Claude Code 會確切記住他們正在做什麼以及何時離開，從而實現無上下文遺失的真正平行工作流程管理。</p>
 <hr />
 <h1>Claude Code 在資料基礎架構的應用</h1>
 <h2>團隊影響</h2>
-<h3>在無專業知識的情況下解決基礎架構問題</h3>
-<p>解決了通常需要系統或網路團隊成員協助的 Kubernetes 叢集問題，使用 Claude Code 診斷問題並提供精確的修復方案。</p>
+<h3>在無專業技術知識的情況下解決基礎架構問題</h3>
+<p>透過 Claude Code 診斷問題並提供確切的修復方法，解決了通常需要系統或網絡團隊成員介入的 Kubernetes 叢集問題。</p>
 <h3>加速導入流程</h3>
-<p>新的資料分析師和團隊成員能夠透過廣泛的快速指導，快速理解複雜系統並做出有意義的貢獻。</p>
+<p>新的資料分析師和團隊成員可以透過廣泛的快速指導，快速理解複雜系統並做出有意義的貢獻。</p>
 <h3>增強支援工作流程</h3>
-<p>能夠處理更大規模的資料量，並識別人類手動審核不可能發現的異常（例如監控 200 個儀表板）。</p>
+<p>能夠處理更大的資料量，並識別人類無法手動審核的異常（例如監控 200 個儀表板）。</p>
 <h3>實現跨團隊自助服務</h3>
 <p>沒有程式設計經驗的財務團隊現在可以獨立執行複雜的資料工作流程。</p>
-<h2>資料基礎架構團隊的 top tips</h2>
-<h3>編寫詳細的 Claude Code.md 檔案</h3>
-<p>您在 Claude Code.md 檔案中記錄工作流程、工具和期望的細節越多，Claude Code 的表現就越好。這使得 Claude Code 在設定新資料管線等例行任務上表現出色，特別是在有現成模式的情況下。</p>
-<h3>敏感資料使用 MCP 伺服器而非 CLI</h3>
-<p>他們建議使用 MCP 伺服器而非 BigQuery CLI，以維持對 Claude Code 可存取內容更好的安全控制，特別是處理需要記錄或存在潛在隱私疑慮的敏感資料時。</p>
-<h3>分享團隊使用階段</h3>
-<p>團隊會舉辦成員互相展示 Claude Code 工作流程的會議。這有助於傳播最佳實踐，並展示他們可能自行發現不到的不同工具使用方式。</p>
+<h2>資料基礎架構團隊的頂級秘訣</h2>
+<h3>編寫詳細的 <code>Claude Code.md</code> 檔案</h3>
+<p>您在 <code>Claude Code.md</code> 檔案中記錄工作流程、工具和預期的詳細程度越高，Claude Code 的表現就越好。這使得 Claude Code 在您已有模式時，能夠在設定新資料管線等例行任務方面表現出色。</p>
+<h3>使用 MCP 伺服器而非 CLI 處理敏感資料</h3>
+<p>他們建議使用 MCP 伺服器而非 BigQuery CLI，以保持對 Claude Code 可存取內容的更好安全控制，特別是在處理需要記錄或可能涉及隱私的敏感資料時。</p>
+<h3>分享團隊使用經驗</h3>
+<p>該團隊舉辦了成員之間互相展示 Claude Code 工作流程的會議。這有助於傳播最佳實踐，並展示了他們自己可能沒有發現的不同使用工具的方式。</p>
 <hr />
 <h1>Claude Code 在產品開發的應用</h1>
-<h2>Claude Code 團隊使用自家產品來開發 Claude Code 的升級功能，擴展了該產品的企業級功能和代理迴圈 (agentic loop) 的功能性。</h2>
+<h2>Claude Code 團隊利用自身產品來建構 Claude Code 的升級功能，擴展產品的企業級功能和代理循環（agentic loop）功能。</h2>
 <h2>主要 Claude Code 用途</h2>
-<h3>透過自動接受模式進行快速原型開發</h3>
-<p>工程師透過啟用「自動接受模式」（Shift+Tab）並設置自主迴圈，讓 Claude 撰寫程式碼、執行測試並持續迭代，來使用 Claude Code 進行快速原型開發。他們會給予 Claude 不熟悉的抽象問題，讓它自主工作，然後在接手進行最終調整之前，審核已完成 80% 的解決方案。團隊強調從乾淨的 git 狀態開始，並定期提交檢查點，以便在 Claude 偏離軌道時能輕鬆還原任何不正確的變更。</p>
-<h3>核心功能的同步編碼</h3>
-<p>對於涉及應用程式業務邏輯的更關鍵功能，團隊會與 Claude Code 同步工作，提供詳細的提示和具體的實施說明。他們會即時監控過程，以確保程式碼品質、學習 Claude 的遵循情況以及專案架構，同時讓 Claude 處理重複性的編碼工作。</p>
+<h3>快速原型開發（自動接受模式）</h3>
+<p>工程師透過啟用「自動接受模式」（shift+tab）並設定自主循環，讓 Claude Code 進行快速原型開發，Claude Code 會編寫程式碼、運行測試並持續迭代。他們會給予 Claude Code 不熟悉的抽象問題，讓它自主工作，然後審查完成 80% 的解決方案，再接手進行最後的微調。團隊強調從乾淨的 git 狀態開始，並定期提交檢查點，以便在 Claude Code 偏離軌道時能夠輕鬆復原任何錯誤的變更。</p>
+<h3>同步程式碼編寫以構建核心功能</h3>
+<p>對於涉及應用程式業務邏輯的更關鍵功能，團隊會與 Claude Code 同步工作，提供詳細的提示和具體的實施說明。他們會即時監控進度，以確保程式碼品質、Claude Code 的合規性以及專案架構，同時讓 Claude Code 處理重複的程式碼編寫工作。</p>
 <h3>建構 Vim 模式</h3>
-<p>其中一項最成功的非同步專案是為 Claude Code 實現 Vim 鍵盤綁定。他們要求 Claude 建構整個功能（儘管這不是優先事項），令人驚訝的是，70% 的最終實作來自 Claude 的自主工作，僅需幾次迭代即可完成。</p>
-<h3>測試生成與錯誤修正</h3>
-<p>在實作功能後，他們使用 Claude Code 編寫全面的測試，並處理合併請求審查中發現的簡單錯誤修正。他們也利用 GitHub Actions 的整合，讓 Claude 自動處理合併請求的評論，例如格式問題或函式重新命名。</p>
+<p>他們最成功的非同步專案之一是為 Claude Code 實作 Vim 鍵盤綁定。他們請 Claude 建置整個功能（儘管這不是優先事項），令人驚訝的是，最終實作的 70% 來自 Claude 的自主工作，僅需幾次迭代即可完成。</p>
+<h3>測試產生與錯誤修復</h3>
+<p>在實作功能後，他們使用 Claude Code 編寫完整的測試，並處理在 Pull Request 審查中發現的簡單錯誤修復。他們還利用 GitHub Actions 整合，讓 Claude 自動處理 Pull Request 的評論，例如格式問題或函數重新命名。</p>
 <h3>程式碼庫探索</h3>
-<p>在處理不熟悉的程式碼庫時（例如單體儲存庫或 API 端），團隊會使用 Claude Code 快速了解系統的運作方式。他們直接向 Claude 提問以獲取解釋和程式碼參考，而不是等待 Slack 的回覆，從而顯著節省了上下文切換的時間。</p>
+<p>在處理不熟悉的程式碼庫（例如 monorepo 或 API 端）時，團隊使用 Claude Code 快速了解系統的運作方式。與其等待 Slack 的回應，他們直接向 Claude 尋求解釋和程式碼參考，節省了大量的上下文切換時間。</p>
 <hr />
-<h1>Claude Code 在產品開發中的應用</h1>
+<h1>Claude Code 用於產品開發</h1>
 <h2>團隊影響</h2>
-<h3>更快速的功能實作</h3>
-<p>成功實作了諸如 Vim 模式等複雜功能，其中 70% 的程式碼由 Claude 自主撰寫。</p>
+<h3>更快的實作速度</h3>
+<p>成功實作了 Vim 模式等複雜功能，其中 70% 的程式碼由 Claude 自主編寫。</p>
 <h3>提升開發速度</h3>
-<p>能夠快速原型化功能並迭代想法，而不會陷入實作細節的泥淖。</p>
+<p>能夠快速原型化功能並迭代想法，而不會陷入實作細節的泥沼。</p>
 <h3>透過自動化測試提升程式碼品質</h3>
-<p>Claude 可生成全面的測試並處理例行的錯誤修正，在減少手動工作量的同時，維持高標準。</p>
+<p>Claude 會生成完整的測試並處理例行的錯誤修復，在降低手動工作量的同時維持高標準。</p>
 <h3>更好的程式碼庫探索</h3>
-<p>團隊成員無需等待同事的回覆，即可快速理解單體儲存庫中不熟悉的部份。</p>
-<h2>Claude Code 團隊的頂級建議</h2>
-<h3>建立自主循環</h3>
-<p>設定 Claude 自動執行建置、測試和 Lint，以驗證其自身的工作。這使得 Claude 能夠更長時間地自主工作並自行捕捉錯誤，尤其是在要求 Claude 在編寫程式碼前先生成測試時非常有效。</p>
+<p>團隊成員無需等待同事回應，即可快速了解 monorepo 中不熟悉的部分。</p>
+<h2>Claude Code 團隊的頂級秘訣</h2>
+<h3>建立自給自足的循環</h3>
+<p>設定 Claude 自動執行建置、測試和 Lint，以驗證自身工作。這使得 Claude 能夠更長時間地自主工作並自行捕捉錯誤，尤其是在您要求 Claude 在編寫程式碼之前生成測試時，效果特別顯著。</p>
 <h3>培養任務分類的直覺</h3>
-<p>學會區分適合非同步工作的任務（周邊功能、原型化）與需要同步監督的任務（核心業務邏輯、關鍵修復）。產品邊緣的抽象任務可以透過「自動接受模式」處理，而核心功能則需要更嚴密的監督。</p>
-<h3>形成清晰、詳細的提示</h3>
-<p>當元件具有相似的名稱或功能時，在您的請求中務必極度明確。提示越好、越詳細，您就越能信任 Claude 獨立工作，而不會對程式碼庫的錯誤部分產生意外變更。</p>
+<p>學會區分適合非同步工作的任務（周邊功能、原型製作）與需要同步監督的任務（核心業務邏輯、關鍵修復）。產品邊緣的抽象任務可以透過「自動接受模式」處理，而核心功能則需要更緊密的監督。</p>
+<h3>建立清晰、詳細的提示</h3>
+<p>當元件具有相似的名稱或功能時，請在您的請求中極度具體。您的提示越好、越詳細，您就越能信任 Claude 獨立工作，而不會對程式碼庫的錯誤部分產生意外變更。</p>
 <hr />
-<h1>Claude Code 在資安工程中的應用</h1>
-<h2>資安工程團隊專注於保護軟體開發生命週期、供應鏈安全以及開發環境安全。他們廣泛使用 Claude Code 編寫和偵錯程式碼。</h2>
+<h1>Claude Code 用於資安工程</h1>
+<h2>資安工程團隊專注於軟體開發生命週期、供應鏈安全以及開發環境安全的防護。他們廣泛使用 Claude Code 編寫和除錯程式碼。</h2>
 <h2>主要 Claude Code 使用案例</h2>
-<h3>複雜基礎架構偵錯</h3>
-<p>在處理事件時，他們首先將 Claude Code 的堆疊追蹤和文件輸入，以追蹤程式碼庫中的控制流程。這大大縮短了生產問題的解決時間，使他們能夠在約 5 分鐘內理解通常需要 10-15 分鐘手動掃描程式碼才能理解的問題。</p>
+<h3>複雜基礎架構除錯</h3>
+<p>在處理事件時，他們首先會將 Claude Code 的堆疊追蹤（stack traces）和文件，加入以追蹤程式碼庫的控制流程。這顯著縮短了生產問題的解決時間，讓他們能夠在約 5 分鐘內理解原本需要 10-15 分鐘手動掃描程式碼才能發現的問題。</p>
 <h3>Terraform 程式碼審查與分析</h3>
-<p>對於需要安全審核的基礎架構變更，他們將 Terraform 計劃複製到 Claude Code 中，詢問「這將做什麼？我會後悔嗎？」這創造了更緊密的迴響週期，並使資安團隊更容易快速審查和批准基礎架構變更，從而減少開發流程中的瓶頸。</p>
-<h3>文件彙整與執行手冊</h3>
-<p>他們讓 Claude Code 攝取多個文件來源，並創建 Markdown 執行手冊、故障排除指南和總覽。他們將這些精簡的文件作為偵錯實際問題的上下文，創造了一種比搜尋完整知識庫更有效率的工作流程。</p>
-<h3>測試驅動開發工作流程</h3>
-<p>取代他們之前的「設計文件 -&gt; 粗糙程式碼 -&gt; 重構 -&gt; 放棄測試」模式，他們現在要求 Claude Code 提供偽代碼，引導其進行測試驅動開發，並在卡住時定期檢查以進行指導，從而產生更可靠且可測試的程式碼。</p>
+<p>對於需要安全審核的基礎架構變更，他們將 Terraform 計劃（plans）複製到 Claude Code 中，詢問「這將做什麼？我會後悔嗎？」這創建了更緊密的反馈循環，讓資安團隊更容易快速審查和批准基礎架構變更，減少開發流程中的瓶頸。</p>
+<h3>文件整合與執行手冊（Runbooks）</h3>
+<p>他們讓 Claude Code 讀取多個文件來源，並建立 Markdown 格式的執行手冊、故障排除指南和概觀。他們將這些濃縮的文件作為除錯實際問題的上下文，創造了比搜尋完整知識庫更有效率的工作流程。</p>
+<h3>測試導向開發工作流程</h3>
+<p>與其先前的「設計文件 -&gt; 粗糙程式碼 -&gt; 重構 -&gt; 放棄測試」模式不同，他們現在要求 Claude Code 生成偽程式碼，引導其完成測試導向開發，並在卡關時偶爾介入以引導方向，從而產生更可靠、更可測試的程式碼。</p>
 <h3>上下文切換與專案導入</h3>
-<p>在為現有專案（例如「dependant」，一個用於安全審核工作流程的 Web 應用程式）做出貢獻時，他們使用 Claude Code 編寫、審查和執行 Markdown 格式並儲存在程式碼庫中的規格，從而在數天內做出有意義的貢獻，而非數週的上下文建立時間。</p>
+<p>在貢獻現有專案（如「dependant」，一個用於資安審核工作流程的 Web 應用程式）時，他們使用 Claude Code 編寫、審查和執行以 Markdown 編寫並儲存在程式碼庫中的規格，使他們能在幾天內做出有意義的貢獻，而不是數週的上下文建構。</p>
 <hr />
-<h1>Claude Code 在資安工程中的應用</h1>
+<h1>Claude Code 用於資安工程</h1>
 <h2>團隊影響</h2>
-<h3>縮短事件解決時間</h3>
-<p>原本需要 10-15 分鐘手動掃描程式碼的基礎架構偵錯，現在約需 5 分鐘即可完成。</p>
-<h3>改善安全審核週期</h3>
-<p>用於安全審核的 Terraform 程式碼審查速度更快，消除了開發人員在等待資安團隊批准時的阻礙。</p>
+<h3>減少事件解決時間</h3>
+<p>原本需要 10-15 分鐘手動掃描程式碼的基礎架構除錯，現在約需 5 分鐘。</p>
+<h3>改善安全審查週期</h3>
+<p>用於安全審核的 Terraform 程式碼審查速度更快，消除了開發人員在等待資安團隊審核期間的阻礙。</p>
 <h3>增強跨職能貢獻</h3>
-<p>團隊成員無需數週的上下文建立，即可在數天內為專案做出有意義的貢獻。</p>
+<p>團隊成員能在幾天內做出有意義的專案貢獻，而非數週的上下文建構。</p>
 <h3>更好的文件工作流程</h3>
-<p>從多個來源彙整的故障排除指南和執行手冊，創造了更有效率的偵錯流程。</p>
-<h2>資安工程團隊的頂級建議</h2>
-<h3>廣泛使用自訂斜線命令</h3>
-<p>資安工程團隊使用了整個單體儲存庫中所有自訂斜線命令實作的 50%。這些自訂命令簡化了特定的工作流程並加快了重複性任務的處理速度。</p>
+<p>從多個來源整合的故障排除指南和執行手冊，創造了更有效率的除錯流程。</p>
+<h2>資安工程團隊的頂級秘訣</h2>
+<h3>廣泛使用自訂斜線指令（Slash Commands）</h3>
+<p>資安工程團隊使用了整個 monorepo 中所有自訂斜線指令實作的 50%。這些自訂指令簡化了特定的工作流程，並加速了重複性任務。</p>
 <h3>讓 Claude 先開口</h3>
-<p>他們不再針對程式碼片段提出具體問題，而是要求 Claude Code「邊做邊提交您的工作」，讓它自主工作並定期檢查，從而產生更全面的解決方案。</p>
-<h3>利用其進行文件編寫</h3>
-<p>除了寫程式碼，Claude Code 在歸納文件和創建結構化輸出方面同樣表現出色。他們提供寫作範例和格式偏好，以產出可以直接用於 Slack、Google Docs 等工具的文件，避免切換介面的疲勞。</p>
+<p>與其詢問特定程式碼片段的目標性問題，他們現在指示 Claude Code「在進行過程中提交您的工作」，並讓它自主工作，僅需定期檢查，從而產生更全面的解決方案。</p>
+<h3>利用其進行文件撰寫</h3>
+<p>除了寫程式碼，Claude Code 在整合文件和產出結構化內容方面也表現出色。他們提供撰寫範例和格式偏好，以便立即在 Slack、Google Docs 等工具中使用，避免介面切換的疲勞。</p>
 <hr />
-<h1>Claude Code 用於推論 (Inference)</h1>
+<h1>Claude Code 用於推論</h1>
 <h2>Claude Code 的主要使用案例</h2>
-<h3>程式碼庫理解與導入 (Onboarding)</h3>
-<p>當團隊成員加入一個複雜的程式碼庫時，他們嚴重依賴 Claude Code 快速理解其架構。不再需要手動搜尋 GitHub 儲存庫，他們可以要求 Claude 查找呼叫特定功能的檔案，並在數秒內獲得結果，而非詢問同事或手動搜尋。</p>
-<h3>包含邊緣案例的單元測試生成</h3>
-<p>在撰寫核心功能後，他們會要求 Claude 編寫全面的單元測試。Claude 會自動涵蓋遺漏的邊緣案例，在幾分鐘內完成原本需要大量精神投入的工作，如同一個可供審閱的程式碼助手。</p>
+<h3>程式碼庫理解與導入 (onboarding)</h3>
+<p>當團隊成員加入一個複雜的程式碼庫時，他們嚴重依賴 Claude Code 來快速理解架構。與手動搜尋 GitHub 儲存庫相比，他們可以直接詢問 Claude 尋找呼叫特定功能的檔案，並在幾秒鐘內得到結果，而不是詢問同事或手動搜尋。</p>
+<h3>包含邊緣案例涵蓋範圍的單元測試生成</h3>
+<p>在撰寫核心功能後，他們會要求 Claude 撰寫詳盡的單元測試。Claude 會自動包含遺漏的邊緣案例，在幾分鐘內完成原本需要大量心力的工作，就像一個可以供他們審閱的程式碼助理。</p>
 <h3>機器學習概念解釋</h3>
-<p>在沒有機器學習背景的情況下，團隊成員依賴 Claude 解釋模型特定的功能和設定。原本需要一小時的 Google 搜尋和閱讀文件時間，現在只需 10-20 分鐘，研究時間減少了 80%。</p>
+<p>在沒有機器學習背景的情況下，團隊成員依賴 Claude 來解釋特定模型的函數和設定。這項工作原本需要花費一小時的時間進行 Google 搜尋和閱讀文件，現在只需要 10-20 分鐘，研究時間縮短了 80%。</p>
 <h3>跨語言程式碼翻譯</h3>
-<p>在測試不同程式語言的功能時，他們會說明想測試的內容，Claude 會以所需的語言（如 Rust）撰寫邏輯，無需為了測試目的而學習新語言。</p>
+<p>在測試不同程式語言的功能時，他們會說明測試目標，Claude 便會以所需的語言（例如 Rust）撰寫邏輯，無需為了測試目的而學習新語言。</p>
 <h3>指令回憶與 Kubernetes 管理</h3>
-<p>無需記憶複雜的 Kubernetes 指令，他們只需向 Claude 詢問正確的語法，例如「如何取得所有 Pod 或部署狀態」，就能獲得其基礎設施工作所需的精確指令。</p>
+<p>他們不再需要記憶複雜的 Kubernetes 指令，而是直接詢問 Claude 正確的語法，例如「如何取得所有 Pod 或部署狀態」，並收到基礎架構工作中所需的精確指令。</p>
 <hr />
 <h2>團隊影響</h2>
 <h3>加速機器學習概念學習</h3>
-<p>研究時間減少 80% - 原本需要一小時的 Google 搜尋，現在只需 10-20 分鐘。</p>
-<h3>更快地導覽程式碼庫</h3>
-<p>能在幾秒內找到相關檔案並理解系統架構，無需詢問同事。</p>
-<h3>全面的測試覆蓋率</h3>
-<p>Claude 能自動生成包含邊緣案例的單元測試，減輕精神負擔的同時維持程式碼品質。</p>
-<h3>消除語言障礙</h3>
-<p>無需學習即可在不熟悉的語言（如 Rust）中實現功能。</p>
-<h2>推論團隊的頂級建議</h2>
+<p>研究時間減少 80% - 原本需要一小時 Google 搜尋的時間，現在只需 10-20 分鐘。</p>
+<h3>更快速的程式碼庫導航</h3>
+<p>可在幾秒鐘內找到相關檔案並理解系統架構，無需詢問同事。</p>
+<h3>全面的測試涵蓋範圍</h3>
+<p>Claude 自動生成包含邊緣案例的單元測試，減輕心智負擔的同時維持程式碼品質。</p>
+<h3>消除語言隔閡</h3>
+<p>無需學習，也能在不熟悉的語言（如 Rust）中實作功能。</p>
+<h2>推論團隊提供的頂級秘訣</h2>
 <h3>先測試知識庫功能</h3>
-<p>嘗試提出各種問題，看看 Claude 能否比 Google 搜尋更快回答。如果它更快且更準確，那麼它就是您工作流程中一個有價值的時間節省工具。</p>
+<p>嘗試提出各種問題，看看 Claude 能否比 Google 搜尋更快地回答。如果它更快且更準確，那麼它就是您工作流程中寶貴的省時工具。</p>
 <h3>從程式碼生成開始</h3>
-<p>給予 Claude 明確的指示，要求它撰寫邏輯，然後驗證其正確性。這有助於在將其用於更複雜的任務之前，建立對工具能力的信任。</p>
-<h3>用於測試寫作</h3>
-<p>讓 Claude 編寫單元測試，可以顯著減輕日常開發工作的壓力。利用此功能，無需花時間手動思考所有測試案例，即可維持程式碼品質。</p>
+<p>給予 Claude 具體的指示，要求它撰寫邏輯，然後驗證其正確性。這有助於在將其用於更複雜的任務之前，建立對該工具功能的信任。</p>
+<h3>用於撰寫測試</h3>
+<p>讓 Claude 撰寫單元測試，可以減輕日常開發工作的巨大壓力。利用此功能，無需花費時間手動思考所有測試案例，即可維持程式碼品質。</p>
 <hr />
 <h1>Claude Code 用於資料科學與視覺化</h1>
 <h2>Claude Code 的主要使用案例</h2>
 <h3>建置 JavaScript/TypeScript 儀表板應用程式</h3>
-<p>儘管「JavaScript 和 TypeScript 的知識非常少」，但該團隊仍使用 Claude Code 建置完整的 React 應用程式，用於視覺化機器學習效能和訓練資料。他們讓 Claude 從頭開始撰寫完整的應用程式，例如一個 5,000 行的 TypeScript 應用程式，而無需自己理解程式碼。這一點至關重要，因為視覺化應用程式的上下文相對較少，不需要理解整個 monorepo，這使得能夠快速建置原型工具，以便在訓練和評估期間理解模型效能。</p>
-<h3>處理重複性的重構任務</h3>
-<p>當遇到合併衝突或半複雜的檔案重構時，這些任務對於編輯器宏而言過於複雜，但對於大規模的開發工作又顯得不夠大，他們將 Claude Code 視為「配對機」——提交其狀態，讓 Claude 自主工作 30 分鐘，如果解決方案不奏效，則接受該方案或重新開始。</p>
+<p>儘管團隊對 JavaScript 和 TypeScript 的了解「非常有限」，但他們使用 Claude Code 建置完整的 React 應用程式，用於視覺化機器學習效能和訓練資料。他們讓 Claude 能夠從頭開始編寫完整的應用程式，例如一個 5,000 行的 TypeScript 應用程式，而無需自己理解程式碼。這一點至關重要，因為視覺化應用程式的上下文相對較低，不需要理解整個 monorepo，這使得能夠快速原型化工具，以便在訓練和評估期間理解模型效能。</p>
+<h3>處理重複的重構任務</h3>
+<p>當面臨合併衝突或半複雜的檔案重構時，其複雜度已超出編輯器巨集處理範圍，但又不足以構成重大開發工作時，他們將 Claude Code 視為「配對機」——提交當前狀態，讓 Claude 自主工作 30 分鐘，若解決方案不適用，則接受其結果或從頭開始。</p>
 <h3>創建持久的分析工具，而非一次性筆記本</h3>
-<p>團隊不再建置一次性且會被丟棄的 Jupyter 筆記本，而是使用 Claude 建置可供未來模型評估重複使用的永久性 React 儀表板。這一點很重要，因為理解 Claude 的效能是「對團隊而言最重要的事情之一」——他們需要了解模型在訓練和評估期間的表現，「這實際上並非微不足道，簡單的工具無法從單一數字的上升中獲得太多訊號」。</p>
-<h3>無依賴的任務委派</h3>
-<p>對於完全不熟悉的程式碼庫或語言中的任務，他們將整個實施過程委派給 Claude Code，利用其從 monorepo 收集上下文的能力，並在他們不參與實際編碼過程的情況下執行任務。這使得在他們專業知識之外的領域也能保持生產力，而不是花時間學習新技術。</p>
+<p>團隊不再建置一次性且會被丟棄的 Jupyter 筆記本，而是使用 Claude 建置可重複使用的永久 React 儀表板，用於未來的模型評估。這一點很重要，因為理解 Claude 的效能是「團隊最重要的事項之一」——他們需要了解模型在訓練和評估期間的表現，「這實際上並不容易，簡單的工具無法從單一數字的上升中獲得太多訊號」。</p>
+<h3>無依賴性任務委派</h3>
+<p>對於完全不熟悉的程式碼庫或語言中的任務，他們將整個實作委派給 Claude Code，利用其從 monorepo 收集上下文的能力，無需他們參與實際編碼過程即可執行任務。這使他們能在專業知識之外的領域保持生產力，而不是花時間學習新技術。</p>
 <hr />
 <h2>團隊影響</h2>
 <h3>實現 2-4 倍的時間節省</h3>
-<p>過去繁瑣但可手動完成的例行重構任務，現在完成速度快得多。</p>
-<h3>在不熟悉的語言中建置複雜應用程式</h3>
-<p>儘管 JavaScript/TypeScript 經驗很少，但建置了 5,000 行的 TypeScript 應用程式。</p>
-<h3>從一次性工具轉向持久工具</h3>
-<p>不再使用一次性 Jupyter 筆記本，而是為模型分析建置可重複使用的 React 儀表板。</p>
-<h3>直接的模型的改進見解</h3>
-<p>第一手的 Claude Code 經驗為未來模型迭代的記憶系統和使用者體驗改進提供了開發方向。</p>
-<h3>實現視覺化驅動的決策</h3>
-<p>透過先進的資料視覺化工具，更深入地理解 Claude 在訓練和評估期間的效能。</p>
-<h2>資料科學與機器學習工程團隊的頂級建議</h2>
-<h3>把它當成吃角子老虎機</h3>
-<p>在讓 Claude 進行工作之前，請先儲存您的狀態，讓其執行 30 分鐘，然後接受結果或重新開始，而非試圖修正。重新開始通常比嘗試修正 Claude 的錯誤有更高的成功率。</p>
-<h3>必要時為了簡化而中斷</h3>
-<p>在監督時，請不要猶豫停止 Claude 並詢問「你為什麼這樣做？試試更簡單的」。該模型預設傾向於更複雜的解決方案，但能很好地回應對更簡單方法的請求。</p>
+<p>原本繁瑣但可手動完成的例行重構任務，現在完成速度快得多。</p>
+<h3>在不熟悉的語言中建置複雜的應用程式</h3>
+<p>儘管 JavaScript/TypeScript 經驗有限，仍建置了 5,000 行的 TypeScript 應用程式。</p>
+<h3>從一次性工具轉變為持久性工具</h3>
+<p>不再是可拋棄的 Jupyter 筆記本，現在為模型分析建置可重複使用的 React 儀表板。</p>
+<h3>直接的模型改進洞見</h3>
+<p>第一手的 Claude Code 經驗為未來模型迭代的記憶系統和使用者體驗改進提供了資訊。</p>
+<h3>實現視覺化驅動的決策制定</h3>
+<p>透過先進的資料視覺化工具，能更深入地了解 Claude 在訓練和評估期間的效能。</p>
+<h2>資料科學與機器學習工程團隊的頂級秘訣</h2>
+<h3>像對待老虎機一樣對待它</h3>
+<p>在讓 Claude 處理之前儲存您的狀態，讓它執行 30 分鐘，然後接受結果或重新開始，而不是試圖修正。重新開始通常比嘗試修復 Claude 的錯誤有更高的成功率。</p>
+<h3>在需要時以簡潔中斷</h3>
+<p>在監督時，請隨時停止 Claude 並詢問「您為什麼這樣做？嘗試更簡單的方法。」該模型預設傾向於更複雜的解決方案，但對於簡化的請求回應良好。</p>
 <hr />
 <h1>Claude Code for API</h1>
-<h2>Main Claude Code use cases</h2>
-<h3>First-step workflow planning</h3>
-<p>The team uses Claude Code as their "first stop" for any task, asking it to identify which files to examine for bug fixes, feature development, or analysis. This replaces the traditional time-consuming process of manually navigating the codebase and gathering context before starting work.</p>
-<h3>Independent debugging across codebases</h3>
-<p>The team now has the confidence to tackle bugs in unfamiliar parts of the codebase instead of asking others for help. They can ask Claude "Do you think you can fix this bug?" This is the behavior I'm seeing" and often get immediate progress, which wasn't feasible before given the time investment required.</p>
-<h3>Model iteration testing through dogfooding</h3>
-<p>Claude Code automatically uses the latest research model snapshots, making it their primary way of experiencing model changes. This gives them direct feedback on model behavior changes during development cycles, which they hadn't experienced before during previous launches.</p>
-<h3>Eliminating context-switching overhead</h3>
-<p>Instead of copying code snippets and dragging files into Claude.ai while explaining problems extensively, they can ask questions directly in Claude Code without additional context gathering, significantly reducing mental overhead.</p>
+<h2>主要 Claude Code 使用案例</h2>
+<h3>第一步工作流程規劃</h3>
+<p>該團隊將 Claude Code 作為任何任務的「第一站」，要求它識別用於錯誤修復、功能開發或分析的文件。這取代了傳統上耗時的手動瀏覽程式碼庫並在開始工作前收集上下文的過程。</p>
+<h3>跨程式碼庫的獨立除錯</h3>
+<p>該團隊現在有信心處理程式碼庫不熟悉部分的錯誤，而不是尋求他人協助。他們可以詢問 Claude「您認為您可以修復這個錯誤嗎？這是我看到的行為」，並且通常會立即取得進展，這在以前由於所需的時間投入而不可行。</p>
+<h3>透過內部測試進行模型迭代測試</h3>
+<p>Claude Code 會自動使用最新的研究模型快照，使其成為體驗模型變更的主要方式。這使他們能夠在開發週期中直接獲得模型行為變更的相關資訊，這是他們在過去的發布過程中未曾體驗過的。</p>
+<h3>消除內容切換開銷</h3>
+<p>與其複製程式碼片段並將文件拖曳到 Claude.ai 中進行廣泛解釋，不如直接在 Claude Code 中提問，無需額外收集內容，顯著降低了心理開銷。</p>
 <hr />
 <h1>Claude Code for API</h1>
-<h2>Team impact</h2>
-<h3>Increased confidence in tackling unfamiliar areas</h3>
-<p>Team members can independently debug bugs and investigate incidents in unfamiliar codebases.</p>
-<h3>Significant time savings in context gathering</h3>
-<p>Eliminated the overhead of copying code snippets and dragging files into Claude.ai, reducing mental context-switching burden.</p>
-<h3>Faster rotation onboarding</h3>
-<p>Engineers rotating to new teams can quickly navigate unfamiliar codebases and contribute meaningfully without extensive colleague consultation.</p>
-<h3>Enhanced developer happiness</h3>
-<p>Team reports feeling happier and more productive with reduced friction in daily workflows.</p>
-<h2>Top tips from the API Knowledge team</h2>
-<h3>Treat it as an iterative partner, not a one-shot solution</h3>
-<p>Rather than expecting Claude to solve problems immediately, approach it as a collaborator you iterate with. This works better than trying to get perfect solutions on the first try.</p>
-<h3>Use it for building confidence in unfamiliar areas</h3>
-<p>Don't hesitate to tackle bugs or investigate incidents outside your expertise - Claude Code makes it feasible to work independently in areas that would normally require extensive context building.</p>
-<h3>Start with minimal information</h3>
-<p>Begin with just the bare minimum of what you need and let Claude guide you through the process, rather than front-loading extensive explanations.</p>
+<h2>團隊影響</h2>
+<h3>增加處理不熟悉區域的信心</h3>
+<p>團隊成員可以獨立地除錯錯誤並在不熟悉的程式碼庫中調查事件。</p>
+<h3>在內容收集方面節省大量時間</h3>
+<p>消除了將程式碼片段複製並將文件拖曳到 Claude.ai 中的開銷，減輕了心理內容切換負擔。</p>
+<h3>更快的輪調上線</h3>
+<p>輪調到新團隊的工程師可以快速瀏覽不熟悉的程式碼庫，並在無需與同事廣泛協商的情況下做出有意義的貢獻。</p>
+<h3>提升開發者滿意度</h3>
+<p>團隊報告稱，透過減少日常工作流程中的摩擦，他們感到更快樂、更有效率。</p>
+<h2>API 知識團隊的頂級提示</h2>
+<h3>將其視為迭代夥伴，而非一次性解決方案</h3>
+<p>與其期望 Claude 立即解決問題，不如將其視為您需要迭代合作的夥伴。這比第一次就嘗試獲得完美的解決方案效果更好。</p>
+<h3>用於增強處理不熟悉區域的信心</h3>
+<p>請不要猶豫處理您專業知識之外的錯誤或調查事件 - Claude Code 使您能夠在通常需要大量內容建置的區域獨立工作。</p>
+<h3>從最少資訊開始</h3>
+<p>從您需要的最低限度開始，讓 Claude 引導您完成整個過程，而不是預先載入大量的解釋。</p>
 <hr />
 <h1>Claude Code for growth marketing</h1>
-<h2>Main Claude Code use cases</h2>
-<h3>Automated Google Ads creative generation</h3>
-<p>The team built an agentic workflow that processes CSV files containing hundreds of existing ads with performance metrics, identifies underperforming ads for iteration, and generates new variations that meet strict character limits (30 characters for headlines, 90 for descriptions). Using two specialized sub-agents (one for headlines, one for descriptions), the system can generate hundreds of new ads in minutes instead of requiring manual creation across multiple campaigns. This has enabled them to test and iterate at scale, something that would have taken a significant amount of time to achieve previously.</p>
-<h3>Figma plugin for mass creative production</h3>
-<p>Instead of manually duplicating and editing static images for paid social ads, they developed a Figma plugin that identifies frames and programmatically generates up to 10x variations for re-appropriating headlines and descriptions, reducing what would take hours of copy-pasting to half a second per batch. This enables 10x creative output, allowing the team to test vastly more creative variations across key social channels.</p>
-<h3>Meta Ads MCP server for campaign analytics</h3>
-<p>They created an MCP server integrated with Meta Ads API to query campaign performance, spending data, and ad effectiveness directly within the Claude Desktop app, eliminating the need to switch between platforms for performance analysis, saving critical time where every efficiency gain translates to better ROI.</p>
-<h3>Advanced prompt engineering with memory systems</h3>
-<p>They implemented a rudimentary memory system that allows log hypotheses and experiments across ad iterations, allowing the system to pull previous test results into context when generating new variations, creating a self-improving test framework. This enables systematic experimentation that would be impossible to track manually.</p>
+<h2>主要 Claude Code 使用案例</h2>
+<h3>自動化 Google Ads 創意生成</h3>
+<p>該團隊構建了一個代理工作流程，該工作流程會處理包含數百個現有廣告及其績效指標的 CSV 文件，識別表現不佳的廣告進行迭代，並生成符合嚴格字元限制（廣告標題 30 個字元，說明 90 個字元）的新變體。透過使用兩個專業的子代理（一個用於廣告標題，一個用於說明），該系統可以在幾分鐘內生成數百個新廣告，而不是需要跨多個廣告活動進行手動創建。這使他們能夠大規模測試和迭代，這在以前需要大量時間才能實現。</p>
+<h3>用於大規模創意製作的 Figma 外掛程式</h3>
+<p>與其手動複製和編輯付費社交廣告的靜態圖像，他們開發了一個 Figma 外掛程式，該外掛程式可以識別框架並以程式化的方式生成多達 10 倍的變體，以重新利用廣告標題和說明，將原本需要數小時複製貼上縮短到每批半秒。這使得創意產出增加了 10 倍，讓團隊能夠在關鍵的社交管道上測試更多創意變體。</p>
+<h3>用於廣告活動分析的 Meta Ads MCP 伺服器</h3>
+<p>他們創建了一個與 Meta Ads API 集成的 MCP 伺服器，可以直接在 Claude Desktop 應用程式中查詢廣告活動績效、支出數據和廣告有效性，無需在平台之間切換進行績效分析，節省了關鍵時間，因為每一次效率提升都轉化為更好的投資報酬率。</p>
+<h3>具有記憶系統的高級提示工程</h3>
+<p>他們實現了一個基本的記憶系統，該系統允許記錄廣告迭代之間的假設和實驗，使系統在生成新變體時能夠將之前的測試結果納入內容，從而創建一個自我改進的測試框架。這使得系統化實驗成為可能，而這些實驗手動追蹤是不可能實現的。</p>
 <hr />
 <h1>Claude Code for growth marketing</h1>
-<h2>Team impact</h2>
-<h3>Dramatic time savings on repetitive tasks</h3>
-<p>Ad copy reduction from 2 hours to 15 minutes, freeing up time for strategic work.</p>
-<h3>10x increase in creative output</h3>
-<p>The team can now test vastly more ad variations across channels with automated generation and Figma integration.</p>
-<h3>Operating like a larger team</h3>
-<p>The team can handle tasks that traditionally required dedicated engineering resources.</p>
-<h3>Strategic focus shift</h3>
-<p>The team can spend more time on overall strategy and building agentic automation rather than manual execution.</p>
-<h2>Top tips from the Growth Marketing team</h2>
-<h3>Identify API-enabled repetitive tasks</h3>
-<p>尋找涉及使用具有 API 的工具（例如廣告平台、設計工具、分析平台）的重複性工作的流程。這些是自動化的主要目標，也是 Claude Code 價值最高之處。</p>
-<h3>將複雜工作流程分解為專業子代理 (sub-agents)</h3>
-<p>與其試圖在單一提示 (prompt) 或工作流程中處理所有事情，不如為特定任務創建獨立的代理（例如，標題代理對比描述代理）。這有助於調試，並在處理複雜需求時提高輸出的品質。</p>
-<h3>在編寫程式碼前徹底進行腦力激盪和提示規劃</h3>
-<p>在 Claude.ai 上花費大量時間來構思您的整個工作流程，然後讓 Claude.ai 創建一個全面的提示和程式碼結構供 Claude Code 參考。同時，請逐步進行，而不是尋求一站式解決方案，以避免被複雜的任務壓垮。</p>
+<h2>團隊影響</h2>
+<h3>重複性任務大幅節省時間</h3>
+<p>廣告文案從 2 小時減少到 15 分鐘，將時間釋放出來用於策略性工作。</p>
+<h3>創意產出增加 10 倍</h3>
+<p>透過自動生成和 Figma 集成，該團隊現在可以在各個管道上測試更多的廣告變體。</p>
+<h3>像更大的團隊一樣運作</h3>
+<p>該團隊能夠處理傳統上需要專門工程資源才能完成的任務。</p>
+<h3>策略重點轉移</h3>
+<p>該團隊可以花更多時間在整體策略和構建代理自動化上，而不是手動執行。</p>
+<h2>成長行銷團隊的頂級提示</h2>
+<h3>識別啟用 API 的重複性任務</h3>
+<p>尋找涉及 API 工具（例如廣告平台、設計工具、分析平台）的重複性操作的工作流程。這些是自動化的首要候選者，也是 Claude Code 提供最大價值之處。</p>
+<h3>將複雜工作流程分解為專用子代理 (sub-agents)</h3>
+<p>與其試圖在單一提示 (prompt) 或工作流程中處理所有事務，不如為特定任務創建獨立的代理（例如，標題代理與描述代理）。這使得除錯 (debugging) 更容易，並在處理複雜需求時提高輸出品質。</p>
+<h3>在編寫程式碼前徹底腦力激盪並規劃提示</h3>
+<p>花費大量時間在 Claude.ai 上思考您的整個工作流程，然後讓 Claude.ai 創建一個供 Claude Code 參考的全面提示 (prompt) 和程式碼結構。此外，請逐步進行，而不是要求一次性解決方案，以避免被複雜任務壓垮。</p>
 <hr />
 <h1>Claude Code 應用於產品設計</h1>
 <h2>產品設計團隊</h2>
-<p>支持 Claude Code、Claude.ai 和 Anthropic AI 在專門構建 AI 產品方面。即使是非開發者也可以使用 Claude Code 來縮小設計和工程之間的傳統差距，從而無需與工程師進行大量來回溝通，即可直接實現其設計願景。</p>
+<p>支援 Claude Code、Claude.ai 和 Anthropic AI 專注於構建 AI 產品。即使是非開發人員也能使用 Claude Code 彌合設計與工程之間的傳統鴻溝，無需與工程師進行大量往返溝通，即可直接實現其設計願景。</p>
 <h2>Claude Code 的主要應用案例</h2>
-<h3>前端潤飾和狀態管理變更</h3>
-<p>現在，他們直接使用 Claude Code 實現這些變更，而不是創建廣泛的設計文檔並與工程師進行多次意見回饋循環來進行視覺調整（字體、顏色、間距）。工程師指出，他們正在進行「大型狀態管理變更，這通常不會看到設計師進行」，使他們能夠達到預期的確切品質。</p>
-<h3>GitHub Actions 自動化工單</h3>
-<p>透過使用 Claude Code 的 GitHub 整合，他們只需提交描述所需變更的問題/工單，Claude 就會自動提出程式碼解決方案，無需打開 Claude Code，為其持續積累的潤飾任務創建無縫的錯誤修復和功能改進工作流程。</p>
+<h3>前端細節優化與狀態管理變更</h3>
+<p>無需創建詳盡的設計文件，也無需與工程師就字體、顏色、間距等視覺調整進行多次審閱，現在他們直接使用 Claude Code 實現這些變更。工程師提到，他們正在進行「通常不會由設計師進行的大型狀態管理變更」，這使他們能夠實現所設想的精確品質。</p>
+<h3>GitHub Actions 自動化票務處理</h3>
+<p>透過使用 Claude Code 的 GitHub 整合功能，他們可以簡單地提交描述所需變更的問題/票務，Claude 會自動提出程式碼解決方案，而無需開啟 Claude Code，為他們持續積壓的細節優化任務創建無縫的錯誤修復和功能完善工作流程。</p>
 <h3>快速互動式原型製作</h3>
-<p>將模擬圖 (mockup) 圖片貼入 Claude Code，他們可以生成功能齊全的原型，工程師可以立即理解並進行迭代，取代了需要大量解釋和轉換為工作程式碼的傳統靜態 Figma 設計週期。</p>
-<h3>邊緣案例發現和系統架構理解</h3>
-<p>他們使用 Claude Code 來映射錯誤狀態、邏輯流程和不同的系統狀態，讓他們在設計階段就能識別出邊緣案例，而不是在開發後期才發現，從根本上提高了他們初始設計的品質。</p>
-<h3>複雜的文稿變更和法律合規性</h3>
-<p>對於跨整個程式碼庫移除「研究預覽」訊息等任務，他們使用 Claude Code 尋找所有實例，審查周圍的文稿，與法務部門即時協調變更，並實施更新——這個過程花費了兩次 30 分鐘的通話，而不是一週的來回協調。</p>
+<p>透過將設計稿圖片貼入 Claude Code，他們可以生成功能齊全的原型，工程師可以立即理解並進行迭代，取代了需要大量解釋和轉換為可執行程式碼的傳統靜態 Figma 設計週期。</p>
+<h3>邊緣案例 (edge case) 發現與系統架構理解</h3>
+<p>他們使用 Claude Code 來繪製錯誤狀態、邏輯流程和不同系統狀態的圖表，使他們能夠在設計階段識別邊緣案例，而不是在開發後期才發現，從根本上提高了他們初始設計的品質。</p>
+<h3>複雜的文案變更與法律合規</h3>
+<p>對於將整個程式碼庫中的「研究預覽」訊息移除等任務，他們使用 Claude Code 來查找所有出現的地方、審閱周圍的文案、與法務部門即時協調變更並實施更新——這個過程只需兩次 30 分鐘的通話，而不是一週的往返協調。</p>
 <hr />
 <h1>Claude Code 應用於產品設計</h1>
 <h2>團隊影響</h2>
-<h3>轉變核心工作流程</h3>
+<h3>核心工作流程轉型</h3>
 <p>Claude Code 成為主要的設計工具，Figma 和 Claude Code 開啟時間佔 80%。</p>
 <h3>執行速度提升 2-3 倍</h3>
-<p>過去需要與工程師進行大量來回溝通的視覺和狀態管理變更，現在可以直接實現。</p>
+<p>過去需要與工程師大量往返溝通的視覺和狀態管理變更，現在得以直接實現。</p>
 <h3>週到小時的週期時間</h3>
 <p>像 GA 發布訊息這樣的複雜專案，過去需要一週的協調時間，現在兩次 30 分鐘的通話即可完成。</p>
-<h3>兩種不同的使用者體驗</h3>
-<p>開發者獲得「增強工作流程」（執行速度更快），而非技術使用者則獲得「天啊，我是一名開發者工作流程」（以前不可能實現的全新功能）。</p>
-<h3>改善設計-工程協作</h3>
-<p>更好的溝通和更快的問題解決，因為設計師從一開始就理解系統的限制和可能性。</p>
+<h3>兩種截然不同的使用者體驗</h3>
+<p>開發人員獲得「增強型工作流程」（執行速度更快），而技術能力較弱的使用者則獲得「哇！我變成開發人員的工作流程」（以前不可能實現的全新功能）。</p>
+<h3>改善設計與工程協作</h3>
+<p>更好的溝通和更快的解決問題速度，因為設計師能夠預先了解系統的限制和可能性。</p>
 <h2>產品設計團隊的頂級秘訣</h2>
-<h3>獲得工程師的適當設置協助</h3>
-<p>讓工程師隊友協助進行初始儲存庫設置和權限設定——對於非開發者來說，技術入門具有挑戰性，但一旦配置好，它將對日常工作流程產生變革性影響。</p>
-<h3>使用自訂記憶檔案 (custom memory files) 來指導 Claude 的行為</h3>
-<p>創建具體的說明，告訴 Claude 您是一位編碼經驗很少的設計師，需要詳細的解釋和較小的、漸進式的變更，這大大提高了 Claude 回應的品質，並使其不那麼令人生畏。</p>
-<h3>利用圖像貼圖進行原型製作</h3>
-<p>使用 Command + V 將螢幕截圖直接貼到 Claude Code 中——它非常擅長讀取設計並生成功能程式碼，使其成為將靜態模擬圖轉換為工程師可以立即理解並建構之互動式原型的寶貴工具。</p>
+<h3>獲得工程師的適當設定協助</h3>
+<p>讓工程師同事協助進行初始儲存庫設定和權限配置——對於非開發人員來說，技術入門具有挑戰性，但一旦配置完成，它將為日常工作流程帶來轉變。</p>
+<h3>使用自訂記憶體檔案 (custom memory files) 引導 Claude 的行為</h3>
+<p>創建特定指示，告知 Claude 您是一位編碼經驗較少、需要詳細解釋和小型、漸進式變更的設計師，這將大大提高 Claude 回應的品質，並使其不那麼令人生畏。</p>
+<h3>利用圖片貼入進行原型製作</h3>
+<p>使用 Command + V 將螢幕截圖直接貼入 Claude Code——它在讀取設計和生成可執行程式碼方面表現出色，對於將靜態設計稿轉化為工程師可以立即理解並在其上進行構建的互動式原型至關重要。</p>
 <hr />
 <h1>Claude Code 應用於 RL 工程</h1>
 <h2>RL 工程團隊</h2>
-<p>專注於 RL 中的高效採樣和跨叢集的權重轉移。他們使用 Claude Code 來處理中等規模的特徵、調試以及透過包含頻繁檢查點和回滾的迭代方法來理解複雜的程式碼庫。</p>
+<p>專注於 RL 中的高效採樣和叢集 (cluster) 間的權重轉移。他們使用 Claude Code 來進行中等規模的功能開發、除錯 (debugging) 和理解複雜程式碼庫，採用包含頻繁檢查點 (checkpointing) 和回滾 (rollbacks) 的迭代方法。</p>
 <h2>Claude Code 的主要應用案例</h2>
-<h3>帶有監督式自主性的特徵開發</h3>
-<p>團隊讓 Claude 編寫中小型特徵的大部分程式碼，同時提供監督，例如為權重轉移元件實施身份驗證機制。他們以互動方式工作，讓 Claude 引領，但在它偏離軌道時進行引導。</p>
-<h3>測試生成和程式碼審查</h3>
-<p>在自行實施變更後，他們要求 Claude Code 添加測試或審查他們的程式碼。這種自動化測試工作流程節省了例行但重要的品質保證任務的時間。</p>
-<h3>調試和錯誤調查</h3>
-<p>他們使用 Claude Code 來調試錯誤，結果好壞參半——有時它可以立即識別問題並添加相關測試，而其他時候它難以理解問題，但總體而言，當它起作用時會提供價值。</p>
+<h3>透過監督式自主 (supervised autonomy) 進行功能開發</h3>
+<p>團隊讓 Claude 編寫大部分中小型功能的程式碼，同時提供監督，例如為權重轉移組件實施身份驗證 (authentication) 機制。他們以互動方式工作，讓 Claude 牽頭，但在它偏離軌道時進行引導。</p>
+<h3>測試生成與程式碼審查</h3>
+<p>在自行實施變更後，他們要求 Claude Code 添加測試或審查他們的程式碼。這種自動化測試工作流程節省了日常但重要的品質保證任務的大量時間。</p>
+<h3>除錯與錯誤調查</h3>
+<p>他們使用 Claude Code 來除錯錯誤，結果好壞參半——有時它能立即識別問題並添加相關測試，而其他時候它難以理解問題，但總體而言，當它奏效時能提供價值。</p>
 <h3>程式碼庫理解與呼叫堆疊分析</h3>
-<p>他們工作流程中最大的改變之一是使用 Claude Code 來快速摘要相關組件和呼叫堆疊，取代手動閱讀程式碼或生成大量的除錯輸出。</p>
-<h3>Kubernetes 操作指南</h3>
-<p>他們經常向 Claude Code 詢問原本需要大量 Google 搜尋才能找到的 Kubernetes 操作資訊，並針對組態和部署問題獲得即時解答。</p>
+<p>他們工作流程中最大的改變之一是使用 Claude Code 來快速摘要相關元件和呼叫堆疊，取代了手動閱讀程式碼或生成大量除錯輸出。</p>
+<h3>Kubernetes 操作指導</h3>
+<p>他們經常向 Claude Code 詢問 Kubernetes 操作相關問題，這些問題若沒有 Claude 則需要耗費大量時間搜尋，現在能立即獲得配置和部署問題的答案。</p>
 <hr />
 <h1>Claude Code 在 RL 工程中的應用</h1>
 <h2>開發工作流程影響</h2>
 <h3>實現實驗性方法</h3>
-<p>他們現在採用「試行後回滾」的開發模式，頻繁提交檢查點，以便測試 Claude 的自主實現嘗試，並在需要時進行回滾，從而實現更具實驗性的開發。</p>
-<h3>加速文件撰寫</h3>
-<p>Claude Code 會自動添加有用的註解，節省大量的文檔撰寫時間，儘管他們也注意到有時註解會出現在奇怪的位置，或使用有疑慮的程式碼組織方式。</p>
+<p>他們現在採用「試行並回滾」的方法，頻繁提交檢查點（checkpoints），以便測試 Claude 的自主實施嘗試，並在需要時進行復原，從而實現更多實驗性開發。</p>
+<h3>文件加速</h3>
+<p>Claude Code 會自動添加有用的註解，節省大量文件編寫時間，儘管他們也提到 Claude 有時會在不尋當的地方添加註解，或使用可疑的程式碼組織方式。</p>
 <h3>速度提升與限制</h3>
-<p>雖然 Claude Code 可以在他們花費「相對較少時間」的情況下實現中小型 PR，但他們承認它大約只有三分之一的機率第一次就能成功，這需要額外的指導或手動介入。</p>
-<h2>RL 工程團隊的頂級建議</h2>
-<h3>自訂您的 Claude.md 檔案以處理特定模式</h3>
-<p>在您的 Claude.md 檔案中添加指示，以防止 Claude 重複犯下工具呼叫錯誤，例如告訴它「執行 pytest 而非執行，且不要不必要地 <code>cd</code> - 只需使用正確的路徑」。這顯著提高了一致性。</p>
-<h3>使用大量檢查點的工作流程</h3>
-<p>當 Claude 進行變更時，定期提交您的工作，以便在實驗失敗時輕鬆回滾。這使得開發能夠更具實驗性，而無風險。</p>
+<p>雖然 Claude Code 可以在他們花費「相對較少時間」的情況下實施小型到中型的 PR（Pull Request），但他們承認 Claude 僅有大約三分之一的時間能一次成功，這需要額外的指導或手動干預。</p>
+<h2>RL 工程團隊的頂級提示</h2>
+<h3>自訂你的 Claude.md 檔案以獲得特定模式</h3>
+<p>在你的 Claude.md 檔案中添加指示，以防止 Claude 重複犯工具呼叫錯誤，例如指示它「執行 pytest 而非執行，且不要不必要地 cd（切換目錄）- 只需使用正確的路徑」。這極大地提高了程式碼的一致性。</p>
+<h3>使用密集檢查點的工作流程</h3>
+<p>在 Claude 進行變更時定期提交你的工作，以便在實驗不成功時輕鬆回滾。這使開發能以更實驗性的方式進行，而沒有風險。</p>
 <h3>先嘗試一次性提示，然後協作</h3>
-<p>給 Claude 一個快速的提示，讓它先嘗試完整實現。如果成功（大約三分之一的機率），您就節省了大量時間。如果不行，則切換到更具協作性、指導性的方法。</p>
+<p>給 Claude 一個簡短的提示，讓它先嘗試完整的實施。如果成功（大約有三分之一的機率），你就節省了大量時間。如果失敗，則切換到更具協作性和指導性的方法。</p>
 <hr />
 <h1>Claude Code 在法律領域的應用</h1>
 <h2>主要 Claude Code 使用案例</h2>
-<h3>為家庭成員客製化輔助溝通解決方案</h3>
-<p>團隊成員為因醫療診斷而有言語困難的家庭成員構建了溝通輔助工具。他們僅用一小時就利用原生的語音轉文字功能建立了一個預測性文字應用程式，該程式可以建議回覆並使用語音庫進行朗讀，解決了語言治療師推薦的現有輔助工具的不足之處。</p>
-<h3>法律部門工作流程自動化</h3>
-<p>他們創建了原型「電話樹」系統，以協助團隊成員聯繫到 Anthropic 的合適律師，展示了法律部門如何在沒有傳統開發資源的情況下，為常見任務構建客製化工具。</p>
+<h3>為家庭成員客製化輔助溝通方案</h3>
+<p>團隊成員為因醫療診斷而有說話困難的家庭成員建構了溝通輔助工具。僅用一小時，他們就使用原生的語音轉文字（speech-to-text）創建了一個預測性文字應用程式，該應用程式會建議回覆並使用語音庫發聲，解決了語言治療師推薦的現有輔助工具的不足。</p>
+<h3>自動化法務部門工作流程</h3>
+<p>他們建立了原型「電話樹」系統，幫助團隊成員聯繫到 Anthropic 的合適律師，展示了法務部門如何在沒有傳統開發資源的情況下，為常見任務建構客製化工具。</p>
 <h3>團隊協調工具</h3>
-<p>管理者構建了 G Suite 應用程式，自動化每週團隊更新並跨產品追蹤法律審核狀態，讓律師能夠透過簡單的按鈕點擊快速標記需要審核的項目，而不是依賴試算表管理。</p>
+<p>管理者建構了 G Suite 應用程式，可自動化每週團隊更新並追蹤產品的法律審查狀態，讓律師能夠透過簡單的按鈕點擊快速標記需要審查的項目，而不是進行試算表管理。</p>
 <h3>快速原型驗證解決方案</h3>
-<p>他們使用 Claude Code 快速建構功能原型，可以展示給領域專家（例如向 UCSF 專家展示輔助溝通工具），以驗證想法並在投入更多時間之前識別現有解決方案。</p>
+<p>他們使用 Claude Code 快速建構功能性原型，可以向領域專家展示（例如向 UCSF 專家展示輔助溝通工具），以驗證想法並在投入更多時間之前識別現有解決方案。</p>
 <hr />
 <h1>Claude Code 在法律領域的應用</h1>
 <h2>工作風格與影響</h2>
 <h3>在 Claude.ai 中規劃，在 Claude Code 中建構</h3>
-<p>他們採用兩階段流程，首先使用 Claude.ai 進行構思和規劃，然後轉移到 Claude Code 進行實現，要求它放慢速度並逐步工作，而不是一次性輸出所有內容。</p>
+<p>他們採用兩步驟流程，先與 Claude.ai 進行腦力激盪和規劃，然後轉移到 Claude Code 進行實施，要求它放慢速度並逐步進行，而不是一次輸出所有內容。</p>
 <h3>視覺優先方法</h3>
-<p>他們經常使用螢幕截圖向 Claude Code 展示他們期望的介面樣貌，然後基於視覺回饋進行迭代，而不是用文字描述功能。</p>
-<h3>原型驅動創新</h3>
-<p>他們強調克服分享「愚蠢」或「玩具」原型品的恐懼，因為這些演示啟發了他人看到他們以前未曾考慮到的可能性。</p>
+<p>他們經常使用螢幕截圖向 Claude Code 展示他們期望的介面外觀，然後根據視覺回饋進行迭代，而不是用文字描述功能。</p>
+<h3>原型驅動的創新</h3>
+<p>他們強調克服分享「愚蠢」或「玩具」原型的恐懼，因為這些演示能啟發他人看到他們之前未曾考慮到的可能性。</p>
 <h2>資安與合規意識</h2>
-<h3>MCP 整合擔憂</h3>
-<p>作為產品律師，他們立即識別出深度 MCP 整合的資安影響，並指出保守的資安策略將會構成障礙，因為 AI 工具會存取更敏感的系統。</p>
-<h3>合規工具優先級</h3>
-<p>隨著 AI 能力的擴展，他們主張快速建構合規工具，認識到創新與風險管理之間的平衡。</p>
-<h2>法律部門的頂級建議</h2>
+<h3>MCP 整合疑慮</h3>
+<p>身為產品律師，他們立即意識到深度 MCP 整合所帶來的資安影響，並指出保守的資安策略將會在 AI 工具存取更多敏感系統時造成障礙。</p>
+<h3>合規工具優先順序</h3>
+<p>隨著 AI 功能的擴展，他們主張快速建構合規工具，認識到創新與風險管理之間的平衡。</p>
+<h2>法務部門的頂級提示</h2>
 <h3>先在 Claude.ai 中進行廣泛規劃</h3>
-<p>利用 Claude 的對話介面，在轉移到 Claude Code 之前，將您的整個想法詳細闡述清楚。然後要求 Claude 將所有內容總結成一個逐步執行的提示，以便實現。</p>
-<h3>循序漸進地以視覺化方式工作</h3>
-<p>要求 Claude Code 放慢速度，一次只實現一個步驟，這樣您可以輕鬆複製貼上，而不會感到不知所措。大量使用螢幕截圖來展示您期望的介面樣貌。</p>
-<h3>儘管不完美也要分享原型</h3>
-<p>克服隱藏「玩具」專案或未完成工作的衝動——分享原型有助於他人看到可能性，並激發跨部門之間的創新，而這些部門通常不會互動。</p>
+<p>使用 Claude 的對話介面，在轉移到 Claude Code 之前，將你的整個想法細緻化。然後要求 Claude 將所有內容總結成一個逐步實施的提示。</p>
+<h3>逐步且視覺化地工作</h3>
+<p>要求 Claude Code 放慢速度，一次實施一個步驟，這樣你就可以複製貼上而不會感到不知所措。大量使用螢幕截圖來展示你期望的介面外觀。</p>
+<h3>即使不完美也要分享原型</h3>
+<p>克服隱藏「玩具」專案或未完成工作的衝動——分享原型有助於他人看到可能性，並激發不同部門之間的創新。</p>
+<hr />
+<h2>原始文檔圖表</h2>
+<p><img alt="圖表 1" src="picture-1.jpg" /></p>
+<p><img alt="圖表 2" src="picture-2.jpg" /></p>
 </main>
 
 </body>
