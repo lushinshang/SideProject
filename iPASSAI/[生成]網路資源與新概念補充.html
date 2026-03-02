@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>iPAS AI初級 網路資源與新概念補充</title>
+  <style>
+:root{--bg:#ffffff;--surface:#ffffff;--muted:#6b7280;--text:#0f172a;--accent:#0366d6;--code-bg:#0f172a10;--border:#e6edf3}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:#f6f8fa;color:var(--text);font-family:Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;line-height:1.7;-webkit-font-smoothing:antialiased}
+.container{max-width:980px;margin:28px auto;padding:24px;background:var(--surface);border-radius:10px;box-shadow:0 6px 18px rgba(15,23,42,0.06);}
+header{margin-bottom:12px}
+h1{font-size:28px;margin:0 0 8px}
+h2{font-size:22px;margin:20px 0 8px}
+h3{font-size:18px;margin:18px 0 8px}
+p{color:var(--text);margin:0 0 12px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+code{background:var(--code-bg);padding:.15em .4em;border-radius:6px;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;font-size:0.95em}
+pre{background:#0b1220; color:#e6eef8;padding:12px;border-radius:8px;overflow:auto}
+pre code{background:transparent;color:inherit;padding:0}
+.table-wrap{overflow:auto;margin:12px 0}
+table{width:100%;border-collapse:collapse}
+th,td{padding:8px 12px;border:1px solid var(--border);text-align:left}
+th{background:#f3f6fb}
+ul,ol{margin:0 0 12px 20px}
+blockquote{margin:0 0 12px;padding-left:14px;border-left:3px solid #e2e8f0;color:var(--muted)}
+img{max-width:100%;height:auto;border-radius:6px}
+footer{margin-top:18px;color:var(--muted);font-size:14px}
+@media (max-width:600px){.container{margin:12px;padding:16px}h1{font-size:22px}h2{font-size:18px}}
+</style>
+</head>
+<body>
+  <main class="container">
+    <header><h1>iPAS AI初級 網路資源與新概念補充</h1></header>
+    <article>
+<blockquote>
+<p>互動式學習導讀 | 🎯 學習目標：1 個</p>
+<p>整理時間：2026年<br>
+資料來源：LINE社群對話、CCChen方格子專欄、gyozalab、web搜尋</p>
+</blockquote>
+<h2>一、社群推薦學習資源清單</h2>
+<table>
+<thead>
+<tr>
+<th>資源名稱</th>
+<th>URL/說明</th>
+<th>類型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EJ高雄 YouTube頻道</strong></td>
+<td>https://www.youtube.com/@iPAS-AIAPC</td>
+<td>影音教材（初中級考題解析）</td>
+</tr>
+<tr>
+<td><strong>CCChen 方格子：新手考生指南</strong></td>
+<td>https://vocus.cc/article/695f29dcfd89780001822622</td>
+<td>備考策略文章</td>
+</tr>
+<tr>
+<td><strong>CCChen 方格子：AI-900考試整理</strong></td>
+<td>https://vocus.cc/article/6852d270fd89780001e1f931</td>
+<td>相關證照參考</td>
+</tr>
+<tr>
+<td><strong>CCChen 方格子：AI人才年會觀察</strong></td>
+<td>https://vocus.cc/article/6964413bfd897800010d6b19</td>
+<td>產業動態</td>
+</tr>
+<tr>
+<td><strong>CCChen 方格子：公部門AI手冊解析</strong></td>
+<td>vocus.cc（CCChen頻道）</td>
+<td>考點文章</td>
+</tr>
+<tr>
+<td><strong>煎餃Lab L121筆記</strong></td>
+<td>https://gyozalab.com/ipas-l121-ai-overview</td>
+<td>科目一整理筆記</td>
+</tr>
+<tr>
+<td><strong>煎餃Lab L122筆記（AI Agent篇）</strong></td>
+<td>https://gyozalab.com/ipas-l122-ai-overview</td>
+<td>科目二整理筆記（Agent/MCP）</td>
+</tr>
+<tr>
+<td><strong>iPAS官方學習資源</strong></td>
+<td>https://www.ipas.org.tw/certification/AIAP/learning-resources</td>
+<td>官方教材與外部資源</td>
+</tr>
+<tr>
+<td><strong>iPAS職場關鍵職能攻略手冊2025改版</strong></td>
+<td>https://www.ipas.org.tw/api/proxy/uploads/article/job-standard/...</td>
+<td>官方職能手冊PDF</td>
+</tr>
+<tr>
+<td><strong>Microsoft AI-900練習測驗</strong></td>
+<td>https://learn.microsoft.com/zh-tw/credentials/certifications/azure-ai-fundamentals/</td>
+<td>相關國際認證</td>
+</tr>
+<tr>
+<td><strong>AWS生成式AI學習計劃測驗</strong></td>
+<td>https://pages.awscloud.com/tw-aws-generative-ai-learning-program-business-skill-quiz</td>
+<td>免費線上測驗</td>
+</tr>
+<tr>
+<td><strong>Google Cloud OnBoard：AI與ML</strong></td>
+<td>https://cloudonair.withgoogle.com/events/taiwan-cloud-onboard-intro-ai-machine-learning-2026</td>
+<td>Google免費線上課程</td>
+</tr>
+<tr>
+<td><strong>AI Daily Check</strong></td>
+<td>https://aidailycheck.com/</td>
+<td>AI趨勢追蹤</td>
+</tr>
+<tr>
+<td><strong>HTML考題小舖</strong></td>
+<td>社群推薦（最新版本，版更速度快）</td>
+<td>模擬題庫（付費）</td>
+</tr>
+<tr>
+<td><strong>資策會藏題閣</strong></td>
+<td>資策會生成式AI能力認證官方題庫</td>
+<td>練習題庫</td>
+</tr>
+<tr>
+<td><strong>PGYLab 文章</strong></td>
+<td>https://pgylab.ai/posts/20260112</td>
+<td>AI概念補充</td>
+</tr>
+<tr>
+<td><strong>數發部公部門AI應用參考手冊</strong></td>
+<td>2026/02/03最新版（可從官網下載PDF）</td>
+<td><strong>重點法規文件</strong></td>
+</tr>
+<tr>
+<td><strong>台灣人工智慧基本法</strong></td>
+<td>2025/12/23三讀通過</td>
+<td><strong>重點法規文件</strong></td>
+</tr>
+<tr>
+<td><strong>KSC Think Tank AI Solution</strong></td>
+<td>https://www.kscthinktank.com.tw/ai-solution/</td>
+<td>AI應用資源</td>
+</tr>
+</tbody>
+</table>
+<h2>二、考試超出學習指引的新概念</h2>
+<blockquote>
+<p>CCChen觀察：「新法規、新趨勢、新工具，都要注意。」<br>
+煎餃Lab L122文章：考題已更新至2025年第四場，Agent/MCP為重點。</p>
+</blockquote>
+<h3>2.1 MCP (Model Context Protocol)</h3>
+<p><strong>定義</strong>：由Anthropic主導的開放協議，讓大型語言模型（LLM）能標準化地與外部工具/資源對接，被稱為「AI的USB-C接口」。</p>
+<p><strong>架構流程</strong>：</p>
+<pre><code>用戶提問 → AI Host（如Claude Desktop）
+↓
+MCP Client（Host內部，維護1:1連線）
+↓
+MCP Server（對應一類外部能力：檔案系統/資料庫/API）
+↓
+執行外部操作，回傳結果給LLM
+↓
+LLM整合後回答用戶
+</code></pre>
+<p><strong>三大角色</strong>：</p>
+<ul>
+<li><strong>MCP Host</strong>：宿主，用戶端與LLM的橋樑（如Claude Desktop、VS Code插件）</li>
+<li><strong>MCP Client</strong>：協議連接器，存在於Host內部，負責與Server維護連線</li>
+<li><strong>MCP Server</strong>：單職責服務，公開三大原語：Resources（資源）、Tools（工具）、Prompts（提示模板）</li>
+</ul>
+<p><strong>MCP vs 傳統API</strong>：MCP提供標準化、可組合、安全的通用接口；傳統各家API各自為政，需要「膠帶代碼」對接。</p>
+<p><strong>考試重點</strong>：</p>
+<ul>
+<li>記住Host→Client→Server的三層架構與職責</li>
+<li>MCP解決的問題：讓AI能讀取外部工具/資料（Agent的「手腳」）</li>
+<li>社群討論：「Agentic Coding、sub-agent、skills、MCP」都可能出題</li>
+<li>MCP不是讓你「會操作」，而是「知道什麼情況下用」</li>
+</ul>
+<h3>2.2 A2A (Agent-to-Agent)</h3>
+<p><strong>定義</strong>：由Google主導、已開源至Linux基金會的多智能體協作通信標準，讓不同供應商/框架開發的AI Agent可以「像同事一樣」無縫協作，解決「智能體孤島」問題。</p>
+<p><strong>互動模式（核心流程）</strong>：</p>
+<ol>
+<li><strong>Agent Discovery（智能體發現）</strong>：Client讀取Server的<code>Agent Card</code>（標準JSON，含名字/能力/端點）</li>
+<li><strong>Task Request（任務請求）</strong>：Client依Card中的Skills，組織Task消息發送</li>
+<li><strong>執行與回報</strong>：Server通過流式(SSE)或Webhook推送進度</li>
+<li><strong>交付Artifact</strong>：任務完成後發回結果（文字/檔案/結構化資料）</li>
+</ol>
+<p><strong>A2A vs MCP 重要區別</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>協議</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MCP</strong></td>
+<td>Agent-to-Tool（AI模型連接工具/資源）</td>
+</tr>
+<tr>
+<td><strong>A2A</strong></td>
+<td>Agent-to-Agent（AI智能體之間對等協作）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>考試重點</strong>：</p>
+<ul>
+<li>A2A解決跨生態、跨組織的智能體協作問題</li>
+<li>Agent Card = 智能體的「名片」（能力清單）</li>
+<li>支持黑盒執行：智能體不需暴露內部實現，只需交換輸入/輸出</li>
+</ul>
+<h3>2.3 Agentic AI</h3>
+<p><strong>定義</strong>：具備自主性（agency）的AI系統，能自主設定目標、分解任務、規劃執行，並根據結果自我調整。相較於傳統Chatbot的「被動回答」，Agentic AI是「主動執行者」。</p>
+<p><strong>Chatbot vs Agent 核心差異</strong>：</p>
+<ul>
+<li>Chatbot：你問→它答，你是「執行小秘書」</li>
+<li>Agent：承諾完成任務，自行完成「規劃→執行→檢查→修正」閉環</li>
+</ul>
+<p><strong>Agent三大核心技術條件（2024年爆發原因）</strong>：</p>
+<ol>
+<li><strong>ReAct框架（Reasoning + Acting）</strong>：推理循環，「先思後行」</li>
+<li><strong>工具調用（Tool Use / Function Calling）</strong>：AI獲得「手腳」（讀文件/執行腳本/上網）</li>
+<li><strong>長上下文視窗（Long Context Window）</strong>：記憶空間擴大至20萬token</li>
+</ol>
+<p><strong>Solution Graph</strong>：</p>
+<ul>
+<li>將複雜問題分解為多個子任務節點，依賴關係形成有向圖</li>
+<li>Agent根據圖的結構決定執行順序、調用哪些工具、維護哪些上下文狀態</li>
+<li>在Context Engineering中起關鍵作用</li>
+</ul>
+<p><strong>考試重點</strong>：</p>
+<ul>
+<li>煎餃Lab提到：「Agentic Coding感覺會考」</li>
+<li>重點在「判斷哪種場景適合用Agent」，而非操作</li>
+<li>人在迴圈（Human-in-the-loop）：Agent自動化執行中，什麼時候需要人介入？</li>
+</ul>
+<h3>2.4 Context Engineering</h3>
+<p><strong>定義</strong>：2025年後興起的系統性方法，不再只是優化Prompt字句，而是動態、結構化地設計和管理「AI當前能訪問的全部上下文資訊」，包括歷史對話、實時數據、工具輸出、知識庫、任務狀態等。</p>
+<p><strong>與Prompt Engineering對比</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>維度</th>
+<th>Prompt Engineering</th>
+<th>Context Engineering</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>範疇</td>
+<td>單次、靜態輸入指令</td>
+<td>動態、系統性管理上下文</td>
+</tr>
+<tr>
+<td>主要用途</td>
+<td>單步問答、短對話</td>
+<td>多步推理、長時任務、複雜Agent</td>
+</tr>
+<tr>
+<td>核心挑戰</td>
+<td>詞句優化、意圖表達</td>
+<td>資訊過載（context rot）、有效篩選</td>
+</tr>
+<tr>
+<td>典型失效</td>
+<td>prompt不精確→輸出偏差</td>
+<td>上下文衰減→丟失細節</td>
+</tr>
+</tbody>
+</table>
+<p><strong>為何Context Engineering取代Prompt Engineering</strong>：</p>
+<ul>
+<li>生產級AI Agent需要動態、結構化上下文，而非一條條prompt拼湊</li>
+<li>Anthropic研究：有效的Context Engineering可將AI錯誤率降低40~54%</li>
+<li>Gartner認為Context Engineering是未來AI應用的關鍵能力</li>
+</ul>
+<p><strong>考試重點</strong>：</p>
+<ul>
+<li>兩者是遞進關係：Prompt Engineering是Context Engineering的「低維切面」</li>
+<li>記住核心差異：「如何問問題」vs「如何為AI持續提供最合適的知識和狀態」</li>
+</ul>
+<h3>2.5 聯邦學習 (Federated Learning)</h3>
+<p><strong>定義</strong>：分散式機器學習方法，各資料擁有者（手機、醫院、銀行）在本地訓練模型，只上傳模型參數（非原始資料）至中央伺服器聚合，原始資料始終留在本地。</p>
+<p><strong>架構</strong>：</p>
+<pre><code>本地裝置/機構 → 在本地訓練 → 僅上傳模型參數/梯度
+↓
+中央伺服器聚合（FedAvg等演算法）
+↓
+更新全域模型，下發各裝置
+</code></pre>
+<p><strong>適用場景</strong>：</p>
+<ul>
+<li><strong>醫療</strong>：多家醫院聯合訓練疾病預測模型，病患資料不外流</li>
+<li><strong>金融</strong>：多家銀行聯合做信用評分，商業機密不洩露</li>
+<li><strong>終端設備</strong>：手機輸入法個人化（Google Gboard的實際應用案例）</li>
+<li><strong>政府機構</strong>：跨機關資料協作，符合個資法規</li>
+</ul>
+<p><strong>隱私保護機制</strong>：</p>
+<ul>
+<li>本地訓練，不上傳原始資料</li>
+<li>差分隱私（Differential Privacy）：加入噪聲防止推斷個人資訊</li>
+<li>同態加密（Homomorphic Encryption）：加密狀態下聚合</li>
+</ul>
+<p><strong>考試重點</strong>：</p>
+<ul>
+<li>社群提到：「最愛考聯邦學習」</li>
+<li>核心概念：解決「資料協作」vs「隱私保護」的矛盾</li>
+<li>適用條件：<strong>資料不能集中</strong> 但 <strong>需要共同訓練</strong> 的場景</li>
+</ul>
+<h3>2.6 RAG vs Fine-tuning 選擇標準</h3>
+<p><strong>RAG（檢索增強生成）</strong>：不改動模型，查詢外部知識庫後附加到Prompt。比喻：「考試可以查資料」。</p>
+<p><strong>Fine-tuning（模型微調）</strong>：用領域資料再訓練模型，知識融入權重。比喻：「把知識背起來」。</p>
+<p><strong>選擇標準速查</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th style="text-align: right;">選RAG</th>
+<th style="text-align: right;">選Fine-tuning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>資料需頻繁更新</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>需要即時最新資訊</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>格式/語氣需標準化</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">✅</td>
+</tr>
+<tr>
+<td>合規/資料不可進模型</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>計算成本考量</td>
+<td style="text-align: right;">✅成本低</td>
+<td style="text-align: right;">❌資源需求高</td>
+</tr>
+<tr>
+<td>領域術語/邏輯固定</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">✅</td>
+</tr>
+</tbody>
+</table>
+<p><strong>口訣</strong>：「資料動，選RAG；格式定，選Fine-tuning；務實混合才高效」</p>
+<p><strong>考試重點</strong>：</p>
+<ul>
+<li>最大本質差異：RAG不更改模型權重，Fine-tuning會調整權重</li>
+<li>若頻繁更新內容採用Fine-tuning→資料過期且成本高（常見陷阱題）</li>
+<li>兩者可結合：「能力（格式邏輯）」靠Fine-tuning，「知識（最新資料）」靠RAG</li>
+</ul>
+<h2>三、AI治理法規速查</h2>
+<h3>EU AI Act（歐盟AI法）</h3>
+<blockquote>
+<p><strong>四大風險分類</strong>（由高到低）</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>風險等級</th>
+<th>說明</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>不可接受風險</strong>（全面禁止）</td>
+<td>對歐洲價值、民主、人權構成極端危害</td>
+<td>社會評分系統、潛意識操控、即時公共場所生物辨識（警用）、推斷情緒的職場AI</td>
+</tr>
+<tr>
+<td><strong>高風險</strong>（嚴格監管）</td>
+<td>涉及個人健康、安全、基本權利</td>
+<td>醫療診斷AI、人臉辨識入境、自動駕駛、法庭量刑AI</td>
+</tr>
+<tr>
+<td><strong>有限風險</strong>（透明度義務）</td>
+<td>影響較小，但需告知用戶與AI互動</td>
+<td>聊天機器人（客服）、Deepfake生成</td>
+</tr>
+<tr>
+<td><strong>最低風險</strong>（無需額外監管）</td>
+<td>日常低影響應用</td>
+<td>垃圾郵件過濾、推薦系統、遊戲NPC</td>
+</tr>
+</tbody>
+</table>
+<p><strong>考試高頻考點</strong>：</p>
+<ul>
+<li>違規罰款：<strong>2000萬歐元或4%全球年營業額</strong>（取最高）</li>
+<li>歐盟AI法四大倫理原則：<strong>公平、可解釋性、尊重人類自主權</strong>（注意：透明性❌不是四原則之一，常出陷阱題）</li>
+<li>GDPR資料洩漏通報：企業必須在<strong>72小時內</strong>通知監管機關</li>
+</ul>
+<h3>台灣《人工智慧基本法》</h3>
+<blockquote>
+<p><strong>2025年12月23日三讀通過</strong>，主管機關：國家科學及技術委員會</p>
+</blockquote>
+<p><strong>七大原則</strong>：</p>
+<ol>
+<li><strong>永續發展與社會福祉</strong>：AI發展須符合社會長遠利益</li>
+<li><strong>人類自主</strong>：維護人類自主決策權</li>
+<li><strong>隱私保護與資料治理</strong>：強化個資保護與合理利用</li>
+<li><strong>資安與系統安全</strong>：提高AI系統穩健性</li>
+<li><strong>透明與可解釋性</strong>：AI決策需提供合理資訊揭露</li>
+<li><strong>公平與不歧視</strong>：防止AI偏見與歧視</li>
+<li><strong>問責</strong>：明確責任歸屬與監督追責</li>
+</ol>
+<p><strong>考試重點</strong>：</p>
+<ul>
+<li>CCChen強調：「台灣人工智慧基本法與ISO 42001 AIMS，是今年最重要主題」</li>
+<li>社群記錄：約考<strong>3~5題</strong>基本核心概念與應用</li>
+<li>核心精神：「<strong>以人為本</strong>」</li>
+<li>行政院將成立「<strong>國家人工智慧戰略特別委員會</strong>」</li>
+<li>高風險AI需設責任停損標示及風險分級管理</li>
+</ul>
+<h3>台灣數位發展部《公部門人工智慧應用參考手冊》</h3>
+<blockquote>
+<p><strong>2026年2月3日最新版</strong>（舊版已下架，EJ老師已依新版重新製作教材）</p>
+</blockquote>
+<p><strong>考試重點</strong>：</p>
+<ul>
+<li>此手冊為<strong>iPAS AI初級的關鍵更新文件</strong>（CCChen有撰文分析）</li>
+<li>社群強調「<strong>公部門AI應用參考手冊及人工智慧基本法一定要看</strong>」</li>
+<li>關鍵原則：透明、可解釋、可追責</li>
+</ul>
+<h3>ISO 42001 AIMS（AI管理系統標準）</h3>
+<p><strong>定義</strong>：AI管理系統的國際標準，架構從ISO 27001資安標準衍生。</p>
+<p><strong>考試重點</strong>：</p>
+<ul>
+<li>CCChen：「台灣AI基本法 + ISO 42001 AIMS = 今年最重要主題」</li>
+<li>理解AIMS的架構邏輯（類似ISMS資訊安全管理系統）</li>
+</ul>
+<h3>其他相關法規記憶點</h3>
+<table>
+<thead>
+<tr>
+<th>法規</th>
+<th>關鍵數字/內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GDPR（歐盟）</td>
+<td>資料洩漏後<strong>72小時</strong>內通知監管機關</td>
+</tr>
+<tr>
+<td>CCPA（美國加州）</td>
+<td>資料洩漏後<strong>即時</strong>通報主管機關</td>
+</tr>
+<tr>
+<td>EU AI Act</td>
+<td>違規罰款：2000萬歐元或4%年營業額（取最高）</td>
+</tr>
+<tr>
+<td>EU AI Act</td>
+<td>歐盟AI法倫理四原則：公平、可解釋性、尊重人類自主權（透明性❌非四原則）</td>
+</tr>
+<tr>
+<td>台灣AI基本法</td>
+<td>七大原則，主管機關：國科會</td>
+</tr>
+<tr>
+<td>兒童隱私（美國COPPA）</td>
+<td>13歲以下兒童資料受保護，不得用於AI模型訓練</td>
+</tr>
+</tbody>
+</table>
+<h2>四、CCChen備考指南摘要</h2>
+<blockquote>
+<p>來源：https://vocus.cc/article/695f29dcfd89780001822622（2026/1/8更新）</p>
+</blockquote>
+<h3>三大出題趨勢（2026年）</h3>
+<p><strong>趨勢一：AI基礎概論從「定義題」→「判斷題」</strong></p>
+<ul>
+<li>不考「什麼是非監督式學習」，考「這個商業場景為何用非監督式更合理？」</li>
+<li>準備方式：每個概念都要能回答「用來解決什麼問題」</li>
+</ul>
+<p><strong>趨勢二：生成式AI考「規劃邏輯」，不考「工具介紹」</strong></p>
+<ul>
+<li>三個考層次：</li>
+<li>生成式AI的角色定位（適合輔助什麼、不適合取代什麼）</li>
+<li>生成式AI×企業流程（為何不能全自動、為何要Human-in-loop）</li>
+<li>生成式AI的風險（幻覺、隱私、上下文錯置）</li>
+</ul>
+<p><strong>趨勢三：No Code/Low Code、Agent、MCP——知道「怎麼選」</strong></p>
+<ul>
+<li>考的不是「操作熟不熟」</li>
+<li>考的是「什麼時候用、什麼時候不適合用」</li>
+</ul>
+<h3>題型分佈（約略）</h3>
+<ul>
+<li>情境判斷題：<strong>40~45%</strong>（主戰場）</li>
+<li>單一概念理解題：25~30%</li>
+<li>觀念比較題：20%</li>
+<li>制度/治理/倫理：5~10%（比例不高但容易失分）</li>
+</ul>
+<h3>CCChen的5大備考建議</h3>
+<ol>
+<li>不問「會不會考這個」，而問「它解決什麼問題」</li>
+<li>情境題要練「為什麼不是其他選項」（逐一排除）</li>
+<li>生成式AI不背功能，背「限制」</li>
+<li>用白話重新寫一次概念（寫不出來代表還沒懂）</li>
+<li>最後兩週不補新東西，做「概念整合」</li>
+</ol>
+<h2>五、備考策略建議（社群討論精華）</h2>
+<h3>核心資源優先順序（Genna建議）</h3>
+<ol>
+<li><strong>EJ鄭老師教材</strong>（初級+中級主教材）</li>
+<li><strong>官網學習指引</strong>（科目一、科目二）</li>
+<li><strong>公部門AI應用參考手冊</strong>（2026/2/3最新版）</li>
+<li><strong>台灣人工智慧基本法</strong>（2025/12/23通過）</li>
+</ol>
+<h3>練習題策略（社群推薦）</h3>
+<ul>
+<li>HTML考題小舖：版更速度快、命中率高（需付費）</li>
+<li>資策會藏題閣：CCChen刷題<strong>15次以上</strong>，約刷出題庫300題</li>
+<li>官網歷屆考題：2025年第四梯次已公告（114年）</li>
+<li>每週日：EJ老師有線上講解歷年考題，會後上傳YouTube</li>
+</ul>
+<h3>考場實戰提醒</h3>
+<ul>
+<li><strong>題目重點分布</strong>（來自考後分享）：</li>
+<li>台灣人工智慧基本法：<strong>3~5題</strong></li>
+<li>生成式AI工具功能與應用：<strong>7~9題</strong></li>
+<li>隱私保護與資料治理：<strong>5~7題</strong></li>
+<li>Vibe Coding：<strong>4~5題</strong></li>
+<li>資策會藏題閣：<strong>5~10題</strong></li>
+<li>AI治理法規題：「抓好關鍵字，提到倫理性一定要問A答A（減少歧視偏見）」</li>
+<li>注意：題庫有在更新最新AI應用工具，背舊題庫不夠</li>
+</ul>
+<blockquote>
+<p><em>最後更新：依據LINE社群對話、CCChen方格子專欄（2026/1/8）、gyozalab（2026/2/19）整理</em></p>
+</blockquote>
+<hr>
+<p><em>📖 由 md_to_html Skill v1.1 生成 | 2026-03-02 | 非互動式 RWD HTML</em></p>
+    </article>
+    <footer><p>📖 由 md_to_html Skill v1.1 生成 | 2026-03-02 ｜ ✨ 非互動式 RWD HTML</p></footer>
+  </main>
+</body>
+</html>

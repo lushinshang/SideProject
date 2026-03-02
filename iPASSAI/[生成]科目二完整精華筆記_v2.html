@@ -1,0 +1,902 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>iPAS AI初級 科目二完整精華筆記（增強版）</title>
+  <style>
+:root{--bg:#ffffff;--surface:#ffffff;--muted:#6b7280;--text:#0f172a;--accent:#0366d6;--code-bg:#0f172a10;--border:#e6edf3}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:#f6f8fa;color:var(--text);font-family:Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;line-height:1.7;-webkit-font-smoothing:antialiased}
+.container{max-width:980px;margin:28px auto;padding:24px;background:var(--surface);border-radius:10px;box-shadow:0 6px 18px rgba(15,23,42,0.06);}
+header{margin-bottom:12px}
+h1{font-size:28px;margin:0 0 8px}
+h2{font-size:22px;margin:20px 0 8px}
+h3{font-size:18px;margin:18px 0 8px}
+p{color:var(--text);margin:0 0 12px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+code{background:var(--code-bg);padding:.15em .4em;border-radius:6px;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;font-size:0.95em}
+pre{background:#0b1220; color:#e6eef8;padding:12px;border-radius:8px;overflow:auto}
+pre code{background:transparent;color:inherit;padding:0}
+.table-wrap{overflow:auto;margin:12px 0}
+table{width:100%;border-collapse:collapse}
+th,td{padding:8px 12px;border:1px solid var(--border);text-align:left}
+th{background:#f3f6fb}
+ul,ol{margin:0 0 12px 20px}
+blockquote{margin:0 0 12px;padding-left:14px;border-left:3px solid #e2e8f0;color:var(--muted)}
+img{max-width:100%;height:auto;border-radius:6px}
+footer{margin-top:18px;color:var(--muted);font-size:14px}
+@media (max-width:600px){.container{margin:12px;padding:16px}h1{font-size:22px}h2{font-size:18px}}
+</style>
+</head>
+<body>
+  <main class="container">
+    <header><h1>iPAS AI初級 科目二完整精華筆記（增強版）</h1></header>
+    <article>
+<p>互動式學習導讀 | 🎯 完整版本 v2</p>
+<hr>
+<blockquote>
+<p>iPAS AI應用規劃師（初級）考試用 ｜ 版本：2026年（整合114/4實際考題分析）</p>
+</blockquote>
+<h2>📋 目錄</h2>
+<ul>
+<li>TOP 20 高頻考點速查表</li>
+<li>L121 No-code / Low-code 概念</li>
+<li>L122 生成式AI應用領域與工具使用</li>
+<li>L123 生成式AI導入評估規劃</li>
+<li>MCP架構（Model Context Protocol）</li>
+<li>A2A架構（Agent-to-Agent）</li>
+<li>Agentic AI 智能體</li>
+<li>Context Engineering 上下文工程</li>
+<li>進階技術概念</li>
+<li>台灣AI治理法規速查</li>
+<li>考試重點速查</li>
+<li>容易混淆的概念</li>
+<li>114/4 實際考題分析與答題策略</li>
+</ul>
+<hr>
+<h2>⭐ TOP 20 高頻考點速查表</h2>
+<blockquote>
+<p>依114/4實際考題（58題）統計出題率排序</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>排名</th>
+<th>考點</th>
+<th>出題率</th>
+<th>關鍵答案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🥇1</td>
+<td><strong>MCP架構流程</strong></td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>AI Host→MCP Client→MCP Server→資料查詢→回傳</td>
+</tr>
+<tr>
+<td>🥇2</td>
+<td><strong>RAG vs Fine-tuning選擇</strong></td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>知識更新選RAG；風格語氣選Fine-tuning</td>
+</tr>
+<tr>
+<td>🥇3</td>
+<td><strong>A2A互動流程</strong></td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>Client Agent發起→Remote Agent執行並回傳</td>
+</tr>
+<tr>
+<td>🥇4</td>
+<td><strong>Agentic AI / Solution Graph</strong></td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>廣度/深度/最佳優先演算法搜尋路徑</td>
+</tr>
+<tr>
+<td>🥇5</td>
+<td><strong>Context Engineering</strong></td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>核心目的：優化提示與上下文（非縮短訓練/增加參數）</td>
+</tr>
+<tr>
+<td>🥈6</td>
+<td><strong>聯邦學習（Federated Learning）</strong></td>
+<td>⭐⭐⭐⭐</td>
+<td>資料不離開本地，只上傳模型參數</td>
+</tr>
+<tr>
+<td>🥈7</td>
+<td><strong>Prompt工程類型</strong></td>
+<td>⭐⭐⭐⭐</td>
+<td>Zero/One/Few-shot；CoT=線性推理；ToT=多方案比較</td>
+</tr>
+<tr>
+<td>🥈8</td>
+<td><strong>企業導入步驟順序</strong></td>
+<td>⭐⭐⭐⭐</td>
+<td>先設KPI目標→收集數據→選技術→建系統</td>
+</tr>
+<tr>
+<td>🥈9</td>
+<td><strong>風險管理策略</strong></td>
+<td>⭐⭐⭐⭐</td>
+<td>外包=風險轉移；採措施=風險緩解</td>
+</tr>
+<tr>
+<td>🥈10</td>
+<td><strong>RAG文本切分（Chunking）</strong></td>
+<td>⭐⭐⭐⭐</td>
+<td>提高檢索相關性、降低長上下文噪音</td>
+</tr>
+<tr>
+<td>🥉11</td>
+<td><strong>APE（自動Prompt工程）</strong></td>
+<td>⭐⭐⭐</td>
+<td>超長上下文最大限制：回饋機制難全面評估最終輸出</td>
+</tr>
+<tr>
+<td>🥉12</td>
+<td><strong>No-code vs Low-code</strong></td>
+<td>⭐⭐⭐</td>
+<td>No-code=零程式碼；Low-code=可擴展企業應用</td>
+</tr>
+<tr>
+<td>🥉13</td>
+<td><strong>Data Drift（數據漂移）</strong></td>
+<td>⭐⭐⭐</td>
+<td>訓練分佈vs部署輸入分佈隨時間出現差異</td>
+</tr>
+<tr>
+<td>🥉14</td>
+<td><strong>Graph Prompting vs CoT</strong></td>
+<td>⭐⭐⭐</td>
+<td>Graph處理非線性/網絡關係；CoT處理線性推理</td>
+</tr>
+<tr>
+<td>🥉15</td>
+<td><strong>知識蒸餾（Knowledge Distillation）</strong></td>
+<td>⭐⭐⭐</td>
+<td>讓小模型學大模型知識，降低運算成本</td>
+</tr>
+<tr>
+<td>16</td>
+<td><strong>Guardrails防護機制</strong></td>
+<td>⭐⭐</td>
+<td>非目的：「重建追蹤模型推理過程」</td>
+</tr>
+<tr>
+<td>17</td>
+<td><strong>多向量檢索器</strong></td>
+<td>⭐⭐</td>
+<td>同時處理多種資訊表示，提升跨文本型態檢索</td>
+</tr>
+<tr>
+<td>18</td>
+<td><strong>Prompt攻擊防護</strong></td>
+<td>⭐⭐</td>
+<td>導入輸入檢測+回應審核流程</td>
+</tr>
+<tr>
+<td>19</td>
+<td><strong>台灣AI基本法七大原則</strong></td>
+<td>⭐⭐</td>
+<td>永續、人類自主、隱私、資安、透明、公平、問責</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>考試易錯</strong>：No-code「完全不需要程式碼」≠「完全不需要任何技術知識」</p>
+</blockquote>
+<h3>優勢與限制</h3>
+<p><strong>三大核心優勢：</strong>
+1. <strong>降低開發成本</strong>：減少對專業程式設計師依賴
+2. <strong>縮短上市時間</strong>：快速原型→快速部署
+3. <strong>加速數位轉型</strong>：促進IT與業務部門協作</p>
+<p><strong>限制：</strong>
+- <strong>無法完全取代</strong>技術人員（複雜/高度客製化場景仍需專業人員）
+- 過度依賴可能導致使用者缺乏對AI的深層理解
+- 可能引發<strong>模型偏差或誤用</strong>風險</p>
+<h3>考題答題策略（來自114/4實際考題）</h3>
+<ul>
+<li>
+<p><strong>Q1：Low-code中「模型（Model）」的正確理解</strong></p>
+<blockquote>
+<p>答案：模型是<strong>抽象描述資料結構、業務流程與介面邏輯的核心元素</strong>（不是被自動程式碼取代，亦不是只用UML）</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Q6：No-code/Low-code與生成式AI整合策略</strong></p>
+<blockquote>
+<p>答案：透過生成式AI在No-code平台中<strong>自動建立介面模板</strong>，結合使用者數據即時生成<strong>個人化功能</strong>（非完全依賴AI不經人工驗證）</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Q33：No-code解決MLOps挑戰</strong></p>
+<blockquote>
+<p>答案：透過可視化建模介面，降低技術門檻並促進跨部門協作（非自動化資料標註或提供進階特徵工程）</p>
+</blockquote>
+</li>
+</ul>
+<h3>選擇平台的6大關鍵因素</h3>
+<ol>
+<li>目標用戶與技術需求</li>
+<li>功能與擴展性（系統整合能力、高度自訂性）</li>
+<li>安全性與合規性（GDPR、CCPA）</li>
+<li><strong>成本與效益（TCO總擁有成本、ROI投資回報率）</strong></li>
+<li>技術支援與社群資源</li>
+<li>市場評價與案例</li>
+</ol>
+<h3>AI民主化（AI Democratization）</h3>
+<ul>
+<li>將AI技術從<strong>少數專家</strong>擴展至<strong>更廣泛社會</strong></li>
+<li>No-code/Low-code是實現AI民主化的重要工具</li>
+<li><strong>市民開發者（Citizen Developer）</strong>：非技術背景人員利用工具自動化日常工作</li>
+</ul>
+<h2>L122 生成式AI應用領域與工具使用</h2>
+<h3>生成式AI基本概念</h3>
+<ul>
+<li><strong>核心特徵</strong>：透過模型<strong>生成新內容</strong>，而非僅分析或辨識現有數據</li>
+<li><strong>關鍵技術架構：</strong> GAN（生成對抗網路）、VAE（變分自編碼器）、Transformer + Self-Attention、RLHF（人類回饋強化學習）</li>
+<li>ChatGPT於<strong>2022年11月</strong>正式推出，開啟生成式AI革命</li>
+</ul>
+<h3>主要應用領域 ⭐</h3>
+<table>
+<thead>
+<tr>
+<th>模態</th>
+<th>代表工具</th>
+<th>應用場景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>文本/語言</strong></td>
+<td>ChatGPT、Claude、Gemini</td>
+<td>摘要、翻譯、客服、程式碼生成</td>
+</tr>
+<tr>
+<td><strong>圖像</strong></td>
+<td>DALL-E、Midjourney、Stable Diffusion</td>
+<td>數位藝術、設計、廣告</td>
+</tr>
+<tr>
+<td><strong>聲音/語音</strong></td>
+<td>Whisper（語音辨識）、Suno（音樂生成）</td>
+<td>語音轉文字、音樂創作</td>
+</tr>
+<tr>
+<td><strong>影片</strong></td>
+<td>Sora、Veo</td>
+<td>影片生成、特效、劇本視覺化</td>
+</tr>
+<tr>
+<td><strong>Zero-shot</strong></td>
+<td>不提供任何範例，直接提問</td>
+<td>情感分析、翻譯等通用任務</td>
+</tr>
+<tr>
+<td><strong>One-shot</strong></td>
+<td>提供1個範例</td>
+<td>需要特定格式輸出</td>
+</tr>
+<tr>
+<td><strong>Few-shot</strong></td>
+<td>提供2-5個範例</td>
+<td>需要特定風格/格式</td>
+</tr>
+<tr>
+<td><strong>Chain-of-Thought (CoT)</strong></td>
+<td>要求AI<strong>逐步推理</strong>，線性流程</td>
+<td>退款查詢等<strong>單一線性流程</strong></td>
+</tr>
+<tr>
+<td><strong>Tree of Thoughts (ToT)</strong></td>
+<td>探索<strong>多條推理路徑</strong>，比較方案</td>
+<td>活動規劃等<strong>需比較多方案</strong></td>
+</tr>
+<tr>
+<td><strong>Graph Prompting</strong></td>
+<td>處理非線性關係/網絡結構資訊</td>
+<td>社交關係分析、跨國合規對比</td>
+</tr>
+<tr>
+<td><strong>Role Prompting</strong></td>
+<td>指定AI扮演特定角色</td>
+<td>專業領域回覆</td>
+</tr>
+<tr>
+<td><strong>System Prompt</strong></td>
+<td>設定模型行為的系統級指令</td>
+<td>定義AI助理人設、範圍限制</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🔑 <strong>CoT vs ToT考試判斷口訣</strong>：
+- 查詢退款流程（單一線性）→ <strong>CoT</strong>
+- 規劃多方案活動（多分支比較）→ <strong>ToT</strong></p>
+</blockquote>
+<p><strong>Zero-shot失敗情境（Q23）</strong>：最可能失敗：<strong>從表格中擷取所有城市的最高氣溫</strong>（結構化數據提取需要示範格式）</p>
+<p><strong>APE超長上下文限制（Q5）</strong>：回饋機制通常僅針對局部片段，難以全面評估最終輸出品質</p>
+<p><strong>Graph Prompting挑戰（Q4）</strong>：圖結構轉換為文字提示時，可能導致部分關聯資訊遺失</p>
+<h3>生成溫度（Temperature）與風格控制</h3>
+<ul>
+<li><strong>Q26：確保商品描述風格一致</strong> → <strong>降低生成溫度</strong></li>
+<li><strong>Q15：動態調整回覆風格</strong> → 利用<strong>控制變量（Control Tokens）或風格標籤</strong>在同一模型內動態調整</li>
+</ul>
+<h2>RAG（檢索增強生成）</h2>
+<h3>為什麼需要RAG？</h3>
+<p>通用LLM的問題：知識限制、幻覺問題、資安隱憂</p>
+<h3>RAG標準運作流程</h3>
+<ol>
+<li>用戶提問</li>
+<li>[檢索層] 系統在企業知識庫搜尋相關文件（向量語意搜尋）</li>
+<li>[組合層] 問題 + 檢索到的資料 → 組合成增強提示詞</li>
+<li>[生成層] LLM根據提供資料生成答案（可溯源、減少幻覺）</li>
+</ol>
+<h3>Prompt vs RAG vs Fine-tuning 三角選擇</h3>
+<table>
+<thead>
+<tr>
+<th>比較維度</th>
+<th>Prompt工程</th>
+<th>RAG</th>
+<th>Fine-tuning（微調）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>直觀比喻</td>
+<td>給AI看臨時小抄</td>
+<td>讓AI查閱圖書館</td>
+<td>送AI去補習深造</td>
+</tr>
+<tr>
+<td>知識時效性</td>
+<td>依賴使用者當下提供</td>
+<td><strong>即時（Real-time）</strong></td>
+<td><strong>滯後（Static）</strong></td>
+</tr>
+<tr>
+<td>幻覺風險</td>
+<td>視上下文品質</td>
+<td><strong>低（可溯源）</strong></td>
+<td>中</td>
+</tr>
+<tr>
+<td>建置成本</td>
+<td>⭐極低</td>
+<td>⭐⭐中等</td>
+<td>⭐⭐⭐高</td>
+</tr>
+<tr>
+<td>適用場景</td>
+<td>單次翻譯/摘要</td>
+<td><strong>企業知識庫、FAQ</strong></td>
+<td>學習特殊語氣/格式</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fine-tuning + RAG混合策略（Q17）</strong>：保留語氣相關Fine-tuning，僅透過RAG更新文件內容（能力靠Fine-tuning，知識靠RAG）</p>
+<p><strong>RAG品質提升策略（Q18、Q47、Q48）</strong>：
+- 優化檢索系統品質（確保取得最新文件）
+- Chunking（切分）→ 提高檢索相關性、降低長上下文噪音
+- 多向量檢索器→ 同時處理多種資訊表示，提升跨文本型態檢索</p>
+<h2>知識蒸餾（Knowledge Distillation）</h2>
+<p><strong>定義</strong>：讓<strong>小型模型</strong>學習大型模型的行為，在降低運算成本的同時維持效能</p>
+<p><strong>Q42答案</strong>：RAG系統運算成本過高→引入知識蒸餾→<strong>小模型學大模型知識，降低成本同時維持品質</strong></p>
+<h2>生成式AI常見挑戰</h2>
+<ul>
+<li><strong>AI幻覺（Hallucination）</strong>：矛盾輸入→隨機採信其中一方（Q10）</li>
+<li><strong>知識截止日期</strong>：需RAG即時更新</li>
+<li><strong>偏見（Bias）</strong>：訓練數據偏見→公平性檢測（Q38）</li>
+<li><strong>資安隱憂</strong>：本地部署LLM的核心優勢（Q12）</li>
+</ul>
+<h2>模型評估基準測試（Benchmark）</h2>
+<table>
+<thead>
+<tr>
+<th>資料集</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MMLU</td>
+<td>多領域、多任務語言理解（人文、科學、社會科學）</td>
+</tr>
+<tr>
+<td>GSM8K</td>
+<td>數學推理（小學數學題）</td>
+</tr>
+<tr>
+<td>MATH</td>
+<td>進階數學推理</td>
+</tr>
+</tbody>
+</table>
+<h2>正確導入步驟順序（考試重點）</h2>
+<blockquote>
+<p>❗ <strong>企業導入AI的第一步</strong>：<strong>明確定義目標並設定KPI</strong>（非購買軟體或硬體升級）</p>
+</blockquote>
+<p><strong>Q30正確順序（物流公司導入AI）</strong>：2（設定目標+KPI）→ 3（蒐集清理資料）→ 4（選技術供應商）→ 1（建系統邏輯）</p>
+<p>三大成功關鍵因素：清晰定義痛點 + 技術匹配 + 培養人才</p>
+<h2>資料安全與合規策略（Q24、Q31）</h2>
+<ul>
+<li><strong>Q24（保險公司資料安全優先）</strong>：納入法遵稽核單位，設定KPI，透過MVP驗證成效</li>
+<li><strong>Q31（電商個資保護）</strong>：資料最小化與去識別化，確保AI訓練與生成中不直接處理敏感個資</li>
+</ul>
+<h2>風險管理策略 ⭐⭐</h2>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>說明</th>
+<th>考試記憶</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>風險溯源</td>
+<td>審核數據來源合法性</td>
+<td>追根溯源</td>
+</tr>
+<tr>
+<td>風險文化</td>
+<td>員工培訓、定期教育</td>
+<td>建立文化</td>
+</tr>
+<tr>
+<td>風險接受</td>
+<td>影響有限時接受，制定應急計畫</td>
+<td>理性選擇</td>
+</tr>
+<tr>
+<td>風險緩解</td>
+<td>數據管理、內容審查、合規政策</td>
+<td>減少傷害</td>
+</tr>
+<tr>
+<td>風險迴避</td>
+<td>暫緩高風險應用</td>
+<td>不做</td>
+</tr>
+<tr>
+<td>風險轉移</td>
+<td>外包給第三方、購買保險</td>
+<td>外包=風險轉移</td>
+</tr>
+</tbody>
+</table>
+<h2>Guardrails防護機制（Q46）</h2>
+<p><strong>主要目的：</strong>
+- ✅ 檢查輸入避免危險需求
+- ✅ 過濾驗證AI輸出符合安全標準
+- ✅ 確保符合法規與產業安全規範
+- ❌ <strong>不是</strong>「重建追蹤AI模型全部推理過程」</p>
+<h2>Prompt Injection攻擊防護（Q36）</h2>
+<blockquote>
+<p>最佳策略：導入輸入檢測與回應審核流程，防止敏感指令被執行（記憶：雙層防護）</p>
+</blockquote>
+<h2>ROI計算與評估</h2>
+<ul>
+<li><strong>ROI公式</strong>：（收益 - 成本）/ 成本 × 100%</li>
+<li><strong>NPV</strong>（淨現值）：考慮資金時間價值</li>
+<li><strong>IRR</strong>（內部報酬率）：評估長期財務可行性</li>
+</ul>
+<h2>模型驗證指標</h2>
+<ul>
+<li><strong>BLEU / ROUGE / Perplexity</strong>：文本生成品質評估</li>
+<li><strong>Accuracy、Recall、Error Rate</strong>：模型效能追蹤</li>
+<li><strong>Data Drift</strong>：輸入數據分佈變化監控</li>
+</ul>
+<p><strong>Data Drift定義（Q37）</strong>：訓練時使用的資料分佈，與部署後實際輸入資料的<strong>統計特徵隨時間逐漸出現差異</strong>，導致模型表現衰退</p>
+<p><strong>延遲測試指標（Q35）</strong>：客戶從輸入問題到收到第一個完整回應所需的時間</p>
+<h2>🆕 MCP架構（Model Context Protocol）⭐⭐⭐⭐⭐</h2>
+<h3>核心定義</h3>
+<p>Anthropic主導的開放協議，讓LLM能<strong>標準化地與外部工具/資源對接</strong>，被稱為「<strong>AI的USB-C接口</strong>」</p>
+<h3>三大角色與架構流程（Q7 必考）</h3>
+<p>正確流程：
+AI Host → MCP Client → MCP Server → 資料查詢 → 結果回傳 AI Host</p>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>職責</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AI Host</strong></td>
+<td>宿主（如Claude Desktop、VS Code插件），用戶端與LLM的橋樑</td>
+</tr>
+<tr>
+<td><strong>MCP Client</strong></td>
+<td>協議連接器，存在於Host內部，負責與Server維護連線</td>
+</tr>
+</tbody>
+</table>
+<p>Q44答案：RAG常用於擴展知識庫內容，而MCP更著重於<strong>動態工具與API呼叫的整合</strong></p>
+<h2>🆕 A2A架構（Agent-to-Agent）⭐⭐⭐⭐⭐</h2>
+<h3>核心定義</h3>
+<p>Google主導、已開源至Linux基金會的多智能體協作通信標準，解決「<strong>智能體孤島</strong>」問題</p>
+<h3>Client Agent vs Remote Agent（Q8）</h3>
+<blockquote>
+<p>正確互動流程：<strong>Client Agent發起任務，Remote Agent執行並回傳結果</strong></p>
+</blockquote>
+<p>Client Agent（發起方）→ 讀取Remote Agent的Agent Card（能力清單）→ 發送Task Request → Remote Agent（執行方）接收並執行 → 完成後回傳結果（Artifact）</p>
+<blockquote>
+<p>❌ 常見錯誤：「Remote Agent主動分派任務給Client」</p>
+</blockquote>
+<h3>A2A核心概念</h3>
+<ul>
+<li><strong>Agent Card</strong>：智能體的「名片」（能力清單，JSON格式）</li>
+<li><strong>黑盒執行</strong>：智能體不需暴露內部實現，只需交換輸入/輸出</li>
+</ul>
+<h2>MCP vs A2A 最重要區別</h2>
+<table>
+<thead>
+<tr>
+<th>協議</th>
+<th>用途</th>
+<th>口訣</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MCP</strong></td>
+<td>AI智能體 ↔ <strong>外部工具/資料</strong>（工具層）</td>
+<td>AI連接工具</td>
+</tr>
+<tr>
+<td><strong>A2A</strong></td>
+<td>AI智能體 ↔ <strong>AI智能體</strong>（智能體間通訊）</td>
+<td>AI連接AI</td>
+</tr>
+</tbody>
+</table>
+<h2>🆕 Agentic AI 智能體 ⭐⭐⭐⭐⭐</h2>
+<h3>演進路徑</h3>
+<p>聊天機器人（對話）→ AI助理（輔助）→ Agentic AI（自主執行多步任務）</p>
+<h3>核心特性</h3>
+<ul>
+<li>環境感知、維護內部狀態（跨對話記憶）</li>
+<li>自主調用工具（Tool Use / Function Calling）</li>
+<li>多步規劃與執行、自我修正能力</li>
+</ul>
+<h3>Solution Graph搜尋策略（Q11、Q49）</h3>
+<ul>
+<li>Q11：使用廣度優先、深度優先或最佳優先等演算法進行探索</li>
+<li>Q49：Solution Graph作為代理在執行過程中的參考框架，用於組織決策步驟並支援任務推理</li>
+</ul>
+<h2>🆕 Context Engineering 上下文工程 ⭐⭐⭐⭐⭐</h2>
+<h3>核心定義</h3>
+<p>動態、結構化地設計和管理「AI當前能訪問的<strong>全部上下文資訊</strong>」</p>
+<h3>核心目的（Q9）</h3>
+<blockquote>
+<p>考試標準答案：<strong>優化提示與上下文</strong>（非縮短模型訓練時間、增加參數數量、優化Fine-tuning正確率）</p>
+</blockquote>
+<h3>Context Engineering vs Prompt Engineering</h3>
+<table>
+<thead>
+<tr>
+<th>維度</th>
+<th>Prompt Engineering</th>
+<th>Context Engineering</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>範疇</td>
+<td>單次、靜態輸入指令</td>
+<td><strong>動態、系統性管理上下文</strong></td>
+</tr>
+<tr>
+<td>主要用途</td>
+<td>單步問答、短對話</td>
+<td>多步推理、長時任務、複雜Agent</td>
+</tr>
+<tr>
+<td>核心挑戰</td>
+<td>詞句優化、意圖表達</td>
+<td>資訊過載（context rot）、有效篩選</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>兩者是<strong>遞進關係</strong>：Prompt Engineering是Context Engineering的「低維切面」</p>
+</blockquote>
+<h2>進階技術概念</h2>
+<h3>聯邦學習（Federated Learning）⭐⭐⭐</h3>
+<p><strong>定義</strong>：在<strong>不移動本地數據</strong>的前提下，透過交換模型參數來共同優化全局模型</p>
+<p>運作流程：各機構本地訓練模型 → 上傳模型參數/梯度 → 中央伺服器聚合參數 → 下發更新後的全局模型</p>
+<p>適用場景：醫院間疾病診斷模型、銀行間詐騙偵測、手機端個性化模型</p>
+<h3>APE（Automatic Prompt Engineer）⭐</h3>
+<p>自動化提示詞工程，利用AI<strong>自動生成、評估、優化</strong>提示詞</p>
+<h3>差分隱私（Differential Privacy）</h3>
+<ul>
+<li>加入特定噪聲，防止敏感資料外洩</li>
+<li>與聯邦學習常搭配使用</li>
+</ul>
+<h3>本地部署LLM（Q12）⭐</h3>
+<blockquote>
+<p>本地部署的核心優勢：<strong>確保輸入模型的敏感資料不會傳輸給第三方，提升資料隱私和自主控制</strong>（非零運算成本或精度更高）</p>
+</blockquote>
+<h3>即時資訊系統設計（Q29）</h3>
+<blockquote>
+<p>即時股市分析需要即時性+可靠性 → 建立與外部即時行情來源同步的查詢模組（RAG應用）</p>
+</blockquote>
+<h3>AI系統改進優先順序（Q21）</h3>
+<blockquote>
+<p>車載語音助理：ASR錯誤率高 + LLM回覆不精確 → 優先提升準確性的順序：1→2→4→3</p>
+</blockquote>
+<h3>文本生成任務分類（Q50）</h3>
+<blockquote>
+<p>部落格續寫工具：生成式語言建模（Text Generation）</p>
+</blockquote>
+<h2>⚖️ 台灣AI治理法規速查</h2>
+<h3>台灣《人工智慧基本法》⭐⭐⭐</h3>
+<blockquote>
+<p>2025年12月23日三讀通過，主管機關：國家科學及技術委員會（國科會）</p>
+</blockquote>
+<p>七大原則：
+1. 永續發展與社會福祉
+2. 人類自主
+3. 隱私保護與資料治理
+4. 資安與系統安全
+5. 透明與可解釋性
+6. 公平與不歧視
+7. 問責</p>
+<p>核心精神：「以人為本」，行政院成立「國家人工智慧戰略特別委員會」</p>
+<h3>EU AI Act（歐盟AI法）</h3>
+<table>
+<thead>
+<tr>
+<th>風險等級</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不可接受風險（禁止）</td>
+<td>社會評分系統、潛意識操控、即時公共場所生物辨識</td>
+</tr>
+<tr>
+<td>高風險（嚴格監管）</td>
+<td>醫療診斷AI、人臉辨識入境、自動駕駛、法庭量刑AI</td>
+</tr>
+<tr>
+<td>有限風險（透明度義務）</td>
+<td>聊天機器人（需告知用戶）、Deepfake生成</td>
+</tr>
+<tr>
+<td>最低風險（無需監管）</td>
+<td>垃圾郵件過濾、推薦系統、遊戲NPC</td>
+</tr>
+</tbody>
+</table>
+<p>重要數字：違規罰款：2000萬歐元或4%全球年營業額；GDPR資料洩漏通報：72小時內通知監管機關</p>
+<h3>法規速查表</h3>
+<table>
+<thead>
+<tr>
+<th>法規</th>
+<th>關鍵數字/內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GDPR（歐盟）</td>
+<td>資料洩漏後72小時內通知監管機關</td>
+</tr>
+<tr>
+<td>CCPA（美國加州）</td>
+<td>資料最小化原則</td>
+</tr>
+<tr>
+<td>EU AI Act</td>
+<td>違規罰款：2000萬歐元或4%年營業額</td>
+</tr>
+<tr>
+<td>台灣AI基本法</td>
+<td>七大原則，主管機關：國科會，2025/12/23通過</td>
+</tr>
+<tr>
+<td>ISO 42001 AIMS</td>
+<td>AI管理系統國際標準（類比ISO 27001）</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>🔄 容易混淆的概念</h2>
+<ol>
+<li>RAG vs Fine-tuning vs Prompt Engineering</li>
+<li>Prompt = 臨時小抄（最快、最便宜、不持久）</li>
+<li>RAG = 查圖書館（即時、可溯源、企業首選）</li>
+<li>
+<p>Fine-tuning = 去補習班（改造大腦、貴、學口吻不學知識）</p>
+</li>
+<li>
+<p>MCP vs A2A</p>
+</li>
+<li>MCP = AI智能體 ↔ 外部工具/資料庫（Anthropic主導）</li>
+<li>
+<p>A2A = AI智能體 ↔ AI智能體（Google主導）</p>
+</li>
+<li>
+<p>CoT vs ToT vs Graph Prompting</p>
+</li>
+<li>CoT = 線性推理步驟（退款流程查詢）</li>
+<li>ToT = 多分支方案比較（活動規劃）</li>
+<li>
+<p>Graph = 非線性網絡關係（社交關係、跨國合規）</p>
+</li>
+<li>
+<p>風險轉移 vs 風險緩解</p>
+</li>
+<li>風險轉移 = 外包/買保險</li>
+<li>
+<p>風險緩解 = 採取措施降低風險發生機率或影響</p>
+</li>
+<li>
+<p>聯邦學習 vs 同態加密 vs 零知識證明</p>
+</li>
+<li>聯邦學習 = 分散式訓練模型，資料不離開本地</li>
+<li>同態加密 = 加密狀態下運算，成本極高</li>
+<li>
+<p>零知識證明 = 驗證不揭露資訊，用於身份驗證</p>
+</li>
+<li>
+<p>Data Drift vs 過擬合（Overfitting）</p>
+</li>
+<li>Data Drift = 部署後資料分佈隨時間改變</li>
+<li>
+<p>過擬合 = 訓練時對訓練數據擬合過度</p>
+</li>
+<li>
+<p>GAN vs VAE vs Transformer</p>
+</li>
+<li>GAN = 圖像生成主力</li>
+<li>VAE = 穩定的機率生成</li>
+<li>Transformer = GPT/語言模型基礎</li>
+</ol>
+<h2>📊 114/4 實際考題分析與答題策略</h2>
+<h3>答題策略</h3>
+<ul>
+<li>策略1：情境題排除法</li>
+<li>先排除明顯荒謬的選項（如「零運算成本」、「完全無幻覺」）</li>
+<li>找「最符合題目特定限制」的選項</li>
+<li>
+<p>注意修飾詞：<strong>優先／最主要／核心</strong></p>
+</li>
+<li>
+<p>策略2：新概念題（MCP/A2A/Context Engineering）</p>
+</li>
+<li>MCP流程：背好「AI Host→Client→Server」順序</li>
+<li>A2A：Client發起，Remote執行（C先A後）</li>
+<li>
+<p>Context Engineering：答案永遠是「優化提示與上下文」</p>
+</li>
+<li>
+<p>策略3：「不包括/非目的」反向題</p>
+</li>
+<li>Guardrails不包括：重建追蹤全部推理過程</li>
+<li>
+<p>No-code優勢不包括：完全消除技術人員需求</p>
+</li>
+<li>
+<p>策略4：企業場景順序題</p>
+</li>
+<li>
+<p>萬能順序：目標設定→資料準備→技術選型→系統建置</p>
+</li>
+<li>
+<p>策略5：隱私保護題</p>
+</li>
+<li>跨機構訓練+資料不離開→聯邦學習</li>
+<li>個資不進模型→資料最小化+去識別化</li>
+<li>阻止敏感指令→輸入檢測+回應審核</li>
+</ul>
+<h3>考題主題分佈（58題）</h3>
+<table>
+<thead>
+<tr>
+<th>主題</th>
+<th>題數</th>
+<th>重要性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MCP / A2A / Agentic AI</td>
+<td>~10題</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Prompt工程（CoT/ToT/Graph/APE）</td>
+<td>~8題</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>RAG / Fine-tuning / Chunking</td>
+<td>~8題</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>企業導入策略/順序/風險</td>
+<td>~7題</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>聯邦學習/隱私保護</td>
+<td>~4題</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>評估指標/Benchmark</td>
+<td>~4題</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>No-code/Low-code</td>
+<td>~4題</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>AI治理/法規/倫理</td>
+<td>~4題</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>生成式AI工具/應用</td>
+<td>~4題</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>其他（溫度、蒸餾等）</td>
+<td>~5題</td>
+<td>⭐⭐</td>
+</tr>
+</tbody>
+</table>
+<h2>附：科目二知識架構總覽</h2>
+<pre><code>科目二：生成式AI應用與規劃
+├── L121 No-code/Low-code
+│   ├── 定義差異（非技術 vs 少量程式碼）
+│   ├── 三大優勢（降成本/縮時間/加速轉型）
+│   ├── MLOps中的角色（可視化介面、跨部門協作）
+│   └── AI民主化（市民開發者）
+│
+├── L122 生成式AI應用領域與工具
+│   ├── 核心技術（GAN/VAE/Transformer/RLHF）
+│   ├── 多模態應用（文字/圖像/聲音/影片/程式碼）
+│   ├── Prompt工程（Zero/Few-shot/CoT/ToT/Graph/APE）
+│   ├── RAG架構（Chunking/Multi-vector/知識蒸餾）
+│   └── Fine-tuning vs RAG選擇策略
+│
+├── L123 生成式AI導入評估規劃
+│   ├── 四大發展階段（構想→設計→POC→實施）
+│   ├── 導入順序（設KPI→收資料→選技術→建系統）
+│   ├── ROI計算（NPV/IRR/敏感性分析）
+│   ├── 風險6大策略（外包=風險轉移）
+│   ├── 公平性檢測（演算法偏見）
+│   └── 法規合規（GDPR/CCPA/台灣AI基本法）
+│
+└── 新增概念（超出指引，114/4重點考題）
+    ├── MCP（AI Host→Client→Server，Anthropic標準）⭐⭐⭐⭐⭐
+    ├── A2A（Client發起→Remote執行，Google主導）⭐⭐⭐⭐⭐
+    ├── Agentic AI（Solution Graph，廣度/深度/最佳優先）⭐⭐⭐⭐⭐
+    ├── Context Engineering（優化提示與上下文）⭐⭐⭐⭐⭐
+    ├── APE（自動Prompt工程）⭐⭐⭐
+    └── Federated Learning（資料不離開本地）⭐⭐⭐⭐
+</code></pre>
+<p><em>本筆記整合自：學習指引科目二、114/4實際考題（58題）、114/4考題解析、CCChen方格子備考指南、煎餃Lab L122筆記、網路資源與新概念補充</em></p>
+<p><em>最後更新：2026年（v2版本，含114/4考題完整分析）</em></p>
+    </article>
+    <footer><p>📖 由 md_to_html Skill v1.1 生成 | 2026-03-02 ｜ ✨ 非互動式 RWD HTML</p></footer>
+  </main>
+</body>
+</html>

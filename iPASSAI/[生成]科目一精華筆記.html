@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>科目一：人工智慧基礎概論 精華筆記</title>
+  <style>
+:root{--bg:#ffffff;--surface:#ffffff;--muted:#6b7280;--text:#0f172a;--accent:#0366d6;--code-bg:#0f172a10;--border:#e6edf3}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:#f6f8fa;color:var(--text);font-family:Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;line-height:1.7;-webkit-font-smoothing:antialiased}
+.container{max-width:980px;margin:28px auto;padding:24px;background:var(--surface);border-radius:10px;box-shadow:0 6px 18px rgba(15,23,42,0.06);}
+header{margin-bottom:12px}
+h1{font-size:28px;margin:0 0 8px}
+h2{font-size:22px;margin:20px 0 8px}
+h3{font-size:18px;margin:18px 0 8px}
+p{color:var(--text);margin:0 0 12px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+code{background:var(--code-bg);padding:.15em .4em;border-radius:6px;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;font-size:0.95em}
+pre{background:#0b1220; color:#e6eef8;padding:12px;border-radius:8px;overflow:auto}
+pre code{background:transparent;color:inherit;padding:0}
+.table-wrap{overflow:auto;margin:12px 0}
+table{width:100%;border-collapse:collapse}
+th,td{padding:8px 12px;border:1px solid var(--border);text-align:left}
+th{background:#f3f6fb}
+ul,ol{margin:0 0 12px 20px}
+blockquote{margin:0 0 12px;padding-left:14px;border-left:3px solid #e2e8f0;color:var(--muted)}
+img{max-width:100%;height:auto;border-radius:6px}
+footer{margin-top:18px;color:var(--muted);font-size:14px}
+@media (max-width:600px){.container{margin:12px;padding:16px}h1{font-size:22px}h2{font-size:18px}}
+</style>
+</head>
+<body>
+  <main class="container">
+    <header><h1>科目一：人工智慧基礎概論 精華筆記</h1></header>
+    <article>
+<p><em>來源：iPAS AI應用規劃師初級 學習指引 + 單元一～五教材</em></p>
+<h2>iPAS AI初級 科目一精華筆記</h2>
+<p>互動式學習導讀 | 🎯 學習目標：1 個</p>
+<hr>
+<blockquote>
+<p><strong>來源</strong>：iPAS AI應用規劃師初級 學習指引 + 單元一～五教材
+<strong>考試範圍</strong>：L111 人工智慧概念、L112 資料處理與分析概念、L113 機器學習概念、L114 鑑別式AI與生成式AI概念</p>
+</blockquote>
+<h2>L111 人工智慧概念</h2>
+<h3>AI 定義與分類</h3>
+<p><strong>AI定義（多來源）</strong></p>
+<p>• 牛津詞典：能執行通常需要人類智慧之任務的電腦系統理論與發展（視覺感知、語音辨識、決策、語言翻譯）</p>
+<p>• 讓系統或電腦設備有模擬人類思考模式、邏輯與行為的能力，且能自行透過數據分析持續校正、進化</p>
+<p><strong>AI依功能分類（3種）</strong></p>
+<table>
+<thead>
+<tr>
+<th>類型</th>
+<th>說明</th>
+<th>應用範例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分析型 AI</td>
+<td>洞悉數據模式，分析處理大量數據，提供有價值見解</td>
+<td>大數據分析</td>
+</tr>
+<tr>
+<td>預測型 AI</td>
+<td>基於歷史資料預測未來趨勢和行為</td>
+<td>市場預測、風險評估</td>
+</tr>
+<tr>
+<td>生成型 AI</td>
+<td>根據使用者輸入提示詞（prompt）生成文字、語音、圖像和影片</td>
+<td>ChatGPT、Midjourney</td>
+</tr>
+</tbody>
+</table>
+<p><strong>強人工智慧 vs 弱人工智慧</strong></p>
+<p>• <strong>強AI（Strong AI/AGI）</strong>：相當接近人類智慧，可像人類一樣學習、理解和創造新知識，目前尚未真正出現</p>
+<p>• <strong>弱AI（Weak AI/Narrow AI）</strong>：只處理特定問題，目前大多數AI應用屬此類（如Siri、Alexa）</p>
+<p><strong>AI技術底層架構</strong></p>
+<ol>
+<li><strong>資料處理與分析</strong>：ETL流程、資料庫管理、大數據平台（Hadoop、Spark）</li>
+<li><strong>演算法</strong>：迴歸分析、分類演算法、決策樹、基因演算法</li>
+<li><strong>機器學習</strong>：監督式、非監督式、強化學習</li>
+<li><strong>深度學習</strong>：基於神經網路，框架TensorFlow、PyTorch</li>
+<li><strong>專家系統</strong>：基於規則與知識庫，模擬人類專家決策</li>
+</ol>
+<p><strong>AI主要應用領域</strong></p>
+<p>• 醫療：疾病診斷（醫學影像）、藥物研發（分子模擬）、個人化醫療</p>
+<p>• 金融：風險評估、欺詐檢測、自動交易</p>
+<p>• 製造業：自動化生產、品質控制、預測性維護</p>
+<p>• 交通：自動駕駛、交通流量預測</p>
+<p>• 娛樂：遊戲AI、VR、內容推薦</p>
+<p><strong>AI發展史重要事件</strong></p>
+<p>• 1950年：圖靈測試（Alan Turing）</p>
+<p>• 1962年：IBM Arthur Lee Samuel的西洋跳棋程式擊敗人類冠軍（核心技術：Alpha-beta剪枝）</p>
+<p>• 1997年：IBM深藍擊敗西洋棋世界冠軍Kasparov（2.5:3.5），每秒2億步棋</p>
+<p>• 2016年：DeepMind AlphaGo擊敗圍棋世界冠軍李世石（技術：蒙特卡羅樹搜索+深度學習+強化學習）</p>
+<h3>AI 治理概念</h3>
+<h4>歐盟《人工智慧法案》（EU AI Act）</h4>
+<p>• <strong>生效時間</strong>：2024年8月1日正式生效</p>
+<p>• <strong>核心目標</strong>：</p>
+<ul>
+<li>保護公民健康、安全和基本權利</li>
+<li>促進AI創新和競爭力</li>
+<li>建立統一市場規則</li>
+</ul>
+<p><strong>風險分類（4級）</strong></p>
+<table>
+<thead>
+<tr>
+<th>風險等級</th>
+<th>說明</th>
+<th>義務</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>最小風險</td>
+<td>垃圾郵件過濾器、AI視訊遊戲</td>
+<td>無需特別義務</td>
+</tr>
+<tr>
+<td>具體透明度風險</td>
+<td>聊天機器人</td>
+<td>需告知用戶正在與機器交互</td>
+</tr>
+<tr>
+<td>高風險</td>
+<td>AI醫療軟體、招聘系統</td>
+<td>嚴格合規（風險管理、高品質數據集、透明度、手動監督）</td>
+</tr>
+<tr>
+<td>不可接受風險</td>
+<td>社會評分系統</td>
+<td><strong>禁止</strong>（對基本權利構成威脅）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>執法與罰則</strong>：</p>
+<p>• 最高可達全球年營業額的<strong>6%</strong></p>
+<p>• 設立人工智慧辦公室協調實施</p>
+<p>• 成立歐洲人工智慧委員會提供技術和政策建議</p>
+<p><strong>核心機制</strong>：透明度與問責、風險分類與合規要求、市場監管與合規評估、罰則與執法、監測與報告、機構管理</p>
+<h4>台灣相關政策</h4>
+<p><strong>中華民國生成式AI參考指引（草案）</strong></p>
+<p>• 發布單位：國家科學及技術委員會（2023年8月31日）</p>
+<p>• 對象：行政院及所屬機關</p>
+<p>• <strong>核心原則</strong>：</p>
+<ul>
+<li>安全性與隱私性：不得洩露機密信息和個人隱私</li>
+<li>責任與問責：生成資訊需由業務承辦人最終判斷</li>
+<li>資料治理：符合資通安全、個人資料保護和智慧財產權等規定</li>
+</ul>
+<p><strong>主要規定（重點）</strong>：</p>
+<ul>
+<li><strong>機密文書</strong>：應由業務承辦人親自撰寫，<strong>禁止使用生成式AI</strong></li>
+<li><strong>不可完全信任</strong>AI產出資訊，不得作為唯一依據</li>
+<li>封閉式地端部署才能依機密等級分級使用</li>
+<li>使用AI需<strong>適當揭露</strong></li>
+<li>遵守著作權、個資保護、資通安全相關法規</li>
+</ul>
+<h4>負責任AI原則（微軟六大準則）</h4>
+<ol>
+<li><strong>公平性（Fairness）</strong>：公平對待每個人，避免偏見（如貸款審核不得有性別、種族偏見）</li>
+<li><strong>可靠性與安全性（Reliability &amp; Safety）</strong>：系統穩定運行，不造成傷害</li>
+<li><strong>隱私與保密性（Privacy &amp; Security）</strong>：保護個人隱私數據</li>
+<li><strong>包容性（Inclusiveness）</strong>：服務所有用戶，不邊緣化特定群體</li>
+<li><strong>透明度（Transparency）</strong>：AI決策過程可解釋，用戶能理解</li>
+<li><strong>責任（Accountability）</strong>：明確責任歸屬</li>
+</ol>
+<p><strong>AI造成的損害類型</strong>：</p>
+<p>• <strong>配置損害</strong>：資源分配不公（如招聘AI偏向特定族群）</p>
+<p>• <strong>服務品質損害</strong>：不同族群服務效能不一（如語音識別對某些口音準確率較低）</p>
+<h2>L112 資料處理與分析概念</h2>
+<h3>大數據基本概念（5V）</h3>
+<p>• <strong>Volume（數據量）</strong>：需要大量數據</p>
+<p>• <strong>Velocity（數據速度）</strong>：數據生成速度快</p>
+<p>• <strong>Variety（數據多樣性）</strong>：處理不同種類數據</p>
+<p>• <strong>Veracity（數據真實性）</strong>：確保數據準確性</p>
+<p>• <strong>Value（數據價值）</strong>：數據的有用性</p>
+<h3>資料型態與結構</h3>
+<table>
+<thead>
+<tr>
+<th>類型</th>
+<th>說明</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>結構化數據</td>
+<td>具清晰固定結構，行列形式</td>
+<td>MySQL、PostgreSQL、電子表格</td>
+</tr>
+<tr>
+<td>半結構化數據</td>
+<td>有結構標籤但格式靈活</td>
+<td>XML、JSON、CSV</td>
+</tr>
+<tr>
+<td>非結構化數據</td>
+<td>無固定結構，需處理解析</td>
+<td>圖片、影像、音訊、電子郵件、文章</td>
+</tr>
+</tbody>
+</table>
+<h3>資料整理與分析流程</h3>
+<h4>資料蒐集方法</h4>
+<p>• 問卷與調查（第一手數據）</p>
+<p>• 自有產品數據（網站、App、IoT設備）</p>
+<p>• 外部公開數據（API、政府開放資料平台）</p>
+<p>• 網路爬蟲（Web Scraping）：抓取商品價格、評論、新聞</p>
+<p>• 外部付費數據購買（第三方數據集）</p>
+<h4>資料清洗（4種問題處理）</h4>
+<table>
+<thead>
+<tr>
+<th>問題</th>
+<th>說明</th>
+<th>處理方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>遺缺值（Missing Value）</td>
+<td>某欄位無有效數據</td>
+<td>填補（平均值/中位數/眾數/插補法）或刪除記錄</td>
+</tr>
+<tr>
+<td>重複值（Duplicate Value）</td>
+<td>相同記錄多次出現</td>
+<td>識別後刪除重複項，保留一份</td>
+</tr>
+<tr>
+<td>錯誤值（Error/Invalid Value）</td>
+<td>不符合合理範圍或明顯錯誤</td>
+<td>檢測修正（如年齡-5歲、拼寫錯誤）</td>
+</tr>
+<tr>
+<td>離群值（Outlier Value）</td>
+<td>偏離大多數數據點的異常值</td>
+<td>依業務需求決定是否保留或處理</td>
+</tr>
+</tbody>
+</table>
+<h4>資料轉換</h4>
+<p>• <strong>格式轉換</strong>：CSV→JSON</p>
+<p>• <strong>類型轉換</strong>：字串→數值</p>
+<p>• <strong>正規化/標準化</strong>：縮放到特定範圍（[0,1]或[-1,1]）</p>
+<p>• <strong>離散化</strong>：連續型→類別（年齡→青年/中年/老年）</p>
+<p>• <strong>數據縮減</strong>：PCA降維、特徵選擇</p>
+<h4>資料分析四種方法</h4>
+<table>
+<thead>
+<tr>
+<th>分析類型</th>
+<th>說明</th>
+<th>主要方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>敘述性分析（Descriptive）</td>
+<td>描述數據基本特徵</td>
+<td>平均值、中位數、標準差、直方圖、散佈圖</td>
+</tr>
+<tr>
+<td>探索性分析（Exploratory/EDA）</td>
+<td>無預設假設地探索模式</td>
+<td>散佈圖矩陣、熱圖、箱型圖、PCA、K-Means</td>
+</tr>
+<tr>
+<td>診斷性分析（Diagnostic）</td>
+<td>探究特定現象的根本原因</td>
+<td>鑽取分析、關聯分析、因果分析（A/B測試）</td>
+</tr>
+<tr>
+<td>預測性分析（Predictive）</td>
+<td>用歷史數據預測未來</td>
+<td>迴歸、分類、時間序列（ARIMA/LSTM）、集成學習</td>
+</tr>
+</tbody>
+</table>
+<h3>統計基礎</h3>
+<h4>中央趨勢量（3種）</h4>
+<table>
+<thead>
+<tr>
+<th>統計量</th>
+<th>說明</th>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>平均數（Mean）</td>
+<td>所有數值總和÷個數</td>
+<td>計算簡單</td>
+<td>易受極端值影響</td>
+</tr>
+<tr>
+<td>中位數（Median）</td>
+<td>排序後中間的值</td>
+<td>不受極端值影響</td>
+<td>不適合複雜數學運算</td>
+</tr>
+<tr>
+<td>眾數（Mode）</td>
+<td>出現頻率最高的值</td>
+<td>不受極端值影響，反映最常見值</td>
+<td>可能有多個或不存在</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>規律</strong>：平均數 &gt; 中位數 → 正偏態；平均數 &lt; 中位數 → 負偏態</p>
+</blockquote>
+<h4>分散度量（重要）</h4>
+<p>• <strong>標準差（SD）</strong>：衡量資料分散程度，越大→越分散→品質越不穩定</p>
+<p>• <strong>四分位距（IQR）</strong>：Q3-Q1，<strong>不受極端值影響</strong>（這點常考！）</p>
+<p>• <strong>全距（Range）</strong>：最大值-最小值，<strong>受極端值影響</strong></p>
+<h4>假設檢定</h4>
+<p>• <strong>虛無假設（H0）</strong>：假設不存在顯著差異</p>
+<p>• <strong>對立假設（Ha）</strong>：存在顯著差異</p>
+<p>• <strong>顯著水準（α）</strong>：常取0.05、0.01、0.1</p>
+<p>• <strong>p值 &lt; α</strong> → 拒絕虛無假設</p>
+<p>• <strong>Type I錯誤（α）</strong>：H0為真卻拒絕（誤拒）</p>
+<p>• <strong>Type II錯誤（β）</strong>：H0為假卻接受（誤接）</p>
+<h3>資料隱私與安全</h3>
+<p><strong>核心保護原則（AI治理角度）</strong>：</p>
+<p>• 使用AI時不得洩露機密信息和個人隱私</p>
+<p>• 生成式AI產出不得包含保密資訊</p>
+<p>• 符合個人資料保護、著作權、資通安全相關法規</p>
+<p>• 資料收集、儲存、分析各階段均需保護個資</p>
+<h2>L113 機器學習概念</h2>
+<h3>機器學習基本原理</h3>
+<p><strong>定義</strong>：透過數據訓練模型，使機器具備預測與分類能力，應用於文字辨識、語音辨識、圖像辨識等。</p>
+<p><strong>機器學習步驟</strong>：</p>
+<ol>
+<li>準備訓練資料（蒐集、過濾雜訊、前處理）</li>
+<li>訓練模型（輸入演算法、調整參數）</li>
+<li>測試及評估模型（反覆調校）</li>
+</ol>
+<p><strong>AI &gt; 機器學習 &gt; 深度學習</strong>（包含關係）</p>
+<h3>監督式 vs 非監督式 vs 強化學習</h3>
+<table>
+<thead>
+<tr>
+<th>學習類型</th>
+<th>資料需求</th>
+<th>目標</th>
+<th>典型應用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>監督式學習</strong> (Supervised)</td>
+<td>有標記（Labeled）數據</td>
+<td>分類 / 迴歸</td>
+<td>垃圾郵件過濾、影像識別、房價預測</td>
+</tr>
+<tr>
+<td><strong>非監督式學習</strong> (Unsupervised)</td>
+<td>無標記數據</td>
+<td>聚類 / 降維</td>
+<td>客群分類、異常偵測、影像壓縮</td>
+</tr>
+<tr>
+<td><strong>半監督式學習</strong> (Semi-supervised)</td>
+<td>少量標記+大量無標記</td>
+<td>分類（結合兩者優勢）</td>
+<td>影像分類</td>
+</tr>
+</tbody>
+</table>
+<h3>深度學習三大模型</h3>
+<h4>CNN（卷積神經網路）</h4>
+<p>• <strong>特點</strong>：適合圖像數據，提取層次化特徵（邊緣→紋理→形狀）</p>
+<p>• <strong>結構</strong>：卷積層 → 池化層（降維防過擬合）→ 全連接層</p>
+<p>• <strong>應用</strong>：影像辨識、物件偵測、醫學影像、人臉辨識</p>
+<h4>RNN（循環神經網路）</h4>
+<p>• <strong>特點</strong>：處理序列數據，記憶前一時刻狀態</p>
+<p>• <strong>改進版</strong>：</p>
+<ul>
+<li><strong>LSTM</strong>（長短期記憶網路）：引入遺忘門/輸入門/輸出門，解決梯度消失</li>
+<li><strong>GRU</strong>（門控循環單元）：結構比LSTM簡單</li>
+</ul>
+<p>• <strong>應用</strong>：機器翻譯、語音辨識、股票預測</p>
+<h4>GAN（生成對抗網路）</h4>
+<p>• <strong>結構</strong>：生成器（Generator）+ 判別器（Discriminator）</p>
+<p>• <strong>運作</strong>：生成器生成假數據欺騙判別器；判別器識別真假</p>
+<p>• <strong>缺點</strong>：訓練不穩定、可能模式崩潰（Mode Collapse）</p>
+<p>• <strong>應用</strong>：圖像生成、風格遷移、數據增強、醫療影像合成</p>
+<h3>特徵工程方法</h3>
+<h4>資料標準化</h4>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>公式</th>
+<th>適用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Min-Max標準化</td>
+<td>X_scaled = (X-Xmin)/(Xmax-Xmin)</td>
+<td>映射到[0,1]</td>
+</tr>
+<tr>
+<td>Z-score標準化</td>
+<td>X_scaled = (X-μ)/σ</td>
+<td>均值0、標準差1</td>
+</tr>
+</tbody>
+</table>
+<h4>特徵選擇方法</h4>
+<p>• <strong>過濾法（Filter）</strong>：用相關性或統計量篩選（皮爾遜相關係數）</p>
+<p>• <strong>包裝法（Wrapper）</strong>：用模型效能評估特徵組合（遞迴特徵消除RFE）</p>
+<p>• <strong>嵌入法（Embedded）</strong>：模型內置機制篩選（LASSO正則化）</p>
+<h4>模型訓練相關</h4>
+<p>• <strong>損失函數</strong>：MSE（均方誤差，迴歸用）、交叉熵損失（分類用）</p>
+<p>• <strong>優化演算法</strong>：SGD（隨機梯度下降）、Adam（自適應學習率，最常用）</p>
+<p>• <strong>過擬合防範</strong>：L1/L2正則化、Early Stopping、Data Augmentation</p>
+<h4>模型評估指標</h4>
+<p>• <strong>準確率（Accuracy）</strong>：適合平衡分類問題</p>
+<p>• <strong>F1分數</strong>：精確率（Precision）+召回率（Recall），適合不平衡資料</p>
+<p>• <strong>MSE</strong>：迴歸問題評估</p>
+<p>• <strong>K折交叉驗證</strong>：降低過擬合風險，評估模型穩健性</p>
+<h2>L114 鑑別式AI與生成式AI概念</h2>
+<h3>基本原理比較</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>鑑別式AI（DAI）</th>
+<th>生成式AI（GAI）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>核心任務</strong></td>
+<td>分類 / 迴歸（找決策邊界）</td>
+<td>生成新數據（文字、圖像、音訊）</td>
+</tr>
+<tr>
+<td><strong>輸出</strong></td>
+<td>類別標籤或數值預測</td>
+<td>新的數據樣本</td>
+</tr>
+<tr>
+<td><strong>代表模型</strong></td>
+<td>SVM、邏輯迴歸、決策樹、CNN</td>
+<td>GAN、VAE、擴散模型、GPT系列</td>
+</tr>
+<tr>
+<td><strong>優勢</strong></td>
+<td>精準分析、決策支持、計算效率高</td>
+<td>創新內容生成、數據增強</td>
+</tr>
+<tr>
+<td><strong>挑戰</strong></td>
+<td>數據偏見、過擬合、標記成本</td>
+<td>內容真實性、可控性、計算成本</td>
+</tr>
+</tbody>
+</table>
+<h3>生成式AI主要模型</h3>
+<h4>GAN（生成對抗網路）</h4>
+<p>• 應用：StyleGAN生成人臉、圖像修復、風格遷移、醫療影像合成、VR場景</p>
+<h4>VAE（變分自編碼器）</h4>
+<p>• 原理：編碼器壓縮→隱變量空間→解碼器重建</p>
+<p>• 應用：數據修復、異常檢測、數據生成（平滑過渡）</p>
+<h4>擴散模型（Diffusion Models）</h4>
+<p>• 原理：訓練時逐步加雜訊→生成時反向去雜訊</p>
+<p>• 應用：高品質圖像生成（DALL-E等）、醫療影像合成、文本到圖像</p>
+<h3>電腦視覺（Computer Vision）</h3>
+<p><strong>圖像基礎</strong>：圖像由像素陣列構成，每個像素從0（黑）到255（白）</p>
+<p><strong>主要任務</strong>：</p>
+<p>• 影像分類：確定圖像的類別
+• 物件偵測：識別並定位圖像中的物體
+• 光學字元辨識（OCR）：讀取影像中的文字
+• 臉部偵測/分析：偵測臉部位置及分析特徵
+• 圖像分割：將圖像分割成不同區域</p>
+<p><strong>CNN在電腦視覺中的角色</strong>：</p>
+<p>• 利用卷積核（Kernel/Filter）提取局部特徵
+• 從低層特徵（邊緣）到高層語義（物體形狀）</p>
+<p><strong>多模態模型</strong>（如Microsoft Florence）：</p>
+<p>• 結合圖像編碼器 + 語言編碼器
+• 用帶描述文字的圖像訓練，不依賴固定標籤
+• 任務：分類、物件偵測、生成標題、編譯標記</p>
+<h3>語音辨識</h3>
+<p><strong>語音辨識流程</strong>：音訊訊號 → 神經網路（RNN/LSTM）→ 文字</p>
+<p><strong>相關技術</strong>：</p>
+<p>• 語音轉文字（ASR）
+• 自然語言處理（NLP）：理解、解釋和生成人類語言
+• Transformer架構：NLP領域重要里程碑，透過向量嵌入編碼語義</p>
+<h3>整合應用（鑑別式+生成式）</h3>
+<p><strong>整合價值</strong>：</p>
+<ol>
+<li><strong>數據增強</strong>：GAI生成多樣化數據 → DAI精確分類預測</li>
+<li><strong>多模態處理</strong>：GAI跨模態生成 + DAI精確分類決策</li>
+<li><strong>提升泛化能力</strong>：GAI擴展學習邊界，DAI適應未知情境</li>
+</ol>
+<p><strong>具體案例</strong>：</p>
+<p>• 醫療影像：GAN生成病理影像 → CNN訓練分類模型
+• 自動駕駛：生成式AI模擬複雜場景 → 鑑別式AI環境識別決策
+• 智慧客服：生成式AI生成回應 → 鑑別式AI過濾不當內容
+• 網路安全：生成式AI模擬攻擊模式 → 鑑別式AI即時識別異常</p>
+<h2>考試重點速查</h2>
+<ol>
+<li><strong>AI功能分類</strong>：分析型、預測型、生成型（三型要能對應應用）</li>
+<li><strong>EU AI Act風險分4級</strong>：最小風險/透明度風險/高風險/不可接受風險（禁止）；最高罰款6%年營業額</li>
+<li><strong>K-Means特性</strong>：易受離群值影響，<strong>不能處理類別型資料</strong>（常考陷阱）</li>
+<li><strong>IQR（四分位距）</strong>：不受極端值影響（全距則受影響）</li>
+<li><strong>偏態分布判斷</strong>：平均數&gt;中位數→正偏態；平均數&lt;中位數→負偏態</li>
+<li><strong>p值判斷</strong>：p&lt;α（0.05）→拒絕虛無假設；p=0.03, α=0.05 → 拒絕H0，有95%信心</li>
+<li><strong>強化學習最適合</strong>：遊戲AI、自動駕駛、動態互動問題（試錯學習）</li>
+<li><strong>GAN結構</strong>：生成器（Generator）+ 判別器（Discriminator）；訓練挑戰：模式崩潰</li>
+<li><strong>鑑別式AI</strong>：學習P(y|x)，目標分類/迴歸；<strong>生成式AI</strong>：學習P(x,y)，目標生成新數據</li>
+<li><strong>過擬合防範</strong>：正則化（L1/L2）、Early Stopping、Data Augmentation、交叉驗證</li>
+<li><strong>損失函數</strong>：MSE用於迴歸，交叉熵用於分類；梯度下降最小化損失函數</li>
+<li><strong>決策樹優勢</strong>：高可解釋性（其他複雜模型如神經網路解釋性較差）</li>
+<li><strong>CNN結構</strong>：卷積層→池化層（防過擬合）→全連接層；最適合圖像數據</li>
+<li><strong>台灣政策</strong>：機密文書禁止用生成式AI；AI產出不得作為唯一決策依據</li>
+<li><strong>負責任AI六原則</strong>：公平性、可靠性與安全性、隱私與保密性、包容性、透明度、責任</li>
+</ol>
+<h2>容易混淆的概念</h2>
+<h3>陷阱1：邏輯迴歸（Logistic Regression）</h3>
+<p>• 名字有「迴歸」但<strong>實際上是分類演算法</strong>（二元分類）</p>
+<p>• 使用Sigmoid函數輸出0-1之間的機率值</p>
+<h3>陷阱2：K-Means vs KNN</h3>
+<p>• <strong>K-Means</strong>：非監督式學習、聚類；K=群組數</p>
+<p>• <strong>KNN</strong>（K-最近鄰）：監督式學習、分類+迴歸；K=最近鄰居數</p>
+<h3>陷阱3：GAN的組件名稱</h3>
+<p>• 判別器（Discriminator）= 鑑別器，判斷真假</p>
+<p>• 生成器（Generator）= 生成假數據</p>
+<p>• 常與VAE的「編碼器/解碼器」混淆</p>
+<h3>陷阱4：強化學習的應用場景</h3>
+<p>• <strong>最適合</strong>：遊戲、自動駕駛、機器人控制（動態互動）</p>
+<p>• 不適合：有大量標記數據的分類問題（那是監督式學習）</p>
+<h3>陷阱5：散佈圖 vs 雷達圖 用途</h3>
+<p>• 散佈圖（Scatter Plot）：展示兩變數相關性，<strong>可用於資料分布估計</strong></p>
+<p>• 雷達圖（Radar Chart）：比較不同維度表現，<strong>不適合資料分布估計</strong></p>
+<h3>陷阱6：EDA vs CDA</h3>
+<p>• <strong>EDA（探索性）</strong>：研究初期，無預設假設，生成假設</p>
+<p>• <strong>CDA（驗證性）</strong>：驗證先前假設，深入挖掘（常考題：CDA重點是驗證假設）</p>
+<h3>陷阱7：過擬合 vs 欠擬合</h3>
+<p>• <strong>過擬合</strong>：訓練表現好、測試表現差 → 模型太複雜，學了噪音</p>
+<p>• <strong>解決</strong>：正則化、增加數據、降低模型複雜度</p>
+<h3>陷阱8：PCA的角色</h3>
+<p>• 既是降維技術，也是非監督式學習的應用</p>
+<p>• 可用於特徵選擇/數據縮減，保留主要資訊</p>
+<h3>陷阱9：K-Means的K值</h3>
+<p>• K代表<strong>群組數量</strong>（不是特徵數、樣本數或迭代次數）</p>
+<p>• 不同起始群集中心可能得到不同結果</p>
+<h3>陷阱10：深度學習降低過擬合的方法</h3>
+<p>• 加入<strong>正則化項</strong>（L1/L2），而非增加複雜度或學習率</p>
+<p>• 增加訓練數據量也可降低，但題目通常考正則化</p>
+<p><em>整理日期：2025年 | 資料來源：iPAS AI應用規劃師初級學習指引及單元一～五教材</em></p>
+    </article>
+    <footer><p>📖 由 md_to_html Skill v1.1 生成 | 2026-03-02 ｜ ✨ 非互動式 RWD HTML</p></footer>
+  </main>
+</body>
+</html>
